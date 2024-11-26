@@ -115,8 +115,8 @@ const toLogin = async () => {
               encrypted_data: encryptedData,
             })
             console.log(result)
-            uni.setStorageSync('token', `Bearer ${result.data.data.api_token}`)
-            uni.setStorageSync('hasPhone', result.data.data.has_phone)
+            uni.setStorageSync('token', `Bearer ${result.api_token}`)
+            uni.setStorageSync('hasPhone', result.data.has_phone)
 
             // console.log(result.data.data.api_token)
 

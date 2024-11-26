@@ -26,7 +26,7 @@
       {
         "iconPath": "static/tabbar/home.png",
         "selectedIconPath": "static/tabbar/homeHL.png",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/home/index",
         "text": "首页"
       },
       {
@@ -55,16 +55,16 @@
       }
     },
     {
-      "path": "pages/index/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页"
-      }
+      "path": "pages/home/index",
+      "type": "page"
     },
     {
       "path": "pages/login/bind",
-      "type": "page"
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": ""
+      }
     }
   ],
   "subPackages": []
