@@ -13,7 +13,7 @@
 				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241127/tacl0itkBbPXmlK9T2aMSjFqC7ZTORzQWF0FptIo.png"
 				alt="" />
 		</view>
-		<view class="infor flex justify-center items-center image-bg"
+		<view class="infor flex justify-center items-center"
 			style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/TomWHO3jqHYSMV4f0KosXrrxe1tKiVEIy7ODUQ8B.png');">
 			<view class="infor-details flex justify-between items-center">
 				<view class="infor-details-left flex justify-start items-start">
@@ -41,7 +41,7 @@
 			</view>
 		</view>
 		<view class="vip">
-			<view class="vip-content image-bg flex justify-center items-end"
+			<view class="vip-content image-bg flex justify-center items-end  bg-cover bg-center"
 				style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/vwD88eHIzONfShetrgShdgPfJahajNFmSbg1FHL0.png');">
 				<view class="vip-content-operating flex justify-between items-center">
 					<view class="vip-content-operating-items flex justify-center items-center"
@@ -68,7 +68,7 @@
 
 			</view>
 		</view>
-		<view class="service image-bg"
+		<view class="service image-bg bg-cover bg-center"
 			style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/OjTrhJAdrMLyrYxEvW60FiQBXIvzkWZ1g6qKb4Vj.png');">
 
 		</view>

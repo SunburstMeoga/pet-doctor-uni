@@ -122,7 +122,7 @@ let toLogin = async () => {
             // const petCardsList = await petCards()
             // console.log(petCardsList.data,petCardsList)
             // uni.hideLoading();
-            // if(petCardsList.data.data.length !== 0) {
+            // if(petCardsList.data.length !== 0) {
             // 	uni.navigateTo({
             // 		url: "/pages/personal/identityInfo"
             // 	})

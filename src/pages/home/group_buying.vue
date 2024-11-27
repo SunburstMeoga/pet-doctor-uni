@@ -8,8 +8,9 @@
 			</view>
 			<view class="content-list flex justify-start items-center">
 				<view class="list-item" v-for="(item, index) in productList" :key="index">
-					<group-buy-card @handleBuyNow="buyNow(item)" :detail_pictures="item.pictures[0]" :title="item.title"
-						:intro="item.intro" :tagsItems="item.tags" :price="item.price * 0.01"></group-buy-card>
+					<group-buy-card @handleBuyNow="buyNow(item)" :time="formatTimestamp(item.group_end_at)"
+						:detail_pictures="item.pictures[0]" :title="item.title" :intro="item.intro"
+						:tagsItems="item.tags" :price="item.price * 0.01"></group-buy-card>
 				</view>
 			</view>
 		</view>
@@ -18,6 +19,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { allProduct, createOrder, pay } from '@/service/index'
 import GroupBuyCard from '../../components/GroupBuyCard.vue';
 let activityItems = ref([{ id: 1, title: '团购活动' },])
@@ -47,11 +49,11 @@ let buyNow = async (item) => {
 	let res = await createOrder({ item_id: item.items[0].id, quantity: 1 })
 	let payResult = await pay({ order_sn: res.data.order_sn })
 	uni.requestPayment({
-		"timeStamp": payresult.data.timeStamp,
-		"nonceStr": payresult.data.nonceStr,
-		"package": payresult.data.package,
-		"signType": payresult.data.signType,
-		"paySign": payresult.data.paySign,
+		"timeStamp": payResult.data.timeStamp,
+		"nonceStr": payResult.data.nonceStr,
+		"package": payResult.data.package,
+		"signType": payResult.data.signType,
+		"paySign": payResult.data.paySign,
 		"success": function (res) {
 			console.log('success', res);
 			uni.hideLoading()
@@ -68,6 +70,17 @@ let buyNow = async (item) => {
 
 	// console.log(payRes, '支付')
 	// console.log('创建订单', res)
+}
+const formatTimestamp = (timestamp) => {
+	const date = new Date(timestamp * 1000);
+	// 获取月份，日期，小时，分钟和秒
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+	const seconds = String(date.getSeconds()).padStart(2, '0');
+	// 拼接格式为 MM-DD HH:mm:ss
+	return `${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 let getProductList = async () => {
 	let result = await allProduct()

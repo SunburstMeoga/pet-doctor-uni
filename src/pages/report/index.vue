@@ -39,7 +39,7 @@
 				<view v-for="(item, index) in reportList" :key="index" style="margin-bottom: 32rpx;">
 					<uni-swipe-action-item :right-options="options1" @click="bindClick()" @change="change">
 						<view class="report-list-item flex justify-start items-center">
-							<view class="report-list-item-left">
+							<view class="report-list-item-left bg-cover bg-center">
 								<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
 							</view>
 							<view class="report-list-item-line"></view>
@@ -106,24 +106,28 @@ let toAddCard = () => {
 	})
 }
 onMounted(async () => {
-	uni.showLoading({
-		title: "正在加载...",
-	})
-	let petCardsList = await petCards()
-	console.log(petCardsList)
-	if (petCardsList.data.data.length !== 0) {
-		let resReport = await reports({ pet_card_id: petCardsList.data.data[0].id })
-		reportList.value = resReport.data.data
-		console.log('报告', resReport)
+	try {
+		uni.showLoading({
+			title: "正在加载...",
+		})
+		let petCardsList = await petCards()
+		console.log(petCardsList)
+		if (petCardsList.data.length !== 0) {
+			let resReport = await reports({ pet_card_id: petCardsList.data[0].id })
+			reportList.value = resReport.data
+			console.log('报告', resReport)
+			uni.hideLoading()
+		}
+
 		uni.hideLoading()
+
+		cardList.value = petCardsList.data
+		console.log('宠物id', petCardsList.data[0].id)
+		console.log(petCardsList.data.length, petCardsList)
+		console.log(cardList.value)
+	} catch (err) {
+		console.log(err)
 	}
-
-	uni.hideLoading()
-
-	cardList.value = petCardsList.data.data
-	console.log('宠物id', petCardsList.data.data[0].id)
-	console.log(petCardsList.data.data.length, petCardsList)
-	console.log(cardList.value)
 
 })
 </script>

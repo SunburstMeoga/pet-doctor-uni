@@ -1,3 +1,11 @@
+<route lang="json5">
+	{
+	  style: {
+		navigationStyle: 'custom',
+		navigationBarTitleText: '首页',
+	  },
+	}
+	</route>
 <template>
 	<view class="content">
 		<view class="logo">
@@ -99,8 +107,8 @@ let handleHotActive = () => {
 onMounted(async () => {
 	console.log(title.value)
 	let petCardsList = await petCards()
-	console.log(petCardsList.data.data.length, petCardsList)
-	cardsCount.value = petCardsList.data.data.length
+	console.log(petCardsList.data.length, petCardsList)
+	cardsCount.value = petCardsList.data.length
 })
 </script>
 
