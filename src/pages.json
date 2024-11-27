@@ -1,7 +1,7 @@
 {
   "globalStyle": {
     "navigationStyle": "default",
-    "navigationBarTitleText": "unibest",
+    "navigationBarTitleText": "喵博士 x 汪博士",
     "navigationBarBackgroundColor": "#f8f8f8",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#FFFFFF"
@@ -32,8 +32,14 @@
       {
         "iconPath": "static/tabbar/example.png",
         "selectedIconPath": "static/tabbar/exampleHL.png",
-        "pagePath": "pages/about/index",
-        "text": "关于"
+        "pagePath": "pages/report/index",
+        "text": "报告"
+      },
+      {
+        "iconPath": "static/tabbar/example.png",
+        "selectedIconPath": "static/tabbar/exampleHL.png",
+        "pagePath": "pages/personal/index",
+        "text": "个人"
       }
     ]
   },
@@ -55,8 +61,40 @@
       }
     },
     {
+      "path": "pages/cart/index",
+      "type": "page"
+    },
+    {
+      "path": "pages/home/group_buying",
+      "type": "page"
+    },
+    {
       "path": "pages/home/index",
       "type": "page"
+    },
+    {
+      "path": "pages/home/mbti_questiton",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "测测爱宠的MBTI"
+      }
+    },
+    {
+      "path": "pages/home/pet_mbti",
+      "type": "page"
+    },
+    {
+      "path": "pages/home/privacy_policy",
+      "type": "page"
+    },
+    {
+      "path": "pages/home/star_answer",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "问卷"
+      }
     },
     {
       "path": "pages/login/bind",
@@ -64,6 +102,42 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/personal/identityInfo",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "身份证"
+      }
+    },
+    {
+      "path": "pages/personal/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/personal/orders",
+      "type": "page"
+    },
+    {
+      "path": "pages/personal/petIDCardList",
+      "type": "page"
+    },
+    {
+      "path": "pages/report/index",
+      "type": "page"
+    },
+    {
+      "path": "pages/report/report-result",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "报告"
       }
     }
   ],

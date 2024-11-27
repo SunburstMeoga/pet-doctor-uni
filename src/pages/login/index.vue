@@ -8,27 +8,17 @@
 </route>
 <template>
   <view class="flex justify-center items-center w-full h-screen flex-col">
-    <button
-      v-show="!getPhone"
-      @click="toLogin()"
-      class="login flex justify-center items-center btn"
-      style="margin-bottom: 20rpx"
-    >
+    <button v-show="!getPhone" @click="toLogin()" class="login flex justify-center items-center btn"
+      style="margin-bottom: 20rpx">
       登录
     </button>
-    <button
-      v-show="getPhone"
-      open-type="getPhoneNumber"
-      class="btn"
-      @getphonenumber="onGetPhoneNumber"
-    >
+    <button v-show="getPhone" open-type="getPhoneNumber" class="btn" @getphonenumber="onGetPhoneNumber">
       确认绑定
     </button>
     <view class="login-bg">
       <image
         src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/E0ndrY3lWMhg08QjD0nEyc4qcCGubtgZdkIXrXGW.jpg"
-        mode="aspectFit"
-      ></image>
+        mode="aspectFit"></image>
     </view>
     <!-- <view style="width: 100%; height:900rpx;">code: {{testCode}}</view>
 		
@@ -57,6 +47,7 @@ const getPetCards = async () => {
   const reuslt = await petCards()
   console.log()
 }
+
 const onGetPhoneNumber = async (e) => {
   uni.showLoading({
     title: '正在登录...',
@@ -115,10 +106,8 @@ const toLogin = async () => {
               encrypted_data: encryptedData,
             })
             console.log(result)
-            uni.setStorageSync('token', `Bearer ${result.api_token}`)
+            uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
             uni.setStorageSync('hasPhone', result.data.has_phone)
-
-            // console.log(result.data.data.api_token)
 
             console.log('用户token', uni.getStorageSync('token'))
             console.log('是否有手机号', uni.getStorageSync('hasPhone'))
@@ -157,6 +146,14 @@ const toLogin = async () => {
     },
   })
 }
+onMounted(() => {
+  console.log(uni.getStorageSync('token'))
+  if (uni.getStorageSync('token')) {
+    uni.switchTab({
+      url: '/pages/home/index',
+    })
+  }
+})
 </script>
 
 <style lang="scss">
@@ -164,6 +161,7 @@ const toLogin = async () => {
   position: relative;
   z-index: 999;
 }
+
 .login-bg {
   position: fixed;
   top: 0;
@@ -171,6 +169,7 @@ const toLogin = async () => {
   width: 100%;
   height: 100vh;
 }
+
 .login {
   width: 486rpx;
   height: 92rpx;

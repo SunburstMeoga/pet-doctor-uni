@@ -6,13 +6,25 @@
 interface NavigateToOptions {
   url: "/pages/login/index" |
        "/pages/about/index" |
+       "/pages/cart/index" |
+       "/pages/home/group_buying" |
        "/pages/home/index" |
-       "/pages/login/bind";
+       "/pages/home/mbti_questiton" |
+       "/pages/home/pet_mbti" |
+       "/pages/home/privacy_policy" |
+       "/pages/home/star_answer" |
+       "/pages/login/bind" |
+       "/pages/personal/identityInfo" |
+       "/pages/personal/index" |
+       "/pages/personal/orders" |
+       "/pages/personal/petIDCardList" |
+       "/pages/report/index" |
+       "/pages/report/report-result";
 }
 interface RedirectToOptions extends NavigateToOptions {}
 
 interface SwitchTabOptions {
-  url: "/pages/home/index" | "/pages/about/index"
+  url: "/pages/home/index" | "/pages/report/index" | "/pages/personal/index"
 }
 
 type ReLaunchOptions = NavigateToOptions | SwitchTabOptions;
