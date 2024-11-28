@@ -38,6 +38,12 @@
       {
         "iconPath": "static/tabbar/example.png",
         "selectedIconPath": "static/tabbar/exampleHL.png",
+        "pagePath": "pages/cart/index",
+        "text": "购物车"
+      },
+      {
+        "iconPath": "static/tabbar/example.png",
+        "selectedIconPath": "static/tabbar/exampleHL.png",
         "pagePath": "pages/personal/index",
         "text": "个人"
       }
@@ -45,17 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_list",
+      "path": "pages/home/cart",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品"
-      }
-    },
-    {
-      "path": "pages/home/product_details",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "商品详情"
+        "navigationBarTitleText": "购物车"
       }
     },
     {
@@ -97,6 +96,20 @@
     {
       "path": "pages/home/privacy_policy",
       "type": "page"
+    },
+    {
+      "path": "pages/home/product_details",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
+      "path": "pages/home/product_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品"
+      }
     },
     {
       "path": "pages/home/star_answer",

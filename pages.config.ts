@@ -41,6 +41,12 @@ export default defineUniPages({
       {
         iconPath: 'static/tabbar/example.png',
         selectedIconPath: 'static/tabbar/exampleHL.png',
+        pagePath: 'pages/cart/index',
+        text: '购物车',
+      },
+      {
+        iconPath: 'static/tabbar/example.png',
+        selectedIconPath: 'static/tabbar/exampleHL.png',
         pagePath: 'pages/personal/index',
         text: '个人',
       }

@@ -89,3 +89,13 @@ export const petInfo = (petId) => {
 export const productDetails = (productId) => {
   return http.get('/product/' + productId)
 }
+
+//购物车列表
+export const cart = () => {
+  return http.get('/cart')
+}
+
+//添加购物车
+export const addCard = (data) => {
+  return http.post('/cart', data)
+}

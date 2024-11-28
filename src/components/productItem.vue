@@ -10,14 +10,14 @@
             <div class="text-zinc-5 w-full text-24rpx">
                 {{ details }}
             </div>
-            <div class="flex justify-start  items-center w-full">
+            <div class="flex justify-start  items-center w-full" v-if="tags.length !== 0">
                 <div class="" v-for="(item, index) in tags" :key="index">
                     {{ item }}
                 </div>
             </div>
             <div class="absolute bottom-0 right-0 flex justify-between items-center w-full">
                 <div class="text-slate-9 font-bold text-32rpx">
-                    ￥2323
+                    {{ price }}
                 </div>
                 <div
                     class="bg-orange rounded-16rpx text-white font-medium text-24rpx w-137rpx h-57rpx flex justify-center items-center">

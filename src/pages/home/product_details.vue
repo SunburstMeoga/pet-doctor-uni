@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -27,8 +27,8 @@
             <div class="w-686rpx text-36rpx font-medium  mb-28rpx">
                 {{ productDetailsInfo.title }}
             </div>
-            <div class="w-686rpx flex justify-start items-center mb-24rpx">
-                <div v-for="(item, index) in tags"
+            <div class="w-686rpx flex justify-start items-center mb-24rpx" v-if="productDetailsInfo.tags.length !== 0">
+                <div v-for="(item, index) in productDetailsInfo.tags"
                     :class="`text-24rpx rounded-4rpx px-8rpx ${index !== 0 ? 'ml-8rpx' : ''} ${item.tagStyle}`"
                     :key="index">
                     {{ item.title }}
@@ -48,28 +48,29 @@
             </div>
             <div class="w-full flex justify-start items-center">
                 <div class="flex justify-center items-center w-92rpx h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
-                    @click="handleSKUItem(item)" v-for="(item, index) in skuItems" :key="index"
+                    @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
                     :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
-                    {{ item.title }}
+                    {{ item.sku_title }}
                 </div>
             </div>
-            <div class="w-full flex justify-center items-center mb-20rpx bg-orange-3 text-red-5 text-24rpx h-57rpx">
+            <div class="w-full flex justify-center items-center bg-orange-3 text-red-5 text-24rpx h-57rpx"
+                v-if="productDetailsInfo.group_end_at">
                 <div class="w-686rpx ">
-                    截至2023/08/22 23:22
+                    截至 {{ formatTimestamp(productDetailsInfo.group_end_at) }}
                 </div>
             </div>
-            <div class="w-full flex justify-center items-center">
+            <div class="w-full flex justify-center items-center h-96rpx">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class="text-48rpx text-slate-9 font-bold">￥2323</div>
+                    <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.price * 0.01 }}</div>
                     <div>
-                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1" :max="10" />
+                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1" :max="1000" />
                     </div>
                 </div>
 
             </div>
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class=" bg-black text-yellow operating-button">加入购物车</div>
+                    <div class=" bg-black text-yellow operating-button" @click="handleAddCart">加入购物车</div>
                     <div class=" bg-orange-4 text-white operating-button" @click="handleBuyNow">立即购买</div>
 
                 </div>
@@ -82,7 +83,7 @@
 
 <script setup>
 import CheckoutCounter from '@/components/checkoutCounter'
-import { productDetails } from '@/service/index'
+import { productDetails, addCard } from '@/service/index'
 let productId = ref(0)
 let productDetailsInfo = ref({})
 let selectSKU = ref(1) //选择的sku
@@ -102,6 +103,39 @@ const skuItems = ref([
     { title: 'XXL', id: 5 },
     { title: 'XXXL', id: 6 },
 ])
+const formatTimestamp = (timestamp) => { //格式化时间内
+    const date = new Date(timestamp * 1000);
+    // 获取月份，日期，小时，分钟和秒
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    // 拼接格式为 MM-DD HH:mm:ss
+    return `${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+const handleAddCart = async () => { //点击添加购物车
+    try {
+        uni.showLoading({
+            title: '加载中'
+        });
+        let params = { item_id: selectSKU.value, quantity: productQuantity.value }
+        console.log(params)
+        let result = await addCard(params)
+        console.log('添加购物车', result)
+        uni.hideLoading();
+        uni.showToast({
+            title: '已加入购物车~',
+            duration: 2000,
+            icon: 'none'
+        });
+    } catch (err) {
+        console.log(err)
+        uni.hideLoading();
+
+    }
+
+}
 const handleBuyNow = () => { //点击立即购买
     showCheckoutCounter.value = true
 }
@@ -119,6 +153,7 @@ const getProductDetails = async () => { //商品详情
         let result = await productDetails(productId.value)
         console.log('商品详情', result)
         productDetailsInfo.value = result.data
+        selectSKU.value = result.data.items[0].id
         uni.hideLoading();
     } catch (err) {
         console.log(err)

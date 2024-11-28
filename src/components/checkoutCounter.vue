@@ -1,12 +1,13 @@
 <template>
     <div>
         <wd-popup :modelValue="showCheckoutCounter" position="bottom" :safe-area-inset-bottom="true" lock-scroll
-            custom-style="height: 1200rpx; background: #f4f4f5;" closable>
+            custom-style="max-height: 1000rpx; background: #f4f4f5; overflow: scroll;" closable>
             <div class="w-full flex flex-col justify-start items-center">
-                <div class="text-slate-9 font-medium text-32rpx mb-48rpx pt-40rpx">确认订单</div>
+                <div class="text-slate-9 font-medium text-32rpx mb-48rpx pt-24rpx">确认订单</div>
                 <div class="w-686rpx flex justify-between items-center mb-28rpx">
-                    <div @click="handleMethodItem" class="operating-button" v-for="(item, index) in pickMethodItems"
-                        :key="index" :class="selectPickMethod === item.id ? 'bg-yellow-4' : 'bg-white'">
+                    <div @click="handleMethodItem(item)" class="operating-button"
+                        v-for="(item, index) in pickMethodItems" :key="index"
+                        :class="selectPickMethod === item.id ? 'bg-yellow-4' : 'bg-white'">
                         {{ item.title }}
                     </div>
                 </div>
@@ -24,11 +25,11 @@
                 </div>
                 <div class="w-686rpx flex justify-between items-start">
                     <div class="w-240rpx h-240rpx rounded-24rpx">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq62tK2kf5W7d7sKBKt4DeAwcD2Xn9IJRH4g&s"
+                        <img src="https://img2.baidu.com/it/u=853292853,3248114357&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=922"
                             alt="">
                     </div>
-                    <div class="ml-28rpx">
-                        <div class="text-slate-9 font-medium text-32rpx mb-12rpx">猫猫喜欢的玩具的标题溢出溢 出溢出</div>
+                    <div class="ml-28rpx w-416rpx">
+                        <div class="text-slate-9 font-medium text-28rpx mb-12rpx">猫猫喜欢的玩具的标题溢出溢 出溢出</div>
                         <div class="text-zinc-6 text-28rpx ">这里商品的详情，这里商品的详情这里商品的详情</div>
                     </div>
                 </div>
@@ -42,8 +43,9 @@
                         {{ item.title }}
                     </div>
                 </div>
-                <div class="w-full flex flex-col items-center justify-start">
-                    <div class="w-full flex justify-center items-center">
+                <div class="w-full flex flex-col items-center justify-start bg-white"
+                    style="border-top:1px solid #f3f4f6;">
+                    <div class="w-full flex justify-center items-center h-96rpx">
                         <div class="w-686rpx flex justify-between items-center">
                             <div class="text-48rpx text-slate-9 font-bold">￥2323</div>
                             <div>
@@ -76,7 +78,7 @@ const props = defineProps({
 })
 let selectSKU = ref(1) //选择的sku
 let productQuantity = ref(1) //要购买的商品数量
-
+let selectPickMethod = ref(1)
 const skuItems = ref([
     { title: 'XS', id: 1 },
     { title: 'S', id: 2 },
@@ -92,7 +94,7 @@ const pickMethodItems = ref([
     { title: '自提', id: 1 },
     { title: '快递', id: 2 }
 ])
-let selectPickMethod = ref(1)
+
 const handleMethodItem = (item) => {
     selectPickMethod.value = item.id
 }
