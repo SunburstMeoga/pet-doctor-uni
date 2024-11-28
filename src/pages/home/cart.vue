@@ -8,7 +8,7 @@
 <template>
     <div class="w-full h-screen bg-zinc-1 flex flex-col justify-start items-center">
         <div class="w-full pt-32rpx flex flex-col justify-start items-center">
-            <div class="w-686rpx py-28rpx px-10rpx bg-white rounded-24rpx overflow-hidden mb-28rpx"
+            <div class="w-686rpx py-28rpx flex justify-center items-center bg-white rounded-24rpx overflow-hidden mb-28rpx"
                 v-for="(item, index) in cartList" :key="index">
                 <wd-swipe-action>
                     <!-- <wd-cell title="标题文字" value="内容"/> -->
