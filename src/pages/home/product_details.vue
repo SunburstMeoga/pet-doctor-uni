@@ -30,12 +30,45 @@
             <div class="w-686rpx text-zinc-4 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.intro }}
             </div>
-            <div class="w-686rpx flex flex-wrap min-h-10000rpx">
+            <div class="w-686rpx flex flex-wrap min-h-10000rpx pb-600rpx">
                 <img class="w-full block h-auto" v-for="(item, index) in productDetailsInfo.detail_pictures"
                     :key="index" :src="item">
             </div>
         </div>
+        <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white">
+            <div class="w-686rpx pt-28rpx">
+                <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
+            </div>
+            <div class="w-full flex justify-start items-center">
+                <div class="flex justify-center items-center w-92rpx h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
+                    @click="handleSKUItem(item)" v-for="(item, index) in skuItems" :key="index"
+                    :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
+                    {{ item.title }}
+                </div>
+            </div>
+            <div class="w-full flex justify-center items-center mb-20rpx bg-orange-3 text-red-5 text-24rpx h-57rpx">
+                <div class="w-686rpx ">
+                    截至2023/08/22 23:22
+                </div>
+            </div>
+            <div class="w-full flex justify-center items-center">
+                <div class="w-686rpx flex justify-between items-center">
+                    <div class="text-48rpx text-slate-9 font-bold">￥2323</div>
+                    <div>
+                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="3" :max="10" />
+                    </div>
+                </div>
 
+            </div>
+            <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
+                <div class="w-686rpx flex justify-between items-center">
+                    <div class=" bg-black text-yellow operating-button">加入购物车</div>
+                    <div class=" bg-orange-4 text-white operating-button">立即购买</div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,6 +76,22 @@
 import { productDetails } from '@/service/index'
 let productId = ref(0)
 let productDetailsInfo = ref({})
+let selectSKU = ref(1) //选择的sku
+let productQuantity = ref(1)
+const skuItems = ref([
+    { title: 'XS', id: 1 },
+    { title: 'S', id: 2 },
+    { title: 'L', id: 3 },
+    { title: 'XL', id: 4 },
+    { title: 'XXL', id: 5 },
+    { title: 'XXXL', id: 6 },
+])
+const handleChange = ({ value }) => { //步进器
+    console.log(value)
+}
+const handleSKUItem = (item) => {
+    selectSKU.value = item.id
+}
 const getProductDetails = async () => { //商品详情
     try {
         uni.showLoading({
@@ -73,5 +122,9 @@ onLoad((options) => {
 .swiper-item {
     width: 686rpx;
     height: 400rpx;
+}
+
+.operating-button {
+    @apply w-329rpx h-88rpx text-28rpx font-medium rounded-16rpx flex justify-center items-center;
 }
 </style>
