@@ -27,6 +27,13 @@
             <div class="w-686rpx text-36rpx font-medium  mb-28rpx">
                 {{ productDetailsInfo.title }}
             </div>
+            <div class="w-686rpx flex justify-start items-center mb-24rpx">
+                <div v-for="(item, index) in tags"
+                    :class="`text-24rpx rounded-4rpx px-8rpx ${index !== 0 ? 'ml-8rpx' : ''} ${item.tagStyle}`"
+                    :key="index">
+                    {{ item.title }}
+                </div>
+            </div>
             <div class="w-686rpx text-zinc-4 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.intro }}
             </div>
@@ -55,7 +62,7 @@
                 <div class="w-686rpx flex justify-between items-center">
                     <div class="text-48rpx text-slate-9 font-bold">￥2323</div>
                     <div>
-                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="3" :max="10" />
+                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1" :max="10" />
                     </div>
                 </div>
 
@@ -63,21 +70,30 @@
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
                     <div class=" bg-black text-yellow operating-button">加入购物车</div>
-                    <div class=" bg-orange-4 text-white operating-button">立即购买</div>
+                    <div class=" bg-orange-4 text-white operating-button" @click="handleBuyNow">立即购买</div>
 
                 </div>
 
             </div>
         </div>
+        <CheckoutCounter :showCheckoutCounter="showCheckoutCounter" />
     </div>
 </template>
 
 <script setup>
+import CheckoutCounter from '@/components/checkoutCounter'
 import { productDetails } from '@/service/index'
 let productId = ref(0)
 let productDetailsInfo = ref({})
 let selectSKU = ref(1) //选择的sku
-let productQuantity = ref(1)
+let productQuantity = ref(1) //要购买的商品数量
+
+let showCheckoutCounter = ref(false) //显示隐藏收银台
+let tags = ref([
+    { title: '上新', tagStyle: 'bg-orange-5 text-white' },
+    { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
+    { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
+])
 const skuItems = ref([
     { title: 'XS', id: 1 },
     { title: 'S', id: 2 },
@@ -86,6 +102,9 @@ const skuItems = ref([
     { title: 'XXL', id: 5 },
     { title: 'XXXL', id: 6 },
 ])
+const handleBuyNow = () => { //点击立即购买
+    showCheckoutCounter.value = true
+}
 const handleChange = ({ value }) => { //步进器
     console.log(value)
 }
