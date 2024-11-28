@@ -45,10 +45,16 @@
   },
   "pages": [
     {
+      "path": "pages/home/product_list",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "商品"
+      }
+    },
+    {
       "path": "pages/home/product_details",
       "type": "home",
       "style": {
-        "navigationStyle": "custom",
         "navigationBarTitleText": "商品详情"
       }
     },

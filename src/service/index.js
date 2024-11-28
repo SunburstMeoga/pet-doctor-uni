@@ -84,3 +84,8 @@ export const userInfo = () => {
 export const petInfo = (petId) => {
   return http.get('/pet/card/' + petId)
 }
+
+//商品详情
+export const productDetails = (productId) => {
+  return http.get('/product/' + productId)
+}
