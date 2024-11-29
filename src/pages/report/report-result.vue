@@ -121,7 +121,7 @@ let getPetInfoDetails = async (petId) => {
 	})
 	let res = await petInfo(petId)
 	console.log('宠物信息', res)
-	petInfoObj.value = res.data
+	petInfoObj.value = res.data.data
 	console.log('获取到的宠物信息', petInfoObj.value)
 	uni.hideLoading()
 }
@@ -132,10 +132,10 @@ let getReportDeatils = async (reportId) => {
 	let result = await reportDetails(reportId)
 	uni.hideLoading()
 	console.log("报告详情", result)
-	dimensionsItems.value = result.data.dimensions
-	reportTitle.value = result.data.assessment.title
-	mbtiImg.value = result.data.image
-	productList.value = result.data.products
+	dimensionsItems.value = result.data.data.dimensions
+	reportTitle.value = result.data.data.assessment.title
+	mbtiImg.value = result.data.data.image
+	productList.value = result.data.data.products
 	console.log(productList.value[0].pictures[0])
 }
 let productList = ref([])
@@ -145,13 +145,13 @@ let buyNow = async (item) => {
 		title: "创建订单..."
 	})
 	let res = await createOrder({ item_id: item.id, quantity: 1 })
-	let payResult = await pay({ order_sn: res.data.order_sn })
+	let payResult = await pay({ order_sn: res.data.data.order_sn })
 	uni.requestPayment({
-		"timeStamp": payresult.data.timeStamp,
-		"nonceStr": payresult.data.nonceStr,
-		"package": payresult.data.package,
-		"signType": payresult.data.signType,
-		"paySign": payresult.data.paySign,
+		"timeStamp": payresult.data.data.timeStamp,
+		"nonceStr": payresult.data.data.nonceStr,
+		"package": payresult.data.data.package,
+		"signType": payresult.data.data.signType,
+		"paySign": payresult.data.data.paySign,
 		"success": function (res) {
 			console.log('success', res);
 			uni.hideLoading()

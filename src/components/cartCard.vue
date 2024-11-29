@@ -1,8 +1,9 @@
 <template>
     <div class="w-640rpx h-220rpx flex justify-start items-center pr-10rpx">
-        <div class="w-40rpx h-40rpx rounded-full flex justify-center items-center"
+        <div class="w-40rpx h-40rpx rounded-full flex justify-center items-center" @click="handleSelect"
             :class="isSelect ? 'bg-yellow' : 'bg-zinc-3'">
-            <div class="icon iconfont icon-right text-20rpx" :class="isSelect ? 'text-slate-9' : 'text-zinc-5'"></div>
+            <div class="icon iconfont icon-right text-30rpx"
+                :class="isSelect ? 'text-slate-9 font-bold' : 'text-zinc-5'"></div>
         </div>
         <div class="ml-10rpx w-240rpx h-240rpx ">
             <img class="rounded-16rpx overflow-hidden"
@@ -16,7 +17,7 @@
                 <div class="icon iconfont icon-down text-16rpx mr-24rpx"></div>
             </div>
             <div class="w-full flex justify-between items-center">
-                <div class="text-32rpx font-bold">￥{{ price }}</div>
+                <div class="text-32rpx font-bold">￥{{ price * 0.01 }}</div>
                 <div>
                     <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" />
                 </div>
@@ -26,7 +27,7 @@
 </template>
 
 <script setup>
-
+const emit = defineEmits(['handleSelect'])
 const props = defineProps({
     isSelect: {
         type: Boolean,
@@ -53,6 +54,9 @@ const props = defineProps({
         default: 0
     }
 })
+const handleSelect = () => {
+    emit('handleSelect')
+}
 const skuItems = computed(() => {
     return props.items.map(item => item.sku_title).join(';');
 })

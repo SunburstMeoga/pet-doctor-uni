@@ -99,3 +99,8 @@ export const cart = () => {
 export const addCard = (data) => {
   return http.post('/cart', data)
 }
+
+//收银台
+export const checkoutOrder = (data) => {
+  return http.post('/checkout', data)
+}

@@ -111,7 +111,7 @@ let bindClick = async (e) => {
 			duration: 6000
 		})
 		let petCardsList = await petCards()
-		cardList.value = petCardsList.data
+		cardList.value = petCardsList.data.data
 		uni.hideLoading()
 	} catch (err) {
 		console.log(err)
@@ -131,8 +131,8 @@ onMounted(async () => {
 	})
 	let petCardsList = await petCards()
 	uni.hideLoading()
-	console.log(petCardsList.data.length, petCardsList)
-	cardList.value = petCardsList.data
+	console.log(petCardsList.data.data.length, petCardsList)
+	cardList.value = petCardsList.data.data
 	console.log('宠物身份证', cardList.value)
 })
 </script>

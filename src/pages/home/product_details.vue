@@ -152,8 +152,8 @@ const getProductDetails = async () => { //商品详情
         });
         let result = await productDetails(productId.value)
         console.log('商品详情', result)
-        productDetailsInfo.value = result.data
-        selectSKU.value = result.data.items[0].id
+        productDetailsInfo.value = result.data.data
+        selectSKU.value = result.data.data.items[0].id
         uni.hideLoading();
     } catch (err) {
         console.log(err)

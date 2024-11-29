@@ -51,13 +51,6 @@
   },
   "pages": [
     {
-      "path": "pages/home/cart",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "购物车"
-      }
-    },
-    {
       "path": "pages/about/index",
       "type": "page",
       "style": {
@@ -67,7 +60,10 @@
     },
     {
       "path": "pages/cart/index",
-      "type": "page"
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "购物车"
+      }
     },
     {
       "path": "pages/home/group_buying",
@@ -87,6 +83,20 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "测测爱宠的MBTI"
+      }
+    },
+    {
+      "path": "pages/home/order_checkout",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "订单结算"
+      }
+    },
+    {
+      "path": "pages/home/order_details",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "订单详情"
       }
     },
     {

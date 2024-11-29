@@ -106,10 +106,10 @@ let toLogin = async () => {
             })
             console.log(result)
             uni.setStorageSync('token',
-              `Bearer ${result.data.api_token}`)
-            uni.setStorageSync('hasPhone', result.data.has_phone)
+              `Bearer ${result.data.data.api_token}`)
+            uni.setStorageSync('hasPhone', result.data.data.has_phone)
 
-            // console.log(result.data.api_token)
+            // console.log(result.data.data.api_token)
 
             console.log('用户token', uni.getStorageSync('token'))
             console.log('是否有手机号', uni.getStorageSync('hasPhone'))
@@ -120,9 +120,9 @@ let toLogin = async () => {
               url: "/pages/home/index"
             })
             // const petCardsList = await petCards()
-            // console.log(petCardsList.data,petCardsList)
+            // console.log(petCardsList.data.data,petCardsList)
             // uni.hideLoading();
-            // if(petCardsList.data.length !== 0) {
+            // if(petCardsList.data.data.length !== 0) {
             // 	uni.navigateTo({
             // 		url: "/pages/personal/identityInfo"
             // 	})

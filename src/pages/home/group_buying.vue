@@ -47,13 +47,13 @@ let buyNow = async (item) => {
 		title: "创建订单..."
 	})
 	let res = await createOrder({ item_id: item.items[0].id, quantity: 1 })
-	let payResult = await pay({ order_sn: res.data.order_sn })
+	let payResult = await pay({ order_sn: res.data.data.order_sn })
 	uni.requestPayment({
-		"timeStamp": payResult.data.timeStamp,
-		"nonceStr": payResult.data.nonceStr,
-		"package": payResult.data.package,
-		"signType": payResult.data.signType,
-		"paySign": payResult.data.paySign,
+		"timeStamp": payResult.data.data.timeStamp,
+		"nonceStr": payResult.data.data.nonceStr,
+		"package": payResult.data.data.package,
+		"signType": payResult.data.data.signType,
+		"paySign": payResult.data.data.paySign,
 		"success": function (res) {
 			console.log('success', res);
 			uni.hideLoading()
@@ -84,7 +84,7 @@ const formatTimestamp = (timestamp) => {
 }
 let getProductList = async () => {
 	let result = await allProduct()
-	productList.value = result.data
+	productList.value = result.data.data
 	console.log('商品列表接口', result)
 	console.log('商品列表', productList.value)
 }
