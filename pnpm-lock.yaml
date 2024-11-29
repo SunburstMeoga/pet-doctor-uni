@@ -23,6 +23,9 @@ dependencies:
   '@dcloudio/uni-mp-weixin':
     specifier: 3.0.0-alpha-4010520240507001
     version: 3.0.0-alpha-4010520240507001(postcss@8.4.49)(vue@3.4.21)
+  '@vant/area-data':
+    specifier: ^2.0.0
+    version: 2.0.0
   dayjs:
     specifier: 1.11.10
     version: 1.11.10
@@ -4071,6 +4074,10 @@ packages:
     transitivePeerDependencies:
       - rollup
     dev: true
+
+  /@vant/area-data@2.0.0:
+    resolution: {integrity: sha512-zgP4AA8z09S9QTNgVCCHo9cHjcybrv22RJDYPjuCkecn4SB98T5EoPQh2TwqbQXmUhbaOGgiZGy3OUaUxnY7qg==}
+    dev: false
 
   /@vitejs/plugin-legacy@5.4.3(terser@5.36.0)(vite@5.2.8):
     resolution: {integrity: sha512-wsyXK9mascyplcqvww1gA1xYiy29iRHfyciw+a0t7qRNdzX6PdfSWmOoCi74epr87DujM+5J+rnnSv+4PazqVg==}

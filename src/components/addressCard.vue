@@ -10,12 +10,12 @@
             <div class="flex justify-start items-center">
                 <div class="w-28rpx h-28rpx rounded-4rpx flex justify-center items-center "
                     :class="`${isDefaultAddress ? 'bg-slate9' : ''}`">
-                    <div class="icon iconfont icon-right text-30rpx text-white"></div>
+                    <div class="icon iconfont icon-right text-24rpx text-white"></div>
                 </div>
                 <div class="text-zinc4 text-28rpx ml-16rpx">设为默认</div>
             </div>
             <div class="flex justify-end items-center">
-                <div class="bg-zinc2 text-zinc rounded-4rpx text-24rpx px-4rpx">删除</div>
+                <div class="bg-zinc2 text-zinc rounded-6rpx text-24rpx px-6rpx">删除</div>
             </div>
         </div>
     </div>

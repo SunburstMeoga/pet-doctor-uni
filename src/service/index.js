@@ -114,3 +114,13 @@ export const orderDetails = (orderSN) => {
 export const orderStatus = (data) => {
   return http.get('/order/status', data)
 }
+
+//地址列表
+export const addresses = () => {
+  return http.get('/addresses')
+}
+
+//新增收货地址 
+export const storeAddress = (data) => {
+  return http.post('/address', data)
+}

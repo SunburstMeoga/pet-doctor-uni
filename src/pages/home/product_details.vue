@@ -101,14 +101,6 @@ let tags = ref([
     { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
-const skuItems = ref([
-    { title: 'XS', id: 1 },
-    { title: 'S', id: 2 },
-    { title: 'L', id: 3 },
-    { title: 'XL', id: 4 },
-    { title: 'XXL', id: 5 },
-    { title: 'XXXL', id: 6 },
-])
 const checkOrderStatus = async (orderSN) => {
     try {
         uni.hideLoading({
@@ -154,14 +146,13 @@ const toCreateOrder = async (params) => {
 const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台确认订单按钮
     console.log(selectPickMethodChild)
     selectPickMethod.value = selectPickMethodChild
-    // return
     try {
         handleClose()
         uni.showLoading({
             title: '加载中'
         })
         let result = await checkoutOrder({ item_id: selectSKU.value, quantity: productQuantity.value })
-        let params = { item_id: selectSKU.value, quantity: productQuantity.value, dispatch_mode: productDetailsInfo.value.is_group ? 2 : selectPickMethod.value, contact_name: '泡泡龙', contact_phone: '15999625057', address_id: 0 }
+        let params = { item_id: selectSKU.value, quantity: productQuantity.value, dispatch_mode: productDetailsInfo.value.is_activity ? 2 : selectPickMethod.value, contact_name: '泡泡龙', contact_phone: '15999625057', address_id: 0 }
         let orderRes = await toCreateOrder(params)
         console.log('checkout', result)
         console.log('创建订单结果', orderRes)
