@@ -87,7 +87,7 @@ const getProductList = async () => {
         });
         let result = await allProduct()
         console.log('商品列表', result)
-        productItems.value = result.data.data
+        productItems.value = result.data
         uni.hideLoading();
 
     } catch (err) {

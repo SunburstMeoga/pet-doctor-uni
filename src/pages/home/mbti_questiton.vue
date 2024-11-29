@@ -96,9 +96,9 @@ let handleOptions = async (_item, item, index) => {
 		console.log({ assessment_id: assessmentId.value, answer_ids: selectedIds.value.sort((a, b) => a - b), pet_card_id: cardId.value })
 		let result = await createReport({ assessment_id: assessmentId.value, answer_ids: selectedIds.value.sort((a, b) => a - b), pet_card_id: cardId.value })
 		console.log('报告结果', result)
-		if (result.data.data.id) {
+		if (result.data.id) {
 			uni.navigateTo({
-				url: `/pages/report/report-result?reportId=${result.data.data.id}&cardId=${cardId.value}`
+				url: `/pages/report/report-result?reportId=${result.data.id}&cardId=${cardId.value}`
 			})
 		}
 
@@ -114,7 +114,7 @@ let updateSelectedIds = () => {
 let getAssessmentDetails = async (assessmentType) => {
 	try {
 		const result = await assessmentDetails(assessmentType);
-		questionItems.value = result.data.data.questions
+		questionItems.value = result.data.questions
 		// questionItems.value.map(item => {
 		// 	item.selectid = null
 		// })

@@ -51,11 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/about/index",
-      "type": "page",
+      "path": "pages/home/address_list",
+      "type": "home",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "关于"
+        "navigationBarTitleText": "收货地址"
       }
     },
     {

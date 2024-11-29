@@ -104,3 +104,13 @@ export const addCard = (data) => {
 export const checkoutOrder = (data) => {
   return http.post('/checkout', data)
 }
+
+//订单详情
+export const orderDetails = (orderSN) => {
+  return http.get('/order/' + orderSN)
+}
+
+//订单状态
+export const orderStatus = (data) => {
+  return http.get('/order/status', data)
+}

@@ -92,7 +92,7 @@ const getCart = async () => { //获取购物车列表
 		});
 		let result = await cart()
 		console.log('购物车列表', result)
-		cartList.value = result.data.data
+		cartList.value = result.data
 		console.log(cartList.value)
 		cartList.value.map(item => {
 			item.isSelect = false

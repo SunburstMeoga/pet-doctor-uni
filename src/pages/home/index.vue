@@ -107,8 +107,8 @@ let handleHotActive = () => {
 onMounted(async () => {
 	console.log(title.value)
 	let petCardsList = await petCards()
-	console.log(petCardsList.data.data.length, petCardsList)
-	cardsCount.value = petCardsList.data.data.length
+	console.log(petCardsList.data.length, petCardsList)
+	cardsCount.value = petCardsList.data.length
 })
 </script>
 

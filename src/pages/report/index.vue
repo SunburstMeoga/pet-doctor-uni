@@ -112,18 +112,18 @@ onMounted(async () => {
 		})
 		let petCardsList = await petCards()
 		console.log(petCardsList)
-		if (petCardsList.data.data.length !== 0) {
-			let resReport = await reports({ pet_card_id: petCardsList.data.data[0].id })
-			reportList.value = resReport.data.data
+		if (petCardsList.data.length !== 0) {
+			let resReport = await reports({ pet_card_id: petCardsList.data[0].id })
+			reportList.value = resReport.data
 			console.log('报告', resReport)
 			uni.hideLoading()
 		}
 
 		uni.hideLoading()
 
-		cardList.value = petCardsList.data.data
-		console.log('宠物id', petCardsList.data.data[0].id)
-		console.log(petCardsList.data.data.length, petCardsList)
+		cardList.value = petCardsList.data
+		console.log('宠物id', petCardsList.data[0].id)
+		console.log(petCardsList.data.length, petCardsList)
 		console.log(cardList.value)
 	} catch (err) {
 		console.log(err)

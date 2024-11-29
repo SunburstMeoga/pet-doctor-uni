@@ -102,7 +102,7 @@ let toPolicy = () => {
 }
 let getUserInfo = async () => {
 	let res = await userInfo()
-	let { avatar, nickname } = res.data.data
+	let { avatar, nickname } = res.data
 	userInfoObj.value = { avatar, nickname }
 	console.log('个人资料', res)
 }
@@ -157,8 +157,8 @@ let toLogin = async () => {
 						})
 						console.log(result)
 						uni.setStorageSync('token',
-							`Bearer ${result.data.data.api_token}`)
-						console.log(result.data.data.api_token)
+							`Bearer ${result.data.api_token}`)
+						console.log(result.data.api_token)
 						console.log(uni.getStorageSync('token'))
 						isLogged.value = true
 						uni.hideLoading()

@@ -54,16 +54,18 @@
                 </div>
             </div>
             <div class="w-full flex justify-center items-center bg-orange-3 text-red-5 text-24rpx h-57rpx"
-                v-if="productDetailsInfo.group_end_at">
+                v-if="productDetailsInfo.group_end_at && productDetailsInfo.is_group">
                 <div class="w-686rpx ">
                     截至 {{ formatTimestamp(productDetailsInfo.group_end_at) }}
                 </div>
             </div>
             <div class="w-full flex justify-center items-center h-96rpx">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.price * 0.01 }}</div>
+                    <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.price * 0.01 * productQuantity
+                        }}</div>
                     <div>
-                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1" :max="1000" />
+                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
+                            :max="productDetailsInfo.stock" />
                     </div>
                 </div>
 
@@ -77,19 +79,23 @@
 
             </div>
         </div>
-        <CheckoutCounter :showCheckoutCounter="showCheckoutCounter" />
+        <CheckoutCounter :showCheckoutCounter="showCheckoutCounter" :productQuantity="productQuantity"
+            :productInfo="productDetailsInfo" @handleClose="handleClose"
+            @handleConfirmOrder="handleConfirmOrder(selectPickMethod)" />
     </div>
 </template>
 
 <script setup>
 import CheckoutCounter from '@/components/checkoutCounter'
-import { productDetails, addCard } from '@/service/index'
+import { checkoutOrder } from '@/service/index'
+import { productDetails, addCard, createOrder, orderStatus } from '@/service/index'
 let productId = ref(0)
 let productDetailsInfo = ref({})
 let selectSKU = ref(1) //选择的sku
 let productQuantity = ref(1) //要购买的商品数量
-
+let pollingTimer = null; //订单轮询定时器
 let showCheckoutCounter = ref(false) //显示隐藏收银台
+let selectPickMethod = ref(0)
 let tags = ref([
     { title: '上新', tagStyle: 'bg-orange-5 text-white' },
     { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
@@ -103,6 +109,76 @@ const skuItems = ref([
     { title: 'XXL', id: 5 },
     { title: 'XXXL', id: 6 },
 ])
+const checkOrderStatus = async (orderSN) => {
+    try {
+        uni.hideLoading({
+            title: '加载中...'
+        })
+        let result = await orderStatus({ order_sn: orderSN })
+    } catch (err) {
+        console.log(err)
+        uni.hideLoading()
+    }
+}
+const toCreateOrder = async (params) => {
+    try {
+        uni.showLoading({
+            title: '加载中'
+        })
+        let orderRes = await createOrder(params)
+        let orderSN = orderRes.data.order_sn
+        pollingTimer = setInterval(async () => { //轮询订单状态
+            try {
+                const statusResponse = await checkOrderStatus(orderSN);
+                if (statusResponse.data.status === 0) {
+                    // 如果状态还是pending，继续轮询
+                } else {
+                    // 如果状态变为success或fail，停止轮询并更新订单状态
+                    clearInterval(pollingTimer);
+                    pollingTimer = null;
+                    orderStatus.value = statusResponse.status;
+                }
+            } catch (error) {
+                console.error('查询订单状态时出错:', error);
+                // 处理错误，可能需要重新尝试请求或停止轮询
+                clearInterval(pollingTimer);
+                pollingTimer = null;
+            }
+        }, 1000);
+    } catch (err) {
+        console.log(err)
+        uni.hideLoading()
+    }
+
+}
+const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台确认订单按钮
+    console.log(selectPickMethodChild)
+    selectPickMethod.value = selectPickMethodChild
+    // return
+    try {
+        handleClose()
+        uni.showLoading({
+            title: '加载中'
+        })
+        let result = await checkoutOrder({ item_id: selectSKU.value, quantity: productQuantity.value })
+        let params = { item_id: selectSKU.value, quantity: productQuantity.value, dispatch_mode: productDetailsInfo.value.is_group ? 2 : selectPickMethod.value, contact_name: '泡泡龙', contact_phone: '15999625057', address_id: 0 }
+        let orderRes = await toCreateOrder(params)
+        console.log('checkout', result)
+        console.log('创建订单结果', orderRes)
+        uni.hideLoading()
+    } catch (err) {
+        uni.hideLoading()
+        uni.showToast({
+            title: '请求超时，请重试'
+        })
+        console.log(err)
+
+    }
+}
+const handleClose = () => { //关闭弹窗
+    showCheckoutCounter.value = false
+    console.log(showCheckoutCounter.value)
+}
 const formatTimestamp = (timestamp) => { //格式化时间内
     const date = new Date(timestamp * 1000);
     // 获取月份，日期，小时，分钟和秒
@@ -152,8 +228,8 @@ const getProductDetails = async () => { //商品详情
         });
         let result = await productDetails(productId.value)
         console.log('商品详情', result)
-        productDetailsInfo.value = result.data.data
-        selectSKU.value = result.data.data.items[0].id
+        productDetailsInfo.value = result.data
+        selectSKU.value = result.data.items[0].id
         uni.hideLoading();
     } catch (err) {
         console.log(err)
@@ -165,6 +241,13 @@ onLoad((options) => {
     console.log(productId.value)
     getProductDetails()
 })
+// 清理函数，组件卸载时停止轮询
+onUnmounted(() => {
+    if (pollingTimer) {
+        clearInterval(pollingTimer);
+        pollingTimer = null;
+    }
+});
 </script>
 
 <style lang="scss" scoped>

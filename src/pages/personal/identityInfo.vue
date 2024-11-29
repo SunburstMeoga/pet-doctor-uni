@@ -192,7 +192,7 @@ let handleSave = async () => {
 		console.log(result)
 		uni.hideLoading()
 		uni.navigateTo({
-			url: `/pages/home/star_answer?cardId=${result.data.data.id}&assessmentId=${assessmentId.value}`
+			url: `/pages/home/star_answer?cardId=${result.data.id}&assessmentId=${assessmentId.value}`
 		})
 	} catch (err) {
 		console.log(err)
@@ -248,7 +248,7 @@ let getPetBreeds = async (typeId) => {
 	try {
 		let result = await petBreeds(typeId)
 		petTypeRange.value = []
-		result.data.data.map(item => {
+		result.data.map(item => {
 			let obj = {}
 			obj.value = item.name
 			obj.id = item.id

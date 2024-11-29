@@ -1,9 +1,10 @@
 <template>
     <div>
-        <wd-popup :modelValue="showCheckoutCounter" position="bottom" :safe-area-inset-bottom="true" lock-scroll
-            custom-style="max-height: 1000rpx; background: #f4f4f5; overflow: scroll;" closable>
+        <wd-popup :modelValue="showCheckoutCounter" position="bottom" :safe-area-inset-bottom="true"
+            custom-style="max-height: 1000rpx; background: #f4f4f5; overflow: scroll;" closable @close="handleClose">
             <div class="w-full flex flex-col justify-start items-center">
-                <div class="text-slate-9 font-medium text-32rpx mb-48rpx pt-24rpx">确认订单</div>
+                <div class="text-slate-9 font-medium text-32rpx mb-48rpx pt-26rpx">确认订单
+                </div>
                 <div class="w-686rpx flex justify-between items-center mb-28rpx">
                     <div @click="handleMethodItem(item)" class="operating-button"
                         v-for="(item, index) in pickMethodItems" :key="index"
@@ -24,13 +25,15 @@
                     </div>
                 </div>
                 <div class="w-686rpx flex justify-between items-start">
-                    <div class="w-240rpx h-240rpx rounded-24rpx">
-                        <img src="https://img2.baidu.com/it/u=853292853,3248114357&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=922"
-                            alt="">
+                    <div class="w-240rpx h-240rpx rounded-24rpx overflow-hidden">
+                        <img :src="productInfo.pictures[0]" alt="">
                     </div>
-                    <div class="ml-28rpx w-416rpx">
-                        <div class="text-slate-9 font-medium text-28rpx mb-12rpx">猫猫喜欢的玩具的标题溢出溢 出溢出</div>
-                        <div class="text-zinc-6 text-28rpx ">这里商品的详情，这里商品的详情这里商品的详情</div>
+                    <div class="ml-28rpx w-416rpx flex flex-col justify-between items-end h-240rpx">
+                        <div>
+                            <div class="text-slate-9 font-medium text-28rpx mb-12rpx">{{ productInfo.title }}</div>
+                            <div class="text-zinc-6 text-28rpx ">{{ productInfo.intro }}</div>
+                        </div>
+                        <div class="flex text-zinc-6 text-28rpx  ">X{{ productQuantity }}</div>
                     </div>
                 </div>
                 <div class="w-686rpx pt-28rpx">
@@ -38,26 +41,28 @@
                 </div>
                 <div class="w-full flex justify-start items-center">
                     <div class="flex justify-center items-center w-92rpx h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
-                        @click="handleSKUItem(item)" v-for="(item, index) in skuItems" :key="index"
+                        @click="handleSKUItem(item)" v-for="(item, index) in productInfo.items" :key="index"
                         :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
-                        {{ item.title }}
+                        {{ item.sku_title }}
                     </div>
                 </div>
                 <div class="w-full flex flex-col items-center justify-start bg-white"
                     style="border-top:1px solid #f3f4f6;">
                     <div class="w-full flex justify-center items-center h-96rpx">
                         <div class="w-686rpx flex justify-between items-center">
-                            <div class="text-48rpx text-slate-9 font-bold">￥2323</div>
-                            <div>
-                                <wd-input-number v-model="productQuantity" @change="handleChange" :min="1" :max="10" />
-                            </div>
+                            <div class="text-48rpx text-slate-9 font-bold">￥{{ (productInfo.price * productQuantity *
+            0.01) }}</div>
+                            <!-- <div>
+                                <wd-input-number @change="updateProductQuantity" :modelValue="productQuantity" :min="1"
+                                    :max="productInfo.stock" />
+                            </div> -->
                         </div>
 
                     </div>
                     <div class="w-full flex justify-center items-center pt-20rpx "
                         style="border-top:1px solid #f3f4f6;">
                         <div class="w-686rpx flex justify-between items-center">
-                            <div
+                            <div @click="handleConfirmOrder"
                                 class=" bg-orange-4 text-white flex justify-center items-center rounded-16rpx w-full h-88rpx">
                                 确认订单</div>
                         </div>
@@ -69,16 +74,26 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['handleConfirmOrder'])
+const emit = defineEmits(['handleConfirmOrder', 'handleClose', 'update:childInput'])
 const props = defineProps({
     showCheckoutCounter: {
         type: Boolean,
         default: false
+    },
+    productInfo: {
+        type: Object,
+        default: () => { }
+    },
+    productQuantity: {
+        type: Number,
+        default: 1
     }
 })
-let selectSKU = ref(1) //选择的sku
-let productQuantity = ref(1) //要购买的商品数量
-let selectPickMethod = ref(1)
+let selectSKU = computed(() => {
+    return props.productInfo.items[0].id
+}) //选择的sku
+// let productQuantity = ref(1) //要购买的商品数量
+let selectPickMethod = ref(0)
 const skuItems = ref([
     { title: 'XS', id: 1 },
     { title: 'S', id: 2 },
@@ -91,15 +106,22 @@ const handleSKUItem = (item) => {
     selectSKU.value = item.id
 }
 const pickMethodItems = ref([
-    { title: '自提', id: 1 },
-    { title: '快递', id: 2 }
+    { title: '自提', id: 0 },
+    { title: '快递', id: 1 }
 ])
 
 const handleMethodItem = (item) => {
     selectPickMethod.value = item.id
 }
+
+const handleClose = () => { //关闭按钮
+    emit('handleClose')
+}
+const updateProductQuantity = (e) => { //更新收银台的商品数量到商详
+    emit('update:childInput', e);
+}
 const handleConfirmOrder = () => { //点击确认订单
-    emit('handleConfirmOrder')
+    emit('handleConfirmOrder', selectPickMethod.value)
 }
 
 </script>

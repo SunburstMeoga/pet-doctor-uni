@@ -24,7 +24,7 @@ let getOrders = async (orderStatus) => {
 	console.log('查询的订单状态', orderStatus)
 	let res = await orders({ status: orderStatus })
 	console.log('订单列表', res)
-	ordersLis.value = res.data.data
+	ordersLis.value = res.data
 }
 onMounted(() => {
 	getOrders(orderStatus.value)
