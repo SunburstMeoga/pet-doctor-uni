@@ -117,7 +117,7 @@ const handleConfirmArea = ({ selectedItems }) => {
     selectArea.value = selectedItems
 }
 const handleConfirm = async () => { //点击确认添加地址按钮
-    let params = { name: name.value, phone: phone.value, area: [selectArea.value[selectArea.value.length - 1]], detail: detail.value, is_default: isDefault.value }
+    let params = { name: name.value, phone: phone.value, area: selectArea.value, detail: detail.value, is_default: isDefault.value }
     console.log(params)
     // return
     try {
@@ -127,11 +127,11 @@ const handleConfirm = async () => { //点击确认添加地址按钮
         let result = await storeAddress(params)
         console.log('新增地址', result)
         uni.hideLoading()
+        uni.showToast({
+            title: result.message,
+            icon: 'none'
+        });
         if (result.code !== 0) {
-            uni.showToast({
-                title: result.message,
-                icon: 'none'
-            });
             return
         }
         uni.navigateBack({

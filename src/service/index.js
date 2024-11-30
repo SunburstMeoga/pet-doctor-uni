@@ -124,3 +124,13 @@ export const addresses = () => {
 export const storeAddress = (data) => {
   return http.post('/address', data)
 }
+
+//删除地址信息
+export const deleteAddress = (addressId) => {
+  return http.delete('/address/' + addressId)
+}
+
+//设置默认地址
+export const setDefaultAddress = (addressId) => {
+  return http.post(`/address/${addressId}/default`)
+}

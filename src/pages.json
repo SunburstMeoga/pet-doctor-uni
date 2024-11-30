@@ -51,10 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_list",
+      "path": "pages/home/address_list",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品"
+        "navigationBarTitleText": "收货地址"
       }
     },
     {
@@ -62,13 +62,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "购物车"
-      }
-    },
-    {
-      "path": "pages/home/address_list",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "收货地址"
       }
     },
     {
@@ -118,6 +111,13 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
+      "path": "pages/home/product_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品"
       }
     },
     {
