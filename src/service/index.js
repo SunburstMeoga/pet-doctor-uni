@@ -55,14 +55,14 @@ export const pay = (data) => {
 export const orders = (params) => {
   // 如果http.get不支持直接传递params作为查询参数，你可能需要手动构建查询字符串
   // 例如：return http.get('/orders?' + new URLSearchParams(params).toString());
-  return http.get('/orders', { params }) // 假设http.get的第二个参数可以接收一个包含params的对象
+  return http.get('/orders', params) // 假设http.get的第二个参数可以接收一个包含params的对象
 }
 
 // 报告列表（同上）
 export const reports = (params) => {
   // 如果http.get不支持直接传递params作为查询参数，你可能需要手动构建查询字符串
   // 例如：return http.get('/reports?' + new URLSearchParams(params).toString());
-  return http.get('/reports', { params }) // 假设http.get的第二个参数可以接收一个包含params的对象
+  return http.get('/reports', params) // 假设http.get的第二个参数可以接收一个包含params的对象
 }
 
 // 获取用户手机号（假设这是你的原意，因为原文件中没有这个函数，但你的示例中提到了）
@@ -142,5 +142,5 @@ export const systemConfig = (key) => {
 
 //取消订单
 export const cancelOrder = (orderSN) => {
-  return http.post(`/order/${orderSn}/cancel`)
+  return http.post(`/order/${orderSN}/cancel`)
 }

@@ -7,7 +7,8 @@
     </route>
 <template>
 	<view class="container">
-		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx">
+		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx static top-0"
+			style="background-color: rgb(245, 245, 245);">
 			<div class="rounded-8rpx px-16rpx py-8rpx text-28rpx" @click="handleType(item)"
 				:class="selectType === item.status ? 'bg-slate9 text-amber font-medium' : 'bg-zinc2 text-zinc4'"
 				v-for="(item, index) in orderTypes" :key="index">
@@ -43,7 +44,7 @@ const toDetails = (item) => {
 		url: `/pages/home/product_details?productId=${item.id}`
 	});
 }
-const getPickUpMethod = () => {
+const getPickUpMethod = (deliveryMethod) => {
 	let description;
 
 	switch (deliveryMethod) {
@@ -101,6 +102,7 @@ let orderTypes = ref([
 ])
 const handleType = async (item) => {
 	selectType.value = item.status
+	console.log(selectType.value)
 	getOrders(selectType.value)
 }
 let getOrders = async (orderStatus) => { //订单列表
