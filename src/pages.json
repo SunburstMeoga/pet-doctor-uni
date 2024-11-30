@@ -51,10 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/home/address_list",
+      "path": "pages/personal/orders",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "收货地址"
+        "navigationBarTitleText": "全部订单"
       }
     },
     {
@@ -62,6 +62,13 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "购物车"
+      }
+    },
+    {
+      "path": "pages/home/address_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "收货地址"
       }
     },
     {
@@ -166,10 +173,6 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": ""
       }
-    },
-    {
-      "path": "pages/personal/orders",
-      "type": "page"
     },
     {
       "path": "pages/personal/petIDCardList",

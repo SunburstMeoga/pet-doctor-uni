@@ -43,29 +43,33 @@ let buyNow = async (item) => {
 		return
 	}
 	console.log("点解购买按钮", item)
-	uni.showLoading({
-		title: "创建订单..."
-	})
-	let res = await createOrder({ item_id: item.items[0].id, quantity: 1 })
-	let payResult = await pay({ order_sn: res.data.order_sn })
-	uni.requestPayment({
-		"timeStamp": payResult.data.timeStamp,
-		"nonceStr": payResult.data.nonceStr,
-		"package": payResult.data.package,
-		"signType": payResult.data.signType,
-		"paySign": payResult.data.paySign,
-		"success": function (res) {
-			console.log('success', res);
-			uni.hideLoading()
-		},
-		"fail": function (res) {
-			console.log('fail', res);
-			uni.hideLoading()
-		},
-		"complete": function (res) {
-			console.log('complete', res);
-			uni.hideLoading()
-		}
+	// uni.showLoading({
+	// 	title: "创建订单..."
+	// })
+	// let res = await createOrder({ item_id: item.items[0].id, quantity: 1 })
+	// let payResult = await pay({ order_sn: res.data.order_sn })
+	// uni.requestPayment({
+	// 	"timeStamp": payResult.data.timeStamp,
+	// 	"nonceStr": payResult.data.nonceStr,
+	// 	"package": payResult.data.package,
+	// 	"signType": payResult.data.signType,
+	// 	"paySign": payResult.data.paySign,
+	// 	"success": function (res) {
+	// 		console.log('success', res);
+	// 		uni.hideLoading()
+	// 	},
+	// 	"fail": function (res) {
+	// 		console.log('fail', res);
+	// 		uni.hideLoading()
+	// 	},
+	// 	"complete": function (res) {
+	// 		console.log('complete', res);
+	// 		uni.hideLoading()
+	// 	}
+	// });
+	console.log(item, `${item.id}`)
+	uni.navigateTo({
+		url: `/pages/home/product_details?productId=${item.id}`
 	});
 
 	// console.log(payRes, '支付')
@@ -74,13 +78,14 @@ let buyNow = async (item) => {
 const formatTimestamp = (timestamp) => {
 	const date = new Date(timestamp * 1000);
 	// 获取月份，日期，小时，分钟和秒
+	const year = date.getFullYear();
 	const month = String(date.getMonth() + 1).padStart(2, '0');
 	const day = String(date.getDate()).padStart(2, '0');
 	const hours = String(date.getHours()).padStart(2, '0');
 	const minutes = String(date.getMinutes()).padStart(2, '0');
 	const seconds = String(date.getSeconds()).padStart(2, '0');
 	// 拼接格式为 MM-DD HH:mm:ss
-	return `${month}-${day} ${hours}:${minutes}:${seconds}`;
+	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 let getProductList = async () => {
 	let result = await allProduct()

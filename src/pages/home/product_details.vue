@@ -80,15 +80,15 @@
             </div>
         </div>
         <CheckoutCounter :showCheckoutCounter="showCheckoutCounter" :productQuantity="productQuantity"
-            :productInfo="productDetailsInfo" @handleClose="handleClose"
-            @handleConfirmOrder="handleConfirmOrder(selectPickMethod)" />
+            :productInfo="productDetailsInfo" :pickUpSite="pickUpSite" :addressInfo="addressInfo"
+            @handleClose="handleClose" @selectAddress="handleSelectAddress" @confirmOrder="handleConfirmOrder" />
     </div>
 </template>
 
 <script setup>
 import CheckoutCounter from '@/components/checkoutCounter'
 import { checkoutOrder } from '@/service/index'
-import { productDetails, addCard, createOrder, orderStatus } from '@/service/index'
+import { productDetails, addCard, createOrder, orderStatus, systemConfig, addresses, pay } from '@/service/index'
 let productId = ref(0)
 let productDetailsInfo = ref({})
 let selectSKU = ref(1) //选择的sku
@@ -96,12 +96,56 @@ let productQuantity = ref(1) //要购买的商品数量
 let pollingTimer = null; //订单轮询定时器
 let showCheckoutCounter = ref(false) //显示隐藏收银台
 let selectPickMethod = ref(0)
+let pickUpSite = ref('')
+let addressItems = ref([])
+let addressInfo = ref({})
 let tags = ref([
     { title: '上新', tagStyle: 'bg-orange-5 text-white' },
     { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
-const checkOrderStatus = async (orderSN) => {
+const handleSelectAddress = () => { //点击收银台的选择地址
+    uni.navigateTo({
+        url: '/pages/home/address_list?operating=' + 'select'
+    })
+}
+const getAddressItems = async () => { //获取地址列表
+    try {
+        uni.showLoading({
+            title: '加载中'
+        });
+        let result = await addresses()
+        addressItems.value = result.data
+        console.log('地址列表', result)
+        let arr = addressItems.value.filter(item => item.is_default)
+        if (uni.getStorageSync('createOrderAddress')) {
+            addressInfo.value = uni.getStorageSync('createOrderAddress')
+        } else {
+            addressInfo.value = arr[0]
+        }
+
+        console.log('默认地址', addressInfo.value)
+        uni.hideLoading()
+    } catch (err) {
+        console.log(err)
+        uni.hideLoading();
+
+    }
+}
+const getSystemConfig = async () => { //获取后台系统配置 自提地点
+    try {
+        uni.showLoading({
+            title: '加载中'
+        })
+        let res = await systemConfig('pick_up_site')
+        pickUpSite.value = res.data
+        console.log('自提地址', pickUpSite.value)
+    } catch (err) {
+        console.log(err)
+        uni.hideLoading()
+    }
+}
+const checkOrderStatus = async (orderSN) => { //检查订单状态
     try {
         uni.hideLoading({
             title: '加载中...'
@@ -112,37 +156,40 @@ const checkOrderStatus = async (orderSN) => {
         uni.hideLoading()
     }
 }
-const toCreateOrder = async (params) => {
-    try {
-        uni.showLoading({
-            title: '加载中'
-        })
-        let orderRes = await createOrder(params)
-        let orderSN = orderRes.data.order_sn
-        pollingTimer = setInterval(async () => { //轮询订单状态
-            try {
-                const statusResponse = await checkOrderStatus(orderSN);
-                if (statusResponse.data.status === 0) {
-                    // 如果状态还是pending，继续轮询
-                } else {
-                    // 如果状态变为success或fail，停止轮询并更新订单状态
-                    clearInterval(pollingTimer);
-                    pollingTimer = null;
-                    orderStatus.value = statusResponse.status;
-                }
-            } catch (error) {
-                console.error('查询订单状态时出错:', error);
-                // 处理错误，可能需要重新尝试请求或停止轮询
-                clearInterval(pollingTimer);
-                pollingTimer = null;
-            }
-        }, 1000);
-    } catch (err) {
-        console.log(err)
-        uni.hideLoading()
-    }
+// const toCreateOrder = async (params) => { //创建订单
+//     try {
+//         uni.showLoading({
+//             title: '加载中'
+//         })
+//         let orderRes = await createOrder(params)
+//         console.log('创建订单结果', orderRes)
 
-}
+//         let orderSN = orderRes.data.order_sn
+//         pollingTimer = setInterval(async () => { //轮询订单状态
+//             try {
+//                 const statusResponse = await checkOrderStatus(orderSN);
+//                 console.log('订单状态', statusResponse)
+//                 if (statusResponse.status === 0) {
+//                     // 如果状态还是pending，继续轮询
+//                 } else {
+//                     // 如果状态变为success或fail，停止轮询并更新订单状态
+//                     clearInterval(pollingTimer);
+//                     pollingTimer = null;
+//                     orderStatus.value = statusResponse.status;
+//                 }
+//             } catch (error) {
+//                 console.error('查询订单状态时出错:', error);
+//                 // 处理错误，可能需要重新尝试请求或停止轮询
+//                 clearInterval(pollingTimer);
+//                 pollingTimer = null;
+//             }
+//         }, 1000);
+//     } catch (err) {
+//         console.log(err)
+//         uni.hideLoading()
+//     }
+
+// }
 const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台确认订单按钮
     console.log(selectPickMethodChild)
     selectPickMethod.value = selectPickMethodChild
@@ -152,10 +199,74 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
             title: '加载中'
         })
         let result = await checkoutOrder({ item_id: selectSKU.value, quantity: productQuantity.value })
-        let params = { item_id: selectSKU.value, quantity: productQuantity.value, dispatch_mode: productDetailsInfo.value.is_activity ? 2 : selectPickMethod.value, contact_name: '泡泡龙', contact_phone: '15999625057', address_id: 0 }
-        let orderRes = await toCreateOrder(params)
-        console.log('checkout', result)
-        console.log('创建订单结果', orderRes)
+        let params = {
+            item_id: selectSKU.value,
+            quantity: productQuantity.value,
+            dispatch_mode: productDetailsInfo.value.is_activity ? 2 : selectPickMethod.value,
+            contact_name: addressInfo.value.name,
+            contact_phone: addressInfo.value.phone,
+            address_id: addressInfo.value.id
+        }
+        try {
+            uni.showLoading({
+                title: '加载中'
+            })
+            let orderRes = await createOrder(params)
+            console.log('创建订单结果', orderRes)
+            console.log('创建订单结果', orderRes.code)
+
+            if (orderRes.code === 0) {
+                console.log('创建订单成功了。走支付流程')
+
+                uni.removeStorageSync('createOrderAddress')
+                console.log('创建订单成功了。走支付流程')
+                uni.showLoading({
+                    title: '加载中'
+                })
+                setTimeout(async () => {
+
+                    try {
+                        uni.showLoading({
+                            title: '加载中'
+                        })
+                        let payResult = await pay({ order_sn: orderRes.data.order_sn })
+                        console.log('支付结果', payResult)
+                        uni.requestPayment({
+                            "timeStamp": payResult.data.timeStamp,
+                            "nonceStr": payResult.data.nonceStr,
+                            "package": payResult.data.package,
+                            "signType": payResult.data.signType,
+                            "paySign": payResult.data.paySign,
+                            "success": function (res) {
+                                uni.navigateTo({
+                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+                                })
+                                uni.hideLoading()
+                            },
+                            "fail": function (res) {
+                                uni.navigateTo({
+                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+                                })
+                                uni.hideLoading()
+                            },
+                            "complete": function (res) {
+                                uni.navigateTo({
+                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+                                })
+                                uni.hideLoading()
+                            }
+                        });
+                        uni.hideLoading()
+                    } catch (error) {
+                        console.log(error)
+                        uni.hideLoading()
+                    }
+                }, 5000);
+            }
+        } catch (err) {
+            console.log(err)
+            uni.hideLoading()
+        }
         uni.hideLoading()
     } catch (err) {
         uni.hideLoading()
@@ -173,13 +284,14 @@ const handleClose = () => { //关闭弹窗
 const formatTimestamp = (timestamp) => { //格式化时间内
     const date = new Date(timestamp * 1000);
     // 获取月份，日期，小时，分钟和秒
+    const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
     // 拼接格式为 MM-DD HH:mm:ss
-    return `${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 const handleAddCart = async () => { //点击添加购物车
     try {
@@ -230,12 +342,16 @@ const getProductDetails = async () => { //商品详情
 onLoad((options) => {
     productId.value = options.productId
     console.log(productId.value)
+})
+onShow(() => {
     getProductDetails()
+    getSystemConfig()
+    getAddressItems()
 })
 // 清理函数，组件卸载时停止轮询
 onUnmounted(() => {
     if (pollingTimer) {
-        clearInterval(pollingTimer);
+        clearTimeout(pollingTimer);
         pollingTimer = null;
     }
 });

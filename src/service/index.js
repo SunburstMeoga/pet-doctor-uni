@@ -46,7 +46,7 @@ export const createOrder = (data) => {
   return http.post('/order', data)
 }
 
-// 购买接口
+// 支付
 export const pay = (data) => {
   return http.post('/pay', data)
 }
@@ -133,4 +133,14 @@ export const deleteAddress = (addressId) => {
 //设置默认地址
 export const setDefaultAddress = (addressId) => {
   return http.post(`/address/${addressId}/default`)
+}
+
+//获取后台系统设置
+export const systemConfig = (key) => {
+  return http.get('/system-config/' + key)
+}
+
+//取消订单
+export const cancelOrder = (orderSN) => {
+  return http.post(`/order/${orderSn}/cancel`)
 }

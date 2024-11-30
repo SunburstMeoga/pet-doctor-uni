@@ -48,36 +48,6 @@ const categories = ref([
         label: '分类一',
         title: '标题一',
         items: subCategories
-    },
-    {
-        label: '分类二',
-        title: '标题二',
-        items: subCategories
-    },
-    {
-        label: '分类三',
-        title: '标题三',
-        items: subCategories.slice(0, 18)
-    },
-    {
-        label: '分类四',
-        title: '标题四',
-        items: subCategories.slice(0, 21)
-    },
-    {
-        label: '分类五',
-        title: '标题五',
-        items: subCategories
-    },
-    {
-        label: '分类六',
-        title: '标题六',
-        items: subCategories.slice(0, 18)
-    },
-    {
-        label: '分类七',
-        title: '标题七',
-        items: subCategories
     }
 ])
 const getProductList = async () => {

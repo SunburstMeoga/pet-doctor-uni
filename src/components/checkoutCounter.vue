@@ -15,12 +15,21 @@
                 <div class="w-686rpx flex justify-between items-center py-14rpx rounded-16rpx mb-48rpx text-gray-600"
                     style="border: 1px solid #e4e4e7;">
                     <div class="ml-20rpx">
-                        <div class="flex justify-start items-center">
+                        <div class="flex justify-start items-center" v-show="selectPickMethod === 0">
+                            <div class="icon iconfont icon-addresss text-32rpx"></div>
+                            <div class="flex justify-start items-center ml-4rpx">{{ pickUpSite }}</div>
+                        </div>
+                        <div class="flex justify-start items-center" v-show="selectPickMethod === 1">
                             <div class="icon iconfont icon-Personal text-32rpx"></div>
-                            <div class="flex justify-start items-center ml-4rpx">喵喵 134 3421 2345</div>
+                            <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.name }}
+                                {{ addressInfo.phone }}</div>
+                        </div>
+                        <div class="flex justify-start items-center" v-show="selectPickMethod === 1">
+                            <div class="icon iconfont icon-addresss text-28rpx"></div>
+                            <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.detail }}</div>
                         </div>
                     </div>
-                    <div class="mr-20rpx">
+                    <div class="mr-20rpx" v-show="selectPickMethod === 1" @click="handleSelectAddress">
                         <div class="icon iconfont icon-right_9  text-20rpx"></div>
                     </div>
                 </div>
@@ -62,7 +71,7 @@
                     <div class="w-full flex justify-center items-center pt-20rpx "
                         style="border-top:1px solid #f3f4f6;">
                         <div class="w-686rpx flex justify-between items-center">
-                            <div @click="handleConfirmOrder"
+                            <div @click="confirmOrder"
                                 class=" bg-orange-4 text-white flex justify-center items-center rounded-16rpx w-full h-88rpx">
                                 确认订单</div>
                         </div>
@@ -74,7 +83,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['handleConfirmOrder', 'handleClose', 'update:childInput'])
+const emit = defineEmits(['confirmOrder', 'handleClose', 'update:childInput', 'selectAddress'])
 const props = defineProps({
     showCheckoutCounter: {
         type: Boolean,
@@ -87,6 +96,14 @@ const props = defineProps({
     productQuantity: {
         type: Number,
         default: 1
+    },
+    pickUpSite: {
+        type: String,
+        default: ''
+    },
+    addressInfo: {
+        type: String,
+        default: ''
     }
 })
 let selectSKU = computed(() => {
@@ -120,8 +137,12 @@ const handleClose = () => { //关闭按钮
 const updateProductQuantity = (e) => { //更新收银台的商品数量到商详
     emit('update:childInput', e);
 }
-const handleConfirmOrder = () => { //点击确认订单
-    emit('handleConfirmOrder', selectPickMethod.value)
+const confirmOrder = () => { //点击确认订单
+    console.log(selectPickMethod.value)
+    emit('confirmOrder', selectPickMethod.value)
+}
+const handleSelectAddress = () => { //点击选择地址
+    emit('selectAddress')
 }
 
 </script>

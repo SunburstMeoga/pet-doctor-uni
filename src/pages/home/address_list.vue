@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '收货地址',
@@ -8,7 +8,7 @@
 <template>
     <div class="w-full flex justify-start items-center flex-col h-screen bg-zinc-1 pb-300rpx pt-40rpx">
         <div class="flex w-686rpx justify-center items-center rounded-24rpx bg-white overflow-hidden py-32rpx mb-32rpx"
-            v-for="(item, index) in addressItems" :key="index">
+            v-for="(item, index) in addressItems" :key="index" @click="handleAddress(item)">
             <AddressCard :addressInfo="item" @setDefault="handleSetDefault(item)" @delete="handleDelete(item)" />
         </div>
         <div class="w-full fixed bottom-0 flex justify-center items-start pb-112rpx bg-white pt-20rpx">
@@ -23,10 +23,24 @@
 import AddressCard from '@/components/addressCard'
 import { addresses, deleteAddress, setDefaultAddress } from '@/service/index'
 let addressItems = ref([])
+let operating = ref('') //点击当前地址项时要进行的操作，操作类型从上一页面传递过来，可能为null，null则点击地址项时不进行任何操作
 const handleStoreAddress = async () => {
     uni.navigateTo({
         url: '/pages/home/store_address'
     });
+}
+const handleAddress = (item) => {
+    if (operating.value === 'select') {
+        // console.log('点击地址项目', id)
+        uni.setStorageSync('createOrderAddress', item)
+        uni.navigateBack({
+            delta: 1
+        });
+
+    } else {
+        console.log('我操作')
+    }
+
 }
 const handleDelete = async ({ id }) => { //点击删除地址
     try {
@@ -79,6 +93,11 @@ const getAddressItems = async () => { //获取地址列表
 
     }
 }
+onLoad((options) => {
+    if (options && options.operating) {
+        operating.value = options.operating
+    }
+})
 onShow(() => {
     getAddressItems()
 })

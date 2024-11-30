@@ -1,5 +1,13 @@
+<route lang="json5" type="home">
+    {
+      style: {
+        navigationBarTitleText: '全部订单',
+      },
+    }
+    </route>
 <template>
 	<view class="container">
+		<div class=""></div>
 		<view class="content flex justify-start items-center" v-if="ordersLis.length !== 0">
 			<view class="content-item" v-for="(item, index) in ordersLis" :key="index">
 				<order-card :orderNumber="item.order_sn" :price="item.amount * 0.01"
@@ -14,12 +22,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import OrderCard from '../../components/orderCard.vue'
 import { orders } from '@/service/index'
-import { onLoad } from '@dcloudio/uni-app'
 let ordersLis = ref([])
 let orderStatus = ref('')
+// 0=待付款
+// 1=已付款待发货
+// 2=已发货带收货
+// 3=已收货完成订单
+// 4=已取消
+let orderType = ref([
+	{ title: '全部', status: null },
+	{ title: '待付款', status: 0 },
+	{ title: '已取消', status: 4 },
+	{ title: '待收货', status: 2 },
+	{ title: '已完成', status: 3 },
+
+])
 let getOrders = async (orderStatus) => {
 	console.log('查询的订单状态', orderStatus)
 	let res = await orders({ status: orderStatus })

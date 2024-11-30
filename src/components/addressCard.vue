@@ -7,7 +7,7 @@
         </div>
         <div class="text-28rpx text-zinc-5 mb-15rpx">{{ addressInfo.detail }}</div>
         <div class="flex justify-between items-center">
-            <div class="flex justify-start items-center" @click="handleSetDefault">
+            <div class="flex justify-start items-center" @tap.stop="handleSetDefault">
                 <div class="w-28rpx h-28rpx rounded-4rpx flex justify-center items-center "
                     style="border: 1px solid #000;" :class="`${addressInfo.is_default ? 'bg-slate9' : ''}`">
                     <div class="icon iconfont icon-right text-24rpx text-white"></div>
@@ -15,7 +15,7 @@
                 <div class="text-zinc4 text-28rpx ml-16rpx">设为默认</div>
             </div>
             <div class="flex justify-end items-center">
-                <div class="bg-zinc2 text-zinc rounded-6rpx text-24rpx px-6rpx" @click="handleDelete">删除</div>
+                <div class="bg-zinc2 text-zinc rounded-6rpx text-24rpx px-6rpx" @tap.stop="handleDelete">删除</div>
             </div>
         </div>
     </div>
