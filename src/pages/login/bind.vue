@@ -8,14 +8,14 @@
 </route>
 <template>
   <view class="flex justify-center items-center" style="width: 100%; height: 100vh;flex-direction: column;">
-    <button v-show="!getPhone" @click="toLogin()" class="login flex justify-center items-center btn"
+    <!-- <button v-show="!getPhone" @click="toLogin()" class="login flex justify-center items-center btn"
       style="margin-bottom: 20rpx;">登录</button>
     <button v-show="getPhone" open-type="getPhoneNumber" class="btn" @getphonenumber="onGetPhoneNumber">确认绑定</button>
     <view class="login-bg">
       <image
         src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/E0ndrY3lWMhg08QjD0nEyc4qcCGubtgZdkIXrXGW.jpg"
         mode="aspectFit"></image>
-    </view>
+    </view> -->
     <!-- <view style="width: 100%; height:900rpx;">code: {{testCode}}</view>
   
   <view style="width: 100%; height:900rpx;">iv: {{iv}}</view>

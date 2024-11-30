@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 {
   style: {
     navigationStyle: 'custom',
@@ -8,13 +8,35 @@
 </route>
 <template>
   <view class="flex justify-center items-center w-full h-screen flex-col">
-    <button v-show="!getPhone" @click="toLogin()" class="login flex justify-center items-center btn"
+    <wd-button :loading="loading" @click="toLogin()" custom-class="login flex justify-center items-center btn"
       style="margin-bottom: 20rpx">
-      登录
-    </button>
-    <button v-show="getPhone" open-type="getPhoneNumber" class="btn" @getphonenumber="onGetPhoneNumber">
-      确认绑定
-    </button>
+      微信授权一键登录
+    </wd-button>
+    <wd-popup v-model="show" position="bottom" custom-class="rounded-t-xl!" :close-on-click-modal="false">
+      <view class="px8 pt10 pb20 grid gap12">
+        <view class="grid gap5">
+          <wd-text text="用户隐私保护提示" class="font500" size="18px" color="black" />
+          <view class="leading-relaxed">
+            <wd-text text="在你使用喵博士 X 汪博士服务之前，请仔细阅读" />
+            <wd-text text="《喵博士 X 汪博士小程序隐私保护指引》" type="primary" @click="openPrivacyContract" />
+            <wd-text text="如你同意该指引，请点击“同意”开始使用本小程序。" />
+          </view>
+        </view>
+        <view class="flex justify-center">
+          <view class="flex items-center gap6">
+            <wd-button type="info" size="large" :disabled="loading" :round="false" @click="show = false">
+              拒绝
+            </wd-button>
+            <wd-button type="success" size="large" :round="false" :loading="loading" custom-class="bg-green-5!"
+              open-type="getPhoneNumber|agreePrivacyAuthorization"
+              @agreeprivacyauthorization="handleAgreePrivacyAuthorization" @getphonenumber="onGetPhoneNumber"
+              @click="loading = true">
+              同意
+            </wd-button>
+          </view>
+        </view>
+      </view>
+    </wd-popup>
     <view class="login-bg">
       <image
         src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/E0ndrY3lWMhg08QjD0nEyc4qcCGubtgZdkIXrXGW.jpg"
@@ -31,8 +53,12 @@ word-break:break-all;">encryptedData: {{encryptedData}}</view> -->
 <script setup>
 import { login, petCards, userPhone } from '@/service/index'
 const testCode = ref('')
+let show = ref(false)
+const loading = ref(false)
 const encryptedData = ref('')
 const getPhone = ref(false)
+const loginCode = ref('')
+
 const iv = ref('')
 // onMounted(() => {
 // 	if(uni.getStorageSync('token') && uni.getStorageSync('token') !== undefined && uni.getStorageSync('token') !== 'undefined') {
@@ -47,119 +73,147 @@ const getPetCards = async () => {
   const reuslt = await petCards()
   console.log()
 }
+function openPrivacyContract() {
+  uni.openPrivacyContract()
+}
+function handleAgreePrivacyAuthorization(e) {
+  console.log(e)
+}
 
 const onGetPhoneNumber = async (e) => {
-  uni.showLoading({
-    title: '正在登录...',
-    mask: true, // 是否显示透明蒙层，防止触摸穿透
-  })
-  if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-    // 用户决绝授权
-    uni.hideLoading()
-    // 拒绝授权后弹出一些提示
-  } else {
-    // 允许授权
-    console.log(e)
+  console.log(e)
+  if (e.code) {
+    // try {
+    //   const response = await loginApi(loginCode.value, iv.value, encryptedData.value, e.code)
+    //   setToken(response.data.token)
+    //   setUserInfo(response.data.userInfo)
+    //   toast.show({ msg: `登录成功，${userInfo.value.nickname} 👏🏻欢迎回来`, duration: 4000 })
+    //   setTimeout(() => {
+    //     const redirectUri = currRoute().query.redirect
+    //     if (redirectUri) {
+    //       isTabbarPage(redirectUri)
+    //         ? uni.switchTab({ url: redirectUri })
+    //         : uni.redirectTo({ url: redirectUri })
+    //     } else {
+    //       uni.switchTab({ url: '/pages/index/index' })
+    //     }
+    //   }, 2000)
+    // } catch (error) {}
+    try {
+      // console.log(encryptedData, iv, code)
+      const result = await login({
+        code: loginCode.value,
+        iv: iv.value,
+        encrypted_data: encryptedData.value,
+      })
+      console.log(result)
+      uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
+      uni.setStorageSync('hasPhone', result.data.has_phone)
 
-    console.log(e.detail.encryptedData)
-    const getNumber = await userPhone({ code: e.detail.code })
-    console.log('手机号', getNumber)
-    uni.hideLoading()
-    uni.switchTab({
-      url: '/pages/home/index',
-    })
-    // e.detail.encryptedData      //加密的用户信息
-    // e.detail.iv     //加密算法的初始向量  时要用到
+      console.log('用户token', uni.getStorageSync('token'))
+      console.log('是否有手机号', uni.getStorageSync('hasPhone'))
+
+      // getPhone.value = true
+      uni.hideLoading()
+      uni.switchTab({
+        url: '/pages/home/index',
+      })
+    } catch (err) {
+      console.log(err)
+      uni.hideLoading()
+    }
   }
+  loading.value = false
 }
 const toLogin = async () => {
-  uni.showLoading({
-    title: '正在登录...',
-    mask: true, // 是否显示透明蒙层，防止触摸穿透
-  })
-  let code, encryptedData, iv
+  loading.value = true
+  const infoRes = await wx.getUserProfile({ desc: '用于个人主页信息展示' })
+  const loginRes = await wx.login()
+  loginCode.value = loginRes.code
+  iv.value = infoRes.iv
+  encryptedData.value = infoRes.encryptedData
+  show.value = true
+  loading.value = false
+  // uni.showLoading({
+  //   title: '正在登录...',
+  //   mask: true, // 是否显示透明蒙层，防止触摸穿透
+  // })
+
   // 仅在用户点击按钮或其他交互操作时调用此方法
-  uni.getUserProfile({
-    desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中
-    success: (res) => {
-      console.log(res)
-      if (res.platform === 'devtools') {
-        uni.setEnableDebug({
-          enableDebug: true,
-        })
-      }
-      encryptedData = res.encryptedData
-      iv = res.iv
-      console.log(encryptedData, iv)
-      uni.login({
-        provider: 'weixin',
-        success: async (loginRes) => {
-          console.log('登录成功', loginRes)
-          testCode.value = loginRes.code
-          console.log(loginRes.code)
-          code = loginRes.code
-          try {
-            console.log(encryptedData, iv, code)
-            const result = await login({
-              code,
-              iv,
-              encrypted_data: encryptedData,
-            })
-            console.log(result)
-            uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
-            uni.setStorageSync('hasPhone', result.data.has_phone)
+  // uni.getUserProfile({
+  //   desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中
+  //   success: (res) => {
+  //     console.log(res)
+  //     if (res.platform === 'devtools') {
+  //       uni.setEnableDebug({
+  //         enableDebug: true,
+  //       })
+  //     }
+  //     encryptedData.value = res.encryptedData
+  //     iv.value = res.iv
+  //     console.log(encryptedData, iv)
+  //     show.value = true
+  //     loading.value = false
+  //     // uni.login({
+  //     //   provider: 'weixin',
+  //     //   success: async (loginRes) => {
+  //     //     console.log('登录成功', loginRes)
+  //     //     testCode.value = loginRes.code
+  //     //     console.log(loginRes.code)
+  //     //     code = loginRes.code
+  //     //     // try {
+  //     //     //   console.log(encryptedData, iv, code)
+  //     //     //   const result = await login({
+  //     //     //     code,
+  //     //     //     iv,
+  //     //     //     encrypted_data: encryptedData,
+  //     //     //   })
+  //     //     //   console.log(result)
+  //     //     //   uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
+  //     //     //   uni.setStorageSync('hasPhone', result.data.has_phone)
 
-            console.log('用户token', uni.getStorageSync('token'))
-            console.log('是否有手机号', uni.getStorageSync('hasPhone'))
+  //     //     //   console.log('用户token', uni.getStorageSync('token'))
+  //     //     //   console.log('是否有手机号', uni.getStorageSync('hasPhone'))
 
-            // getPhone.value = true
-            uni.hideLoading()
-            uni.switchTab({
-              url: '/pages/home/index',
-            })
-            // const petCardsList = await petCards()
-            // console.log(petCardsList.data,petCardsList)
-            // uni.hideLoading();
-            // if(petCardsList.data.length !== 0) {
-            // 	uni.navigateTo({
-            // 		url: "/pages/personal/identityInfo"
-            // 	})
-            // } else {
-            // 	uni.navigateTo({
-            // 		url: '/pages/home/star_answer'
-            // 	})
-            // }
-          } catch (err) {
-            console.log(err)
-            uni.hideLoading()
-          }
-        },
-        fail: (error) => {
-          console.error('登录失败', error)
-          uni.hideLoading()
-        },
-      })
-    },
-    fail: (err) => {
-      console.error('获取用户信息失败', err)
-      uni.hideLoading()
-    },
-  })
+  //     //     //   // getPhone.value = true
+  //     //     //   uni.hideLoading()
+  //     //     //   uni.switchTab({
+  //     //     //     url: '/pages/home/index',
+  //     //     //   })
+  //     //     // } catch (err) {
+  //     //     //   console.log(err)
+  //     //     //   uni.hideLoading()
+  //     //     // }
+  //     //   },
+  //     //   fail: (error) => {
+  //     //     console.error('登录失败', error)
+  //     //     uni.hideLoading()
+  //     //   },
+  //     // })
+  //   },
+  //   fail: (err) => {
+  //     console.error('获取用户信息失败', err)
+  //     uni.hideLoading()
+  //   },
+  // })
+  // async function onGetPhoneNumber(e) {
+
+  // }
 }
 onMounted(() => {
-  console.log(uni.getStorageSync('token'))
-  if (uni.getStorageSync('token')) {
-    uni.switchTab({
-      url: '/pages/home/index',
-    })
-  }
+  // console.log(uni.getStorageSync('token'))
+  // if (uni.getStorageSync('token')) {
+  //   uni.switchTab({
+  //     url: '/pages/home/index',
+  //   })
+  // }
 })
 </script>
 
 <style lang="scss">
 .btn {
-  position: relative;
-  z-index: 999;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 .login-bg {
@@ -171,10 +225,10 @@ onMounted(() => {
 }
 
 .login {
-  width: 486rpx;
-  height: 92rpx;
-  color: #222;
+  width: 486rpx !important;
+  height: 92rpx !important;
+  color: #222 !important;
   background-color: #fce068;
-  border-radius: 24rpx;
+  border-radius: 24rpx !important;
 }
 </style>
