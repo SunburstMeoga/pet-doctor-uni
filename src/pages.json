@@ -51,10 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/home/store_address",
+      "path": "pages/home/product_list",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "新增收货地址"
+        "navigationBarTitleText": "商品"
       }
     },
     {
@@ -121,18 +121,18 @@
       }
     },
     {
-      "path": "pages/home/product_list",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "商品"
-      }
-    },
-    {
       "path": "pages/home/star_answer",
       "type": "page",
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "问卷"
+      }
+    },
+    {
+      "path": "pages/home/store_address",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "新增收货地址"
       }
     },
     {

@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '新增收货地址',
@@ -12,23 +12,28 @@
                 <div class="info-item text-zinc-4" style="border-bottom: 1px solid #f8fafc;">
                     <div class="w-140rpx ml-32rpx">收货人</div>
                     <div class="flex-1">
-                        <input type="text" class="w-full h-40rpx" v-model="name" placeholder="请填写收货人姓名">
+                        <input type="text" class="w-full h-40rpx text-slate9" v-model="name" placeholder="请填写收货人姓名">
                     </div>
                 </div>
                 <div class="info-item text-zinc-4">
                     <div class="w-140rpx ml-32rpx">手机号</div>
                     <div class="flex-1">
-                        <input type="text" class="w-full h-40rpx" v-model="phone" placeholder="请填写收货人手机号">
+                        <input type="text" class="w-full h-40rpx text-slate9" v-model="phone" placeholder="请填写收货人手机号">
                     </div>
                 </div>
             </div>
             <div class="module">
                 <div class="info-item text-zinc-4" style="border-bottom: 1px solid #f8fafc;">
                     <div class="w-140rpx ml-32rpx">所在地区</div>
-                    <wd-col-picker :use-default-slot="true" :modelValue="value" :columns="area"
+                    <wd-col-picker :use-default-slot="true" :modelValue="areaValue" :columns="area"
                         :column-change="columnChange" @confirm="handleConfirmArea">
                         <div class="flex-1">
-                            <input type="text" class="w-full h-40rpx" disabled placeholder="省、市、区">
+                            <!-- <input type="text" class="w-full h-40rpx" disabled v-model="" placeholder="省、市、区"> -->
+                            <div class="w-full h-40rpx flex justify-start items-center">
+                                <div class="text-slate9" v-for="(item, index) in selectArea" :key="index">
+                                    {{ item.label }}
+                                </div>
+                            </div>
                         </div>
                     </wd-col-picker>
                     <!-- <div class="flex-1">
@@ -38,7 +43,7 @@
                 <div class="info-item text-zinc-4">
                     <div class="w-140rpx ml-32rpx">详细地址</div>
                     <div class="flex-1 mr-32rpx">
-                        <input type="text" class="w-full h-40rpx" v-model="detail" placeholder="请填写收货人手机号">
+                        <input type="text" class="w-full h-40rpx text-slate9" v-model="detail" placeholder="请填写详细收货地址">
                     </div>
                 </div>
             </div>
@@ -70,6 +75,7 @@ const { colPickerData, findChildrenByCode } = useColPickerData()
 let isDefault = ref(false)
 let name = ref('')
 let phone = ref('')
+let selectArea = ref([{ label: '省、', value: '' }, { label: '市、', value: '' }, { label: '区', value: '' }])
 let area = ref([
     colPickerData.map((item) => {
         return {
@@ -79,7 +85,14 @@ let area = ref([
     })
 ])
 let detail = ref('')
-let value = ref('')
+let areaValue = ref([
+    colPickerData.map((item) => {
+        return {
+            value: item.value,
+            label: item.text
+        }
+    })
+])
 
 const columnChange = ({ selectedItem, resolve, finish }) => {
     const areaData = findChildrenByCode(colPickerData, selectedItem.value)
@@ -101,13 +114,29 @@ const handleSetDefault = () => {
 }
 const handleConfirmArea = ({ selectedItems }) => {
     console.log('selectedItems', selectedItems)
+    selectArea.value = selectedItems
 }
 const handleConfirm = async () => { //点击确认添加地址按钮
-    let params = { name: '', phone: '', area: [{ label: '', value: '' }], detail: '', is_default: isDefault.value }
+    let params = { name: name.value, phone: phone.value, area: [selectArea.value[selectArea.value.length - 1]], detail: detail.value, is_default: isDefault.value }
+    console.log(params)
+    // return
     try {
+        uni.showLoading({
+            title: '加载中'
+        });
         let result = await storeAddress(params)
         console.log('新增地址', result)
         uni.hideLoading()
+        if (result.code !== 0) {
+            uni.showToast({
+                title: result.message,
+                icon: 'none'
+            });
+            return
+        }
+        uni.navigateBack({
+            delta: 1
+        });
     } catch (err) {
         console.log(err)
         uni.hideLoading()
