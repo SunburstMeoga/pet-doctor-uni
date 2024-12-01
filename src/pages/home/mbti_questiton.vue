@@ -1,7 +1,6 @@
 <route lang="json5">
 	{
 	  style: {
-		navigationStyle: 'custom',
 		navigationBarTitleText: '测测爱宠的MBTI',
 	  },
 	}
@@ -9,9 +8,10 @@
 <template>
 	<view class="container flex justify-start items-center">
 		<!-- <view class="content"> -->
-		<swiper class="swiper-box flex justify-start items-center" @change="change" :current="currentQuestion"
-			duration="300" style="min-height: 100vh;">
-			<swiper-item v-for="(item, index) in questionItems" :key="index" @touchmove.stop style="min-height: 100vh;">
+		<swiper :circular="false" :autoplay="false" class="swiper-box flex justify-start items-center" @change="change"
+			:current="currentQuestion" duration="300" style="min-height: 100vh;">
+			<swiper-item v-for="(item, index) in questionItems" :circular="false" :autoplay="false" :key="index"
+				@touchmove.stop style="min-height: 100vh;">
 				<view class="content">
 					<view class="content-theme flex justify-start items-center">
 						<view class="content-theme-number flex justify-center items-center">
@@ -85,9 +85,10 @@ let handleOptions = async (_item, item, index) => {
 	questionItems.value[index].selectid = _item.id
 	// let uniqueArr = [...new Set(filteredData.value)]
 	updateSelectedIds()
-	if (currentQuestion.value < questionItems.value.length) {
+	if (currentQuestion.value < questionItems.value.length - 1) {
 		currentQuestion.value = ++currentQuestion.value
 	}
+	console.log(currentQuestion.value)
 	if (selectedIds.value[selectedIds.value.length - 1] !== undefined) {
 		console.log('答题完成，可以生成报告');
 		uni.showLoading({

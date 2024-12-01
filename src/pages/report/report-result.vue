@@ -1,7 +1,6 @@
 <route lang="json5">
 	{
 	  style: {
-		navigationStyle: 'custom',
 		navigationBarTitleText: '报告',
 	  },
 	}
@@ -140,31 +139,35 @@ let getReportDeatils = async (reportId) => {
 }
 let productList = ref([])
 let buyNow = async (item) => {
-	console.log("点解购买按钮", item)
-	uni.showLoading({
-		title: "创建订单..."
-	})
-	let res = await createOrder({ item_id: item.id, quantity: 1 })
-	let payResult = await pay({ order_sn: res.data.order_sn })
-	uni.requestPayment({
-		"timeStamp": payresult.data.timeStamp,
-		"nonceStr": payresult.data.nonceStr,
-		"package": payresult.data.package,
-		"signType": payresult.data.signType,
-		"paySign": payresult.data.paySign,
-		"success": function (res) {
-			console.log('success', res);
-			uni.hideLoading()
-		},
-		"fail": function (res) {
-			console.log('fail', res);
-			uni.hideLoading()
-		},
-		"complete": function (res) {
-			console.log('complete', res);
-			uni.hideLoading()
-		}
+	console.log(item, `${item.id}`)
+	uni.navigateTo({
+		url: `/pages/home/product_details?productId=${item.id}`
 	});
+	// console.log("点解购买按钮", item)
+	// uni.showLoading({
+	// 	title: "创建订单..."
+	// })
+	// let res = await createOrder({ item_id: item.id, quantity: 1 })
+	// let payResult = await pay({ order_sn: res.data.order_sn })
+	// uni.requestPayment({
+	// 	"timeStamp": payresult.data.timeStamp,
+	// 	"nonceStr": payresult.data.nonceStr,
+	// 	"package": payresult.data.package,
+	// 	"signType": payresult.data.signType,
+	// 	"paySign": payresult.data.paySign,
+	// 	"success": function (res) {
+	// 		console.log('success', res);
+	// 		uni.hideLoading()
+	// 	},
+	// 	"fail": function (res) {
+	// 		console.log('fail', res);
+	// 		uni.hideLoading()
+	// 	},
+	// 	"complete": function (res) {
+	// 		console.log('complete', res);
+	// 		uni.hideLoading()
+	// 	}
+	// });
 
 	// console.log(payRes, '支付')
 	// console.log('创建订单', res)

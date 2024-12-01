@@ -83,6 +83,23 @@ import {
 let title = ref('hello')
 let cardsCount = ref(0)
 let toAssessment = (assessmentId) => {
+	if (!uni.getStorageSync('token')) {
+		uni.showModal({
+			content: '登录才可进行测评哦~',
+			showCancel: true,
+			confirmText: '前往登录',
+			success: (e) => {
+				console.log(e)
+				if (e.confirm) {
+					uni.navigateTo({
+						url: '/pages/login/index'
+					})
+				}
+			},
+
+		})
+		return
+	}
 	if (cardsCount.value <= 0) {
 		uni.navigateTo({
 			url: `/pages/personal/identityInfo?assessmentId=${assessmentId}`
@@ -94,9 +111,8 @@ let toAssessment = (assessmentId) => {
 	}
 }
 let handleShop = () => {
-	uni.showToast({
-		title: '暂未开放',
-		icon: 'none'
+	uni.navigateTo({
+		url: '/pages/home/product_list'
 	})
 }
 let handleHotActive = () => {

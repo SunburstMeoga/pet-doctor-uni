@@ -75,6 +75,8 @@ const { colPickerData, findChildrenByCode } = useColPickerData()
 let isDefault = ref(false)
 let name = ref('')
 let phone = ref('')
+let operating = ref('') //点击当前地址项时要进行的操作，操作类型从上一页面传递过来，可能为null，null则点击地址项时不进行任何操作
+
 let selectArea = ref([{ label: '省、', value: '' }, { label: '市、', value: '' }, { label: '区', value: '' }])
 let area = ref([
     colPickerData.map((item) => {
@@ -134,6 +136,9 @@ const handleConfirm = async () => { //点击确认添加地址按钮
         if (result.code !== 0) {
             return
         }
+        if (operating.value === 'select') {
+            uni.setStorageSync('createOrderAddress', result.data)
+        }
         uni.navigateBack({
             delta: 1
         });
@@ -143,7 +148,9 @@ const handleConfirm = async () => { //点击确认添加地址按钮
     }
 }
 onLoad((options) => {
-
+    if (options && options.operating) {
+        operating.value = options.operating
+    }
 })
 
 </script>

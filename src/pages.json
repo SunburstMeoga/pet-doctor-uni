@@ -51,11 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/login/index",
+      "path": "pages/personal/petIDCardList",
       "type": "home",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页"
+        "navigationBarTitleText": "宠物身份证"
       }
     },
     {
@@ -88,7 +87,6 @@
       "path": "pages/home/mbti_questiton",
       "type": "page",
       "style": {
-        "navigationStyle": "custom",
         "navigationBarTitleText": "测测爱宠的MBTI"
       }
     },
@@ -152,6 +150,14 @@
       }
     },
     {
+      "path": "pages/login/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
       "path": "pages/personal/identityInfo",
       "type": "page",
       "style": {
@@ -175,10 +181,6 @@
       }
     },
     {
-      "path": "pages/personal/petIDCardList",
-      "type": "page"
-    },
-    {
       "path": "pages/report/index",
       "type": "page"
     },
@@ -186,7 +188,6 @@
       "path": "pages/report/report-result",
       "type": "page",
       "style": {
-        "navigationStyle": "custom",
         "navigationBarTitleText": "报告"
       }
     }

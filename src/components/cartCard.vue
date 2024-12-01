@@ -14,7 +14,7 @@
             <div
                 class="bg-zinc-1 text-zinc-4 w-full rounded-16rpx  flex justify-between items-center text-24rpx h-57rpx">
                 <div class="ml-24rpx">{{ skuItems }}</div>
-                <div class="icon iconfont icon-down text-16rpx mr-24rpx"></div>
+                <!-- <div class="icon iconfont icon-down text-16rpx mr-24rpx"></div> -->
             </div>
             <div class="w-full flex justify-between items-center">
                 <div class="text-32rpx font-bold">￥{{ price * 0.01 }}</div>

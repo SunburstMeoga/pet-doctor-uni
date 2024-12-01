@@ -46,16 +46,16 @@ let toPolicy = () => {
 }
 let handleStarAnswer = () => {
 	console.log(uni.getStorageSync('hasPhone'))
-	if (!uni.getStorageSync('hasPhone')) {
+	if (!uni.getStorageSync('token')) {
 		uni.showModal({
-			content: '绑定手机号才可答题哦',
-			showCancel: false,
-			confirmText: '前往绑定',
+			content: '登录才可进行答题哦~',
+			showCancel: true,
+			confirmText: '前往登录',
 			success: (e) => {
 				console.log(e)
 				if (e.confirm) {
 					uni.navigateTo({
-						url: '/pages/login/bind'
+						url: '/pages/login/index'
 					})
 				}
 			},

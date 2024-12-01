@@ -1,52 +1,71 @@
+<route lang="json5" type="home">
+    {
+      style: {
+        navigationBarTitleText: '宠物身份证',
+      },
+    }
+    </route>
 <template>
-	<view class="container flex justify-end items-center">
-		<view class="content flex justify-start items-center">
-			<view class="content-title flex justify-between items-center">
-				<view class="content-title-left flex justify-start items-center">
-					<view class="content-title-left-return flex justify-center items-center">
-						<view class="content-title-left-return-icon icon iconfont icon-return"></view>
-					</view>
-					<view class="content-title-left-word">
+	<div class="container flex justify-end items-center">
+		<div class="content flex justify-start items-center">
+			<div class="content-title flex justify-between items-center">
+				<div class="content-title-left flex justify-start items-center">
+					<div class="content-title-left-return flex justify-center items-center">
+						<div class="content-title-left-return-icon icon iconfont icon-return"></div>
+					</div>
+					<div class="content-title-left-word">
 						爱宠身份证
-					</view>
-				</view>
-				<view class="content-title-right flex justify-end items-center" v-show="cardList.length !== 0">
-					<view style="font-size: 20rpx;">左滑可删除身份证</view>
-					<!-- <view class="content-title-right-operating flex justify-start items-center">
-						<view class="content-title-right-operating-icon icon iconfont icon-setting"></view>
-						<view class="content-title-right-operating-word">管理</view>
-					</view>
-					<view class="content-title-right-operating flex justify-start items-center" style="margin-left: 46rpx;">
-						<view class="content-title-right-operating-icon icon iconfont icon-add"></view>
-						<view class="content-title-right-operating-word">新增</view>
-					</view> -->
-				</view>
-			</view>
-			<view class="content-list" v-if="cardList.length !== 0">
-				<uni-swipe-action class="flex justify-start items-center">
-					<view v-for="(item, index) in cardList" :key="index" class="content-list-item"
-						@click="handleCard(item)">
-						<uni-swipe-action-item :right-options="options1" @click="bindClick(item.id)" @change="change">
-							<pet-card :name="item.name" :breed="item.breed.name" :sex="item.sex"
-								:time="item.birth_at"></pet-card>
-						</uni-swipe-action-item>
-					</view>
-				</uni-swipe-action>
+					</div>
+				</div>
+				<div class="content-title-right flex justify-end items-center" v-show="cardList.length !== 0">
+					<div style="font-size: 20rpx;">左滑可删除身份证</div>
+					<!-- <div class="content-title-right-operating flex justify-start items-center">
+						<div class="content-title-right-operating-icon icon iconfont icon-setting"></div>
+						<div class="content-title-right-operating-word">管理</div>
+					</div>
+					<div class="content-title-right-operating flex justify-start items-center" style="margin-left: 46rpx;">
+						<div class="content-title-right-operating-icon icon iconfont icon-add"></div>
+						<div class="content-title-right-operating-word">新增</div>
+					</div> -->
+				</div>
+			</div>
+			<div class="content-list" v-if="cardList.length !== 0">
+				<div v-for="(item, index) in cardList" :key="index" class="content-list-item">
+					<wd-swipe-action class="flex justify-start items-center">
+						<pet-card :name="item.name" :breed="item.breed.name" :id="item.id" :sex="item.sex"
+							:time="item.birth_at" :assessmentId="assessmentId"></pet-card>
+						<template #right>
+							<div class="h-full">
+								<div class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"
+									@click="bindClick(item)">删除</div>
+							</div>
+						</template>
+					</wd-swipe-action>
+				</div>
 
-			</view>
-			<view v-if="cardList.length === 0" class="content-empty flex justify-center items-center">
-				<view class="content-empty-word">暂无内容</view>
-				<view class="content-empty-button flex justify-center items-center">
-					<view class="content-empty-button-icon icon iconfont icon-add"></view>
-					<view class="content-empty-button-word">新增</view>
-				</view>
-			</view>
-			<view @click="toAddCard()" class="empty flex justify-center items-center" v-if="cardList.length !== 0">
+			</div>
+			<div v-if="cardList.length === 0" class="content-empty flex justify-center items-center">
+				<div class="content-empty-word">暂无内容</div>
+				<div class="content-empty-button flex justify-center items-center">
+					<div class="content-empty-button-icon icon iconfont icon-add"></div>
+					<div class="content-empty-button-word">新增</div>
+				</div>
+			</div>
+			<!-- <div @click="toAddCard()" class="empty flex justify-center items-center" v-if="cardList.length !== 0">
 				新增宠物身份证
-			</view>
+			</div> -->
 
-		</view>
-	</view>
+			<div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white"
+				style="border-top:1px solid #f3f4f6;">
+				<div class="w-686rpx flex justify-between items-center">
+					<div @click="toAddCard"
+						class=" text-orange-4 bg-slate9 flex justify-center items-center rounded-16rpx w-full h-88rpx">
+						新增宠物身份证</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </template>
 
 <script setup>
@@ -79,18 +98,22 @@ let assessmentId = ref('')
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
 	if (options.assessmentId) {
-		assessmentId.value = options.assessmentId
+		assessmentId.value = options.assessmentId || 2
 		console.log(assessmentId.value)
 	}
 
 
 })
+const handleAction = (type) => { //点击删除身份证
+	console.log(type)
+}
 let toAddCard = () => {
 	uni.navigateTo({
 		url: `/pages/personal/identityInfo?assessmentId=${assessmentId.value}`
 	})
 }
 let handleCard = (item) => {
+	console.log('点击宠物身份证', item)
 	uni.navigateTo({
 		url: `/pages/home/mbti_questiton?cardId=${item.id}&assessmentId=${assessmentId.value}`
 	})

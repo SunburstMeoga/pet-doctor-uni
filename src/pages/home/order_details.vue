@@ -24,7 +24,7 @@
                         自提地址：
                     </div>
                     <div class="text-slate-9 text-32rpx font-medium">
-                        深圳市会展中心2楼103展区
+                        {{ pickUpSite }}
                     </div>
                 </div>
                 <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
@@ -35,12 +35,14 @@
                     <div class="flex justify-start items-center text-zinc5 text-26rpx">
                         <div class="icon iconfont icon-Personal "></div>
                         <div class="flex justify-start items-center ml-4rpx">
-                            {{ orderDetailsInfo.name || '快递收货人姓名' }} {{ orderDetailsInfo.phone || '联系人电话' }}
+                            {{ orderDetailsInfo.address.name || '快递收货人姓名' }} {{ orderDetailsInfo.address.phone ||
+                        '联系人电话' }}
                         </div>
                     </div>
                     <div class="flex justify-start items-center text-zinc5 text-26rpx">
                         <div class="icon iconfont icon-addresss "></div>
-                        <div class="flex justify-start items-center ml-4rpx">{{ orderDetailsInfo.address || '联系人地址' }}
+                        <div class="flex justify-start items-center ml-4rpx">{{ orderDetailsInfo.address.detail ||
+                        '联系人地址' }}
                         </div>
                     </div>
                     <!-- <div class="text-zinc4 text-28rpx mb-10rpx ">
@@ -184,8 +186,8 @@ const getOrderDetails = async () => { //获取订单详情
     }
 }
 onLoad((options) => {
-    orderSN.value = options.orderSN
-    // orderSN.value = 'P202412011732997256'
+    // orderSN.value = options.orderSN
+    orderSN.value = 'P202412011733055424'
     getOrderDetails()
     getSystemConfig()
 })

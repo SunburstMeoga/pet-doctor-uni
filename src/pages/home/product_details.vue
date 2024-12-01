@@ -106,7 +106,7 @@ let tags = ref([
 ])
 const handleSelectAddress = () => { //点击收银台的选择地址
     uni.navigateTo({
-        url: '/pages/home/address_list?operating=' + 'select'
+        url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
     })
 }
 const getAddressItems = async () => { //获取地址列表
@@ -121,7 +121,7 @@ const getAddressItems = async () => { //获取地址列表
         if (uni.getStorageSync('createOrderAddress')) {
             addressInfo.value = uni.getStorageSync('createOrderAddress')
         } else {
-            addressInfo.value = arr[0]
+            addressInfo.value = arr[0] || addressItems.value[0]
         }
 
         console.log('默认地址', addressInfo.value)
@@ -294,6 +294,23 @@ const formatTimestamp = (timestamp) => { //格式化时间内
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 const handleAddCart = async () => { //点击添加购物车
+    if (!uni.getStorageSync('token')) {
+        uni.showModal({
+            content: '登录才可进行添加购物车哦~',
+            showCancel: true,
+            confirmText: '前往登录',
+            success: (e) => {
+                console.log(e)
+                if (e.confirm) {
+                    uni.navigateTo({
+                        url: '/pages/login/index'
+                    })
+                }
+            },
+
+        })
+        return
+    }
     try {
         uni.showLoading({
             title: '加载中'
@@ -316,6 +333,23 @@ const handleAddCart = async () => { //点击添加购物车
 
 }
 const handleBuyNow = () => { //点击立即购买
+    if (!uni.getStorageSync('token')) {
+        uni.showModal({
+            content: '登录才可购买哦~',
+            showCancel: true,
+            confirmText: '前往登录',
+            success: (e) => {
+                console.log(e)
+                if (e.confirm) {
+                    uni.navigateTo({
+                        url: '/pages/login/index'
+                    })
+                }
+            },
+
+        })
+        return
+    }
     showCheckoutCounter.value = true
 }
 const handleChange = ({ value }) => { //步进器
