@@ -51,10 +51,13 @@
   },
   "pages": [
     {
-      "path": "pages/home/order_details",
+      "path": "pages/home/index",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "订单详情"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -76,14 +79,6 @@
       "type": "page"
     },
     {
-      "path": "pages/home/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页"
-      }
-    },
-    {
       "path": "pages/home/mbti_questiton",
       "type": "page",
       "style": {
@@ -98,6 +93,13 @@
       }
     },
     {
+      "path": "pages/home/order_details",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "订单详情"
+      }
+    },
+    {
       "path": "pages/home/pet_mbti",
       "type": "page"
     },
@@ -109,7 +111,9 @@
       "path": "pages/home/product_details",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "商品详情"
+        "navigationBarTitleText": "商品详情",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -192,7 +196,9 @@
       "path": "pages/report/report-result",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "报告"
+        "navigationBarTitleText": "报告",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     }
   ],

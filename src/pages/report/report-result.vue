@@ -2,6 +2,8 @@
 	{
 	  style: {
 		navigationBarTitleText: '报告',
+		enableShareAppMessage: true,
+   		 enableShareTimeline: true
 	  },
 	}
 	</route>
@@ -78,11 +80,11 @@
 		<view class="service-word">
 			添加专属客服，获取正确的医疗指导
 		</view>
-		<view class="share flex justify-center items-center">
+		<!-- <view class="share flex justify-center items-center">
 			<view class="share-button flex justify-center items-center" @click="handleShare()">
 				转发到朋友圈
 			</view>
-		</view>
+		</view> -->
 
 	</view>
 </template>
@@ -97,14 +99,23 @@ let reportTitle = ref('')
 let cardId = ref('')
 let mbtiImg = ref('')
 let petInfoObj = ref({})
+const onShareTimeline = () => {
+	return {
+		title: "喵博士 X 汪博士",
+		query: '/pages/home/index',
+		summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
+		imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
+		// imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
+	};
+}
 let handleShare = () => {
 	console.log('点击了分享')
-	uni.share({
+
+	uni.showShareTimelineOptions({
 		provider: "weixin",
-		scene: "WXSceneTimeline",
-		type: 1,
 		// href: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
 		title: "喵博士 X 汪博士",
+		query: '/pages/home/index',
 		summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
 		imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
 		success: function (res) {
@@ -179,8 +190,8 @@ onMounted(() => {
 })
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
-	reportId.value = options.reportId
-	cardId.value = options.cardId
+	reportId.value = options.reportId || 2071
+	cardId.value = options.cardId || 11
 	console.log('options.cardId', options.cardId)
 })
 </script>

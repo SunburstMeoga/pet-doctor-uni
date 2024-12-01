@@ -2,6 +2,8 @@
     {
       style: {
         navigationBarTitleText: '商品详情',
+        enableShareAppMessage: true,
+   		 enableShareTimeline: true
       },
     }
     </route>
@@ -108,6 +110,15 @@ const handleSelectAddress = () => { //点击收银台的选择地址
     uni.navigateTo({
         url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
     })
+}
+const onShareAppMessage = () => {
+    return {
+        title: "喵博士 X 汪博士",
+        query: '/pages/home/product_details?productId=' + productId.value,
+        summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
+        imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
+        // imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
+    };
 }
 const getAddressItems = async () => { //获取地址列表
     try {

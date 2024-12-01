@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '订单详情',
@@ -193,8 +193,8 @@ const getOrderDetails = async () => { //获取订单详情
     }
 }
 onLoad((options) => {
-    // orderSN.value = options.orderSN
-    orderSN.value = 'P202412011733055424'
+    orderSN.value = options.orderSN
+    // orderSN.value = 'P202412011733055424'
     getOrderDetails()
     getSystemConfig()
 })
