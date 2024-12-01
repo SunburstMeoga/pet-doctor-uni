@@ -51,11 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/report/index",
+      "path": "pages/home/order_details",
       "type": "home",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "报告"
+        "navigationBarTitleText": "订单详情"
       }
     },
     {
@@ -96,13 +95,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "订单结算"
-      }
-    },
-    {
-      "path": "pages/home/order_details",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "订单详情"
       }
     },
     {
@@ -186,6 +178,14 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "宠物身份证"
+      }
+    },
+    {
+      "path": "pages/report/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "报告"
       }
     },
     {

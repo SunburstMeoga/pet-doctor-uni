@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '订单详情',
@@ -95,6 +95,13 @@
 
             </div>
         </div>
+        <button open-type='contact' session-from='' class="fixed w-120rpx h-120rpx">
+            <div class="fixed bottom-340rpx right-40rpx w-120rpx h-120rpx rounded-full overflow-hidden block">
+                <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241201/LAAxcoG2lhnjNiRaaTfXdWEGwGs5bAY0qB5wQJmU.png"
+                    alt="">
+            </div>
+
+        </button>
     </div>
 </template>
 
