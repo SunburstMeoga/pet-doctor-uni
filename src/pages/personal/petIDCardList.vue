@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '宠物身份证',
@@ -33,7 +33,7 @@
 				<div v-for="(item, index) in cardList" :key="index" class="content-list-item">
 					<wd-swipe-action class="flex justify-start items-center">
 						<pet-card :name="item.name" :breed="item.breed.name" :id="item.id" :sex="item.sex"
-							:time="item.birth_at" :assessmentId="assessmentId"></pet-card>
+							:toJump="true" :time="item.birth_at" :assessmentId="assessmentId"></pet-card>
 						<template #right>
 							<div class="h-full">
 								<div class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"

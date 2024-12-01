@@ -7,66 +7,66 @@
 	}
 	</route>
 <template>
-	<view class="content">
-		<view class="logo">
+	<div class="content">
+		<div class="logo">
 			<image mode="aspectFit"
 				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241127/tacl0itkBbPXmlK9T2aMSjFqC7ZTORzQWF0FptIo.png"
 				alt="" />
-		</view>
-		<view class="home-banner">
-			<view class="home-video">
+		</div>
+		<div class="home-banner">
+			<div class="home-video">
 				<!-- <video style="height: 1120rpx; width: 100%;" :muted="true" :loop="true" :autoplay="true"
 					:controls="false"
 					src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241023/jIaGiG9MPZYKGZXsOI9pZe61y2IlXIFMHz5t7Q0g.mp4"></video> -->
 				<image style="height: 1120rpx; width: 100%;" mode="aspectFill"
 					src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png">
 				</image>
-			</view>
-			<view class="home-operating flex justify-end items-center">
-				<view class="home-button home-mbti" @click="toAssessment('2')">
-					<!-- <view>喵喵MBTI测评</view> -->
-					<view class="home-button-icon"
+			</div>
+			<div class="home-operating flex justify-end items-center">
+				<div class="home-button home-mbti" @click="toAssessment('2')">
+					<!-- <div>喵喵MBTI测评</div> -->
+					<div class="home-button-icon"
 						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://47.238.229.145:8000/media/20241108/QMdEifybyGQ6K4T4rtw7VY56NpmL4XL80u9Ob85L.png');">
 						<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-					</view>
-				</view>
-				<view class="home-button home-mbti" @click="toAssessment('1')">
-					<!-- <view>汪汪MBTI测评</view> -->
-					<view class="home-button-icon"
+					</div>
+				</div>
+				<div class="home-button home-mbti" @click="toAssessment('1')">
+					<!-- <div>汪汪MBTI测评</div> -->
+					<div class="home-button-icon"
 						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://47.238.229.145:8000/media/20241108/QMdEifybyGQ6K4T4rtw7VY56NpmL4XL80u9Ob85L.png');">
 						<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 						<!-- {{getApp().go}} -->
-					</view>
-				</view>
+					</div>
+				</div>
 
-				<view class="home-button home-eval" @click="toAssessment('3')">
-					<!-- <view>定制健康测评</view> -->
-					<view class="home-button-icon"
+				<div class="home-button home-eval" @click="toAssessment('3')">
+					<!-- <div>定制健康测评</div> -->
+					<div class="home-button-icon"
 						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://47.238.229.145:8000/media/20241108/Sgk6WETT1GVMPbpBYoDz1eMtmrwOI08v1d2ApVBW.png');">
 						<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="acvive">
-			<view class="one" @click="handleShop">
-				<!-- <view class="word">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="acvive">
+			<div class="one" @click="handleShop">
+				<!-- <div class="word">
 					商城
-				</view> -->
+				</div> -->
 				<image mode="aspectFill"
 					:src="`http://47.238.229.145:8000/media/20241108/fqon6fCvn9uBCx7leDWaijzoe2j4llrscIrQ39FC.png`"
 					alt="" />
-			</view>
-			<view class="two" @click="handleHotActive">
-				<!-- <view class="word">
+			</div>
+			<div class="two" @click="handleHotActive">
+				<!-- <div class="word">
 					热门活动
-				</view> -->
+				</div> -->
 				<image mode="aspectFill"
 					src="http://47.238.229.145:8000/media/20241108/OfBk7SgW5XFvapDKxPv8Abp2HE7xMJxe8KtGokXu.png"
 					alt="" />
-			</view>
-		</view>
-	</view>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup>

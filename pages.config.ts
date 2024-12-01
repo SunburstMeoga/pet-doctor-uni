@@ -17,8 +17,8 @@ export default defineUniPages({
     },
   },
   tabBar: {
-    color: '#999999',
-    selectedColor: '#018d71',
+    color: '#8C8C8C',
+    selectedColor: '#020617',
     backgroundColor: '#F8F8F8',
     borderStyle: 'black',
     height: '50px',
@@ -27,26 +27,26 @@ export default defineUniPages({
     spacing: '3px',
     list: [
       {
-        iconPath: 'static/tabbar/home.png',
-        selectedIconPath: 'static/tabbar/homeHL.png',
+        iconPath: 'static/images/icon/home.png',
+        selectedIconPath: 'static/images/icon/home-active.png',
         pagePath: 'pages/home/index',
         text: '首页',
       },
       {
-        iconPath: 'static/tabbar/example.png',
-        selectedIconPath: 'static/tabbar/exampleHL.png',
+        iconPath: 'static/images/icon/report.png',
+        selectedIconPath: 'static/images/icon/report-active.png',
         pagePath: 'pages/report/index',
         text: '报告',
       },
       {
-        iconPath: 'static/tabbar/example.png',
-        selectedIconPath: 'static/tabbar/exampleHL.png',
+        iconPath: 'static/images/icon/cart.png',
+        selectedIconPath: 'static/images/icon/cart-active.png',
         pagePath: 'pages/cart/index',
         text: '购物车',
       },
       {
-        iconPath: 'static/tabbar/example.png',
-        selectedIconPath: 'static/tabbar/exampleHL.png',
+        iconPath: 'static/images/icon/personal.png',
+        selectedIconPath: 'static/images/icon/personal-active.png',
         pagePath: 'pages/personal/index',
         text: '个人',
       }

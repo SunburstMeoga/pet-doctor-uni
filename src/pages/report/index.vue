@@ -1,3 +1,11 @@
+<route lang="json5" type="home">
+	{
+	  style: {
+		navigationStyle: 'custom',
+		navigationBarTitleText: '报告',
+	  },
+	}
+	</route>
 <template>
 	<view class="container">
 		<view class="logo">
@@ -7,7 +15,7 @@
 		</view>
 		<view class="content flex justify-start items-center image-bg"
 			style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/TomWHO3jqHYSMV4f0KosXrrxe1tKiVEIy7ODUQ8B.png');">
-			<view class="add-service flex justify-between items-center">
+			<view class="add-service flex justify-between items-center" @click="addCustom">
 				<view class="add-service-hi">
 					<image
 						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/76MPExVIGBYFHQe9Ecg1oEQi7wN1JgYziL0gjfCU.png"
@@ -62,7 +70,7 @@
 				</view>
 			</uni-swipe-action>
 		</view>
-
+		<!-- <uni-preview-image :image-list="imageList" :show="showPreview"></uni-preview-image> -->
 	</view>
 </template>
 <script setup>
@@ -72,6 +80,8 @@ import {
 	petCards, reports
 } from '@/service/index'
 let currentReport = ref(0)
+let imageList = ref(['http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png'])
+let showPreview = ref(false)
 let cardList = ref([])
 let options1 = ref([{
 	text: '删除',
@@ -92,6 +102,12 @@ let bindClick = (e) => {
 	//  title: `点击了${e.position === 'left' ? '左侧' : '右侧'} ${e.content.text}按钮`,
 	//  icon: 'none'
 	// });
+}
+const addCustom = () => { //添加专属客服
+	uni.previewImage({
+		current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
+		urls: imageList.value // 需要预览的图片http链接列表
+	});
 }
 let swipeChange = async (e) => {
 	console.log(e)

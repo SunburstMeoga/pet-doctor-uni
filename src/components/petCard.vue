@@ -27,6 +27,10 @@ import { ref, defineProps } from 'vue'
 // const emit = defineEmits('handleCard')
 
 const props = defineProps({
+	toJump: {
+		type: Boolean,
+		default: false
+	},
 	showEdit: {
 		type: Boolean,
 		deafult: false
@@ -58,6 +62,7 @@ const props = defineProps({
 })
 const handleCard = () => {
 	console.log('点击宠物身份证')
+	if (!props.toJump) return
 	uni.navigateTo({
 		url: `/pages/home/mbti_questiton?cardId=${props.id}&assessmentId=${props.assessmentId || 2}`
 	})
