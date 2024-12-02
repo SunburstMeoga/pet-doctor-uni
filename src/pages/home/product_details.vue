@@ -39,7 +39,7 @@
             <div class="w-686rpx text-zinc-4 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.intro }}
             </div>
-            <div class="w-686rpx flex flex-wrap min-h-10000rpx pb-600rpx">
+            <div class="w-686rpx  min-h-10000rpx pb-600rpx">
                 <img class="w-full block h-auto" v-for="(item, index) in productDetailsInfo.detail_pictures"
                     :key="index" :src="item">
             </div>
@@ -278,7 +278,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
                         console.log(error)
                         uni.hideLoading()
                     }
-                }, 10000);
+                }, 7000);
             }
         } catch (err) {
             console.log(err)
