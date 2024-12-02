@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white"
-            v-if="orderDetails.status === 0">
+            v-if="orderDetailsInfo.status === 0">
 
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
@@ -95,7 +95,7 @@
 
             </div>
         </div>
-        <button open-type='contact' session-from='' class="fixed w-120rpx h-120rpx">
+        <button open-type='contact' session-from='' class="fixed w-120rpx h-120rpx  bottom-340rpx right-40rpx">
             <div class="fixed bottom-340rpx right-40rpx w-120rpx h-120rpx rounded-full overflow-hidden block">
                 <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241201/LAAxcoG2lhnjNiRaaTfXdWEGwGs5bAY0qB5wQJmU.png"
                     alt="">

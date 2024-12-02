@@ -139,14 +139,6 @@
       }
     },
     {
-      "path": "pages/login/bind",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": ""
-      }
-    },
-    {
       "path": "pages/login/index",
       "type": "page",
       "style": {

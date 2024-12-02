@@ -17,7 +17,6 @@ interface NavigateToOptions {
        "/pages/home/product_list" |
        "/pages/home/star_answer" |
        "/pages/home/store_address" |
-       "/pages/login/bind" |
        "/pages/login/index" |
        "/pages/personal/identityInfo" |
        "/pages/personal/index" |

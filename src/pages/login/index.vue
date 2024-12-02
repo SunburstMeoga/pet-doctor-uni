@@ -107,17 +107,25 @@ const onGetPhoneNumber = async (e) => {
         encrypted_data: encryptedData.value,
       })
       console.log(result)
-      uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
-      uni.setStorageSync('hasPhone', result.data.has_phone)
+      if (result.code !== 0) {
+        uni.showToast({
+          title: result.message,
+          icon: 'none'
+        })
+      } else {
+        uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
+        uni.setStorageSync('hasPhone', result.data.has_phone)
 
-      console.log('用户token', uni.getStorageSync('token'))
-      console.log('是否有手机号', uni.getStorageSync('hasPhone'))
+        console.log('用户token', uni.getStorageSync('token'))
+        console.log('是否有手机号', uni.getStorageSync('hasPhone'))
 
-      // getPhone.value = true
-      uni.hideLoading()
-      uni.switchTab({
-        url: '/pages/home/index',
-      })
+        // getPhone.value = true
+        uni.hideLoading()
+        uni.switchTab({
+          url: '/pages/home/index',
+        })
+      }
+
     } catch (err) {
       console.log(err)
       uni.hideLoading()
