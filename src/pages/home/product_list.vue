@@ -2,6 +2,8 @@
     {
       style: {
         navigationBarTitleText: '商品',
+        enableShareAppMessage: true,
+        enableShareTimeline: true
       },
     }
     </route>

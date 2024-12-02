@@ -120,7 +120,9 @@
       "path": "pages/home/product_list",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "商品"
+        "navigationBarTitleText": "商品",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {

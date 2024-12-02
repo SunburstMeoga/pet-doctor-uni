@@ -101,10 +101,11 @@ let mbtiImg = ref('')
 let petInfoObj = ref({})
 const onShareTimeline = () => {
 	return {
+		// href: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
 		title: "喵博士 X 汪博士",
 		query: '/pages/home/index',
-		summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
-		imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
+		summary: `${reportTitle.value}`,
+		imageUrl: `${mbtiImg.value}`,
 		// imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
 	};
 }
@@ -116,8 +117,8 @@ let handleShare = () => {
 		// href: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
 		title: "喵博士 X 汪博士",
 		query: '/pages/home/index',
-		summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
-		imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
+		summary: `${reportTitle.value}`,
+		imageUrl: `${mbtiImg.value}`,
 		success: function (res) {
 			console.log("success:" + JSON.stringify(res));
 		},

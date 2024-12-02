@@ -88,8 +88,8 @@ const onShareAppMessage = () => {
 	return {
 		title: "喵博士 X 汪博士",
 		query: '/pages/home/index',
-		summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
-		imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
+		summary: "您的爱宠私人医生",
+		imageUrl: "https://attachments.tower.im/tower/1f523d73daf38e36394e9c1dbf2310ab?version=auto",
 		// imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
 	};
 }

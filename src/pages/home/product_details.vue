@@ -116,8 +116,8 @@ const onShareAppMessage = () => {
     return {
         title: "喵博士 X 汪博士",
         query: '/pages/home/product_details?productId=' + productId.value,
-        summary: "我正在使用喵博士 X 汪博士进行爱宠MBTI测试，赶紧跟我一起来体验！",
-        imageUrl: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
+        summary: `${productDetailsInfo.value.title}`,
+        imageUrl: `${productDetailsInfo.value.pictures[0]}`,
         // imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
     };
 }
