@@ -41,7 +41,7 @@ let selectType = ref('')
 const toDetails = (item) => {
 	console.log(item, `${item.id}`)
 	uni.navigateTo({
-		url: `/pages/home/order_details?productId=${item.order_sn}`
+		url: `/pages/home/order_details?orderSN=${item.order_sn}`
 	});
 }
 const getPickUpMethod = (deliveryMethod) => {
