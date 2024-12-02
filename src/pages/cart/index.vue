@@ -129,7 +129,7 @@ const handleCheckout = async () => { //点击结算按钮
 					console.log(error)
 					uni.hideLoading()
 				}
-			}, 5000);
+			}, 10000);
 		} else {
 			showToast({
 				title: orderRes.message,

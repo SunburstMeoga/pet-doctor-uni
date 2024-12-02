@@ -278,7 +278,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
                         console.log(error)
                         uni.hideLoading()
                     }
-                }, 5000);
+                }, 10000);
             }
         } catch (err) {
             console.log(err)
