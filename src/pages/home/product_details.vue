@@ -21,7 +21,7 @@
                     <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
                         class="flex justify-center items-center">
                         <view class="swiper-item" :class="'swiper-item' + index">
-                            <img :src="item" class="w-full h-full object-cover" alt="">
+                            <img :src="item" class="object-cover" alt="">
                         </view>
                     </swiper-item>
                 </swiper>
@@ -39,9 +39,14 @@
             <div class="w-686rpx text-zinc-4 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.intro }}
             </div>
-            <div class="w-686rpx  min-h-10000rpx pb-600rpx">
-                <img class="w-full block h-auto" v-for="(item, index) in productDetailsInfo.detail_pictures"
-                    :key="index" :src="item">
+            <div class="w-686rpx pb-600rpx">
+                <div class="w-full" v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index"
+                    :src="item">
+                    <img :src="item" class="w-full h-1200rpx" />
+
+                </div>
+                <!-- <img class="w-full h-auto block " style="border: 1px solid red;"
+                    v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index" :src="item"> -->
             </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white">
@@ -49,7 +54,7 @@
                 <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
             </div>
             <div class="w-full flex justify-start items-center">
-                <div class="flex justify-center items-center min-w-92rpx min-h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
+                <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
                     @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
                     :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
                     {{ item.sku_title }}

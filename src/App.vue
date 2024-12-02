@@ -27,8 +27,8 @@ scroll-view {
 
 image {
   width: 100%;
+  object-fit: contain;
   height: 100%;
-  vertical-align: middle;
 }
 
 // 单行省略，优先使用 unocss: text-ellipsis
