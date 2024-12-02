@@ -1,9 +1,7 @@
 <route lang="json5">
     {
       style: {
-        navigationBarTitleText: '商品',
-        enableShareAppMessage: true,
-        enableShareTimeline: true
+        navigationBarTitleText: '商品'
       },
     }
     </route>

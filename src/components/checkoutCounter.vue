@@ -54,7 +54,7 @@
                     <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
                 </div>
                 <div class="w-full flex justify-start items-center">
-                    <div class="flex justify-center items-center w-92rpx h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
+                    <div class="flex justify-center items-center min-w-92rpx min-h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
                         @click="handleSKUItem(item)" v-for="(item, index) in productInfo.items" :key="index"
                         :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
                         {{ item.sku_title }}

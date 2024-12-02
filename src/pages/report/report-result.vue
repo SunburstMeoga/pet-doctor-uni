@@ -102,7 +102,7 @@ let petInfoObj = ref({})
 const onShareTimeline = () => {
 	return {
 		// href: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
-		title: "喵博士 X 汪博士",
+		title: "快来给你的爱宠测一下MBTI吧",
 		query: '/pages/home/index',
 		summary: `${reportTitle.value}`,
 		imageUrl: `${mbtiImg.value}`,
@@ -115,7 +115,7 @@ let handleShare = () => {
 	uni.showShareTimelineOptions({
 		provider: "weixin",
 		// href: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
-		title: "喵博士 X 汪博士",
+		title: "快来给你的爱宠测一下MBTI吧",
 		query: '/pages/home/index',
 		summary: `${reportTitle.value}`,
 		imageUrl: `${mbtiImg.value}`,

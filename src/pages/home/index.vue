@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -124,7 +124,7 @@ let toAssessment = (assessmentId) => {
 let handleShop = () => {
 	if (!uni.getStorageSync('token')) {
 		uni.showModal({
-			content: '登录才可进行测评哦~',
+			content: '登录才可购买哦~',
 			showCancel: true,
 			confirmText: '前往登录',
 			success: (e) => {

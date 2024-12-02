@@ -68,7 +68,7 @@
 
 			</view>
 		</view>
-		<view class="service image-bg bg-cover bg-center"
+		<view class="service image-bg bg-cover bg-center" @click="addCustom"
 			style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/OjTrhJAdrMLyrYxEvW60FiQBXIvzkWZ1g6qKb4Vj.png');">
 
 		</view>
@@ -95,10 +95,18 @@ onMounted(() => {
 })
 let isLogged = ref(false)
 let userInfoObj = ref({})
+let imageList = ref(['http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png'])
+
 let toPolicy = () => {
 	uni.navigateTo({
 		url: '/pages/home/privacy_policy'
 	})
+}
+const addCustom = () => { //添加专属客服
+	uni.previewImage({
+		current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
+		urls: imageList.value // 需要预览的图片http链接列表
+	});
 }
 let getUserInfo = async () => {
 	let res = await userInfo()
