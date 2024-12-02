@@ -73,7 +73,7 @@
 
 		</view>
 		<view class="other-info flex items-center">
-			<!-- <view class="other-info-items" style="border-bottom: 1rpx solid #E6E6E6" @click="toPetList">爱宠身份证</view> -->
+			<view class="other-info-items" style="border-bottom: 1rpx solid #E6E6E6" @click="toPetList">爱宠身份证</view>
 			<view @click="toPolicy()" class="other-info-items">喵汪博士隐私申明</view>
 		</view>
 	</view>

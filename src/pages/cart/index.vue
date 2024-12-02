@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '购物车',
@@ -15,7 +15,7 @@
 					<CartCard @handleSelect="handleSelect(item)" :isSelect="item.isSelect"
 						:title="item && item.product && item.product.title" :productQuantity="item.quantity"
 						:items="item.product.items" :picture="item.product.picture"
-						:price="item.product.price * item.quantity || 0" />
+						:price="item.product.price * item.quantity || 0" @changeQuantity="changeQuantity" />
 					<template #right>
 						<view class="h-full">
 							<view
@@ -56,7 +56,7 @@
 
 <script setup>
 import CartCard from '@/components/cartCard'
-import { cart } from '@/service/index'
+import { cart, createOrder, pay } from '@/service/index'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
@@ -72,7 +72,12 @@ const handleSelect = (item) => { //点击选择项
 	console.log(cartIds.value)
 
 }
-const handleCheckout = () => { //点击结算按钮
+const changeQuantity = (e) => {
+	console.log('购物车卡片发生变化')
+
+	console.log(e)
+}
+const handleCheckout = async () => { //点击结算按钮
 	if (cartIds.value.length === 0) {
 		uni.showToast({
 			title: '请先选择至少一个结算项',
@@ -80,10 +85,66 @@ const handleCheckout = () => { //点击结算按钮
 		})
 		return
 	}
-	let arr = JSON.stringify(cartIds.value);
-	uni.navigateTo({
-		url: `/pages/home/order_checkout?cartIds=${encodeURIComponent(arr)}`
-	})
+	try {
+		uni.showLoading({
+			title: '创建订单...'
+		})
+		let orderRes = await createOrder({ cart_ids: cartIds.value, dispatch_mode: 0 })
+		console.log(orderRes, '创建订单闲情')
+		if (orderRes.code === 0) {
+			setTimeout(async () => {
+				try {
+					uni.showLoading({
+						title: '加载中'
+					})
+					let payResult = await pay({ order_sn: orderRes.data.order_sn })
+					console.log('支付结果', payResult)
+					uni.requestPayment({
+						"timeStamp": payResult.data.timeStamp,
+						"nonceStr": payResult.data.nonceStr,
+						"package": payResult.data.package,
+						"signType": payResult.data.signType,
+						"paySign": payResult.data.paySign,
+						"success": function (res) {
+							uni.navigateTo({
+								url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+							})
+							uni.hideLoading()
+						},
+						"fail": function (res) {
+							uni.navigateTo({
+								url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+							})
+							uni.hideLoading()
+						},
+						"complete": function (res) {
+							uni.navigateTo({
+								url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+							})
+							uni.hideLoading()
+						}
+					});
+					uni.hideLoading()
+				} catch (error) {
+					console.log(error)
+					uni.hideLoading()
+				}
+			}, 5000);
+		} else {
+			showToast({
+				title: orderRes.message,
+				icon: 'none'
+			})
+		}
+	} catch (err) {
+		console.log(err)
+		uni.hideLoading()
+	}
+	// let arr = JSON.stringify(cartIds.value);
+
+	// uni.navigateTo({
+	// 	url: `/pages/home/order_checkout?cartIds=${encodeURIComponent(arr)}`
+	// })
 }
 const getCart = async () => { //获取购物车列表
 	try {
@@ -103,7 +164,7 @@ const getCart = async () => { //获取购物车列表
 		uni.hideLoading()
 	}
 }
-onLoad(() => {
+onMounted(() => {
 	getCart()
 })
 

@@ -65,7 +65,8 @@ const getProductList = async () => {
         uni.hideLoading();
         uni.showToast({
             title: '请求错误，请重试',
-            duration: 2000
+
+            icon: 'none'
         });
     }
 }

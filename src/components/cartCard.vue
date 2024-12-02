@@ -19,7 +19,8 @@
             <div class="w-full flex justify-between items-center">
                 <div class="text-32rpx font-bold">￥{{ price * 0.01 }}</div>
                 <div>
-                    <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" />
+                    <!-- <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" @change="changeQuantity" /> -->
+                    X {{ productQuantity }}
                 </div>
             </div>
         </div>
@@ -27,7 +28,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['handleSelect'])
+const emit = defineEmits(['handleSelect', 'changeQuantity'])
 const props = defineProps({
     isSelect: {
         type: Boolean,
@@ -60,6 +61,9 @@ const handleSelect = () => {
 const skuItems = computed(() => {
     return props.items.map(item => item.sku_title).join(';');
 })
+const changeQuantity = (e) => { //改变数量
+    emit('changeQuantity', e)
+}
 
 </script>
 

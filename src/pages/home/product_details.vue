@@ -49,7 +49,7 @@
                 <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
             </div>
             <div class="w-full flex justify-start items-center">
-                <div class="flex justify-center items-center w-92rpx h-58rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
+                <div class="flex justify-center items-center px-4rpx py-2rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
                     @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
                     :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
                     {{ item.sku_title }}
@@ -107,6 +107,7 @@ let tags = ref([
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
 const handleSelectAddress = () => { //点击收银台的选择地址
+    if (selectPickMethod.value === 0) return
     uni.navigateTo({
         url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
     })
@@ -204,6 +205,12 @@ const checkOrderStatus = async (orderSN) => { //检查订单状态
 const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台确认订单按钮
     console.log(selectPickMethodChild)
     selectPickMethod.value = selectPickMethodChild
+    if (selectPickMethod.value === 1 && !addressInfo.value) {
+        showToast({
+            title: '请选择地址',
+            icon: 'none'
+        })
+    }
     try {
         handleClose()
         uni.showLoading({
@@ -232,10 +239,9 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
                 uni.removeStorageSync('createOrderAddress')
                 console.log('创建订单成功了。走支付流程')
                 uni.showLoading({
-                    title: '加载中'
+                    title: '创建订单...'
                 })
                 setTimeout(async () => {
-
                     try {
                         uni.showLoading({
                             title: '加载中'
@@ -278,7 +284,6 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
             console.log(err)
             uni.hideLoading()
         }
-        uni.hideLoading()
     } catch (err) {
         uni.hideLoading()
         uni.showToast({
@@ -331,11 +336,17 @@ const handleAddCart = async () => { //点击添加购物车
         let result = await addCard(params)
         console.log('添加购物车', result)
         uni.hideLoading();
-        uni.showToast({
-            title: '已加入购物车~',
-            duration: 2000,
-            icon: 'none'
-        });
+        if (result.code !== 0) {
+            uni.showToast({
+                title: '添加购物车失败，请重试',
+                icon: 'none'
+            })
+        } else {
+            uni.showToast({
+                title: '已加入购物车~',
+                icon: 'none'
+            });
+        }
     } catch (err) {
         console.log(err)
         uni.hideLoading();

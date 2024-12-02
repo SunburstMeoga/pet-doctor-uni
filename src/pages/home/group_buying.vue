@@ -7,10 +7,10 @@
 				</view>
 			</view>
 			<view class="content-list flex justify-start items-center">
-				<view class="list-item" v-for="(item, index) in productList" :key="index">
-					<group-buy-card @handleBuyNow="buyNow(item)" :time="formatTimestamp(item.group_end_at)"
-						:detail_pictures="item.pictures[0]" :title="item.title" :intro="item.intro"
-						:tagsItems="item.tags" :price="item.price * 0.01"></group-buy-card>
+				<view class="list-item" v-for="(item, index) in productList" :key="index" @click="buyNow(item)">
+					<group-buy-card :time="formatTimestamp(item.group_end_at)" :detail_pictures="item.pictures[0]"
+						:title="item.title" :intro="item.intro" :tagsItems="item.tags"
+						:price="item.price * 0.01"></group-buy-card>
 				</view>
 			</view>
 		</view>

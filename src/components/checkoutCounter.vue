@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="w-686rpx flex justify-between items-center py-14rpx rounded-16rpx mb-48rpx text-gray-600"
-                    style="border: 1px solid #e4e4e7;">
+                    style="border: 1px solid #e4e4e7;" @click="handleSelectAddress">
                     <div class="ml-20rpx">
                         <div class="flex justify-start items-center" v-show="selectPickMethod === 0">
                             <div class="icon iconfont icon-addresss text-32rpx"></div>
@@ -34,7 +34,7 @@
                             <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.detail }}</div>
                         </div>
                     </div>
-                    <div class="mr-20rpx" v-show="selectPickMethod === 1" @click="handleSelectAddress">
+                    <div class="mr-20rpx" v-show="selectPickMethod === 1">
                         <div class="icon iconfont icon-right_9  text-20rpx"></div>
                     </div>
                 </div>

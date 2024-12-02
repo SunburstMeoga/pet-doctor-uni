@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white"
-            v-if="orderDetailsInfo.status === 0">
+            v-if="orderDetailsInfo.status == 0">
 
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
@@ -89,7 +89,6 @@
                         <div class="operating-button text-gray5 " style="border: 1px solid #e5e7eb;"
                             @click="handleCancelOrder">取消订单</div>
                         <div class="operating-button bg-orange5 ml-20rpx text-white" @click="handlePay">立即支付</div>
-
                     </div>
                 </div>
 
@@ -137,6 +136,7 @@ const handleCancelOrder = async () => { //点击取消订单
         uni.hideLoading()
         uni.showToast({
             title: result.message,
+            icon: 'none'
         });
         if (result.code === 0) {
             getOrderDetails()

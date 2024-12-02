@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -122,6 +122,23 @@ let toAssessment = (assessmentId) => {
 	}
 }
 let handleShop = () => {
+	if (!uni.getStorageSync('token')) {
+		uni.showModal({
+			content: '登录才可进行测评哦~',
+			showCancel: true,
+			confirmText: '前往登录',
+			success: (e) => {
+				console.log(e)
+				if (e.confirm) {
+					uni.navigateTo({
+						url: '/pages/login/index'
+					})
+				}
+			},
+
+		})
+		return
+	}
 	uni.navigateTo({
 		url: '/pages/home/product_list'
 	})

@@ -50,7 +50,8 @@ const handleDelete = async ({ id }) => { //点击删除地址
         let res = await deleteAddress(id)
         if (res.code !== 0) {
             uni.showToast({
-                title: res.message
+                title: res.message,
+                icon: 'none'
             });
             return
         }
@@ -68,7 +69,8 @@ const handleSetDefault = async ({ id }) => { //点击设置默认
         let res = await setDefaultAddress(id)
         if (res.code !== 0) {
             uni.showToast({
-                title: res.message
+                title: res.message,
+                icon: 'none'
             });
             return
         }
