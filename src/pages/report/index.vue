@@ -30,8 +30,8 @@
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
 					<swiper-item class="flex justify-center items-center overflow-hidden"
 						v-for="(item, index) in cardList" :key="index">
-						<pet-card style="width: 622rpx;" :name="item.name" :breed="item.breed.name" :sex="item.sex"
-							:time="item.birth_at"></pet-card>
+						<pet-card style="width: 622rpx;" class="overflow-hidden" :name="item.name"
+							:breed="item.breed.name" :sex="item.sex" :time="item.birth_at"></pet-card>
 					</swiper-item>
 				</swiper>
 
@@ -42,80 +42,47 @@
 			<view @click="toAddCard()" class="empty flex justify-center items-center" v-if="cardList.length === 0">
 				新增宠物身份证
 			</view>
-			<!-- <uni-swipe-action class="flex justify-start items-center"
-				v-if="cardList.length !== 0 && reportList.length !== 0">
-				<view v-for="(item, index) in reportList" :key="index" style="margin-bottom: 32rpx;">
-					<uni-swipe-action-item :right-options="options1" @click="bindClick()" @change="change">
-						<view class="report-list-item flex justify-start items-center">
-							<view class="report-list-item-left bg-cover bg-center">
-								<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
-							</view>
-							<view class="report-list-item-line"></view>
-							<view class="report-list-item-right flex justify-start items-start">
-								<view class="report-list-item-right-property flex justify-start items-center"
-									v-for="(_item, _index) in 4" :key="_index">
-									<view class="report-list-item-right-property-title">外倾性</view>
-									<view
-										class="report-list-item-right-property-content flex justify-between items-center">
-										<view class="report-list-item-right-property-content-left">S</view>
-										<view class="report-list-item-right-property-content-middle">
-											<view class="report-list-item-right-property-content-middle-step"></view>
-										</view>
-										<view class="report-list-item-right-property-content-right">I</view>
-									</view>
-								</view>
-							</view>
-						</view>
-					</uni-swipe-action-item>
-				</view>
-			</uni-swipe-action> -->
-			<div v-for="(item, index) in reportList" :key="index" class="content-list-item mb-10rpx">
-				<view class="report-list-item flex justify-start items-center">
-					<view class="report-list-item-left bg-cover bg-center">
-						<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
-					</view>
-					<view class="report-list-item-line"></view>
-					<view class="report-list-item-right flex justify-start items-start">
-						<view class="report-list-item-right-property flex justify-start items-center"
-							v-for="(_item, _index) in 4" :key="_index">
-							<view class="report-list-item-right-property-title">外倾性</view>
-							<view class="report-list-item-right-property-content flex justify-between items-center">
-								<view class="report-list-item-right-property-content-left">S</view>
-								<view class="report-list-item-right-property-content-middle">
-									<view class="report-list-item-right-property-content-middle-step"></view>
-								</view>
-								<view class="report-list-item-right-property-content-right">I</view>
-							</view>
-						</view>
-					</view>
-				</view>
-				<!-- <wd-swipe-action class="flex justify-start items-center ">
-					<view class="report-list-item flex justify-start items-center">
-						<view class="report-list-item-left bg-cover bg-center">
-							<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
-						</view>
-						<view class="report-list-item-line"></view>
-						<view class="report-list-item-right flex justify-start items-start">
-							<view class="report-list-item-right-property flex justify-start items-center"
-								v-for="(_item, _index) in 4" :key="_index">
-								<view class="report-list-item-right-property-title">外倾性</view>
-								<view class="report-list-item-right-property-content flex justify-between items-center">
-									<view class="report-list-item-right-property-content-left">S</view>
-									<view class="report-list-item-right-property-content-middle">
-										<view class="report-list-item-right-property-content-middle-step"></view>
-									</view>
-									<view class="report-list-item-right-property-content-right">I</view>
-								</view>
-							</view>
-						</view>
-					</view>
+			<div v-for="(item, index) in  reportList " :key="index" class="mb-10rpx">
+				<wd-swipe-action class="flex justify-start items-center ">
+					<div
+						class="w-606rpx rounded-24rpx overflow-hidden px-32rpx py-28rpx bg-#F7F7F7 flex justify-between items-center">
+						<div class="w-112rpx h-122rpx">
+							<img src="../../static/images/report/mbti-title.png" alt="">
+						</div>
+						<div class="ml-36rpx pl-16rpx flex flex-col justify-between items-center w-440rpx"
+							style="border-left: 1rpx solid rgba(0,0,0,.2);"
+							:class="item.dimensions.length <= 4 ? 'h-full' : 'h-full'">
+							<div class="w-full flex justify-between items-center text-#8C8C8C my-6rpx"
+								v-for="(_item, _index) in  item.dimensions " :key="_index">
+								<div class="text-24rpx" :class="item.dimensions.length <= 4 ? 'w-120rpx' : 'w-100rpx'">
+									{{ _item.title }}</div>
+								<div class="ml-24rpx flex-1 flex justify-between items-center ">
+									<div class=" text-24rpx "
+										:class="`${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#8C8C8C' : 'text-#20CEB0'}`}  ${item.dimensions.length <= 4 ? `${_item.score < 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
+										{{ _item.value }}</div>
+									<div class="mx-8rpx h-20rpx bg-#E5E5E5 rounded-4rpx flex-1  flex items-center"
+										:class="`${_item.score < 0 ? 'justify-start' : 'justify-end'}`">
+										<div class="h-full flex items-center"
+											:class="`  ${item.dimensions.length <= 4 ? `color-${_index}` : `${_item.score < 0 ? 'bg-#F15912' : 'bg-#20CEB0'}`}`"
+											:style="`width: ${Math.abs(_item.score) * 10}%;`">
+										</div>
+									</div>
+									<div class="text-#8C8C8C text-24rpx"
+										:class="` ${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#F15912' : 'text-8C8C8C'}`}  ${item.dimensions.length <= 4 ? `${_item.score > 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
+										{{
+				_item.reverse_value }}</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
 					<template #right>
 						<div class="h-full">
 							<div class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"
 								@click="bindClick(item)">删除</div>
 						</div>
 					</template>
-</wd-swipe-action> -->
+				</wd-swipe-action>
 			</div>
 		</view>
 		<!-- <uni-preview-image :image-list="imageList" :show="showPreview"></uni-preview-image> -->
@@ -125,7 +92,7 @@
 import petCard from '../../components/petCard.vue';
 import {
 	// orders,
-	petCards, reports
+	petCards, reports, deleteReport
 } from '@/service/index'
 let currentReport = ref(0)
 let imageList = ref(['http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png'])
@@ -144,12 +111,27 @@ let options1 = ref([{
 	}
 }])
 let reportList = ref([])
-let bindClick = (e) => {
-	console.log(e)
-	// uni.showToast({
-	//  title: `点击了${e.position === 'left' ? '左侧' : '右侧'} ${e.content.text}按钮`,
-	//  icon: 'none'
-	// });
+let bindClick = async (item) => {
+
+	try {
+		uni.showLoading({
+			title: '加载中'
+		});
+		let result = await deleteReport(item.id)
+		uni.hideLoading()
+		uni.showToast({
+			title: result.message,
+			icon: 'none'
+		})
+		if (result.code === 0) {
+			getCart()
+		}
+	} catch (err) {
+		console.log(err)
+		uni.hideLoading()
+	}
+
+
 }
 const addCustom = () => { //添加专属客服
 	uni.previewImage({
@@ -393,5 +375,46 @@ onMounted(async () => {
 		font-size: 22rpx;
 		margin-right: 28rpx;
 	}
+}
+
+
+.color-0 {
+	background-color: #faad14;
+	color: #faad14;
+}
+
+.color-1 {
+	background-color: #3B8AFA;
+	color: #3B8AFA;
+}
+
+.color-2 {
+	background-color: #F15912;
+	color: #F15912;
+}
+
+.color-3 {
+	background-color: #AA60FA;
+	color: #AA60FA;
+}
+
+.color-text-0 {
+	color: #faad14;
+}
+
+.color-text-1 {
+	color: #3B8AFA;
+}
+
+.color-text-2 {
+	color: #F15912;
+}
+
+.color-text-3 {
+	color: #AA60FA;
+}
+
+.color-gray {
+	color: #8c8c8c;
 }
 </style>

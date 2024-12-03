@@ -93,7 +93,8 @@ const handleAction = async (item) => { //删除购物车
 			getCart()
 		}
 	} catch (err) {
-
+		console.log(err)
+		uni.hideLoading()
 	}
 
 }

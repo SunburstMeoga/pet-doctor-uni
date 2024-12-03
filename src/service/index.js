@@ -149,3 +149,8 @@ export const cancelOrder = (orderSN) => {
 export const deleteCart = (cartId) => {
   return http.delete('/cart/' + cartId)
 }
+
+//删除宠物报告
+export const deleteReport = (id) => {
+  return http.delete('report/' + id)
+}
