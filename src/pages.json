@@ -51,11 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/home/index",
+      "path": "pages/report/report-result",
       "type": "home",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
+        "navigationBarTitleText": "报告",
         "enableShareAppMessage": true,
         "enableShareTimeline": true
       }
@@ -77,6 +76,16 @@
     {
       "path": "pages/home/group_buying",
       "type": "page"
+    },
+    {
+      "path": "pages/home/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
+      }
     },
     {
       "path": "pages/home/mbti_questiton",
@@ -182,15 +191,6 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "报告"
-      }
-    },
-    {
-      "path": "pages/report/report-result",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "报告",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
       }
     }
   ],

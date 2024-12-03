@@ -127,11 +127,11 @@ let bindClick = async (e) => {
 	})
 	try {
 		console.log(e);
-		let res = await deletePet(e)
+		let res = await deletePet(e.id)
 		uni.showToast({
 			title: '删除成功',
 			icon: 'none',
-			duration: 6000
+			duration: 2000
 		})
 		let petCardsList = await petCards()
 		cardList.value = petCardsList.data

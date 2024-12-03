@@ -64,7 +64,7 @@ const getProductList = async () => {
         console.log(err)
         uni.hideLoading();
         uni.showToast({
-            title: '请求错误，请重试',
+            title: err,
 
             icon: 'none'
         });

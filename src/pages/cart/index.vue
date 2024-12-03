@@ -164,9 +164,15 @@ const getCart = async () => { //获取购物车列表
 		uni.hideLoading()
 	}
 }
-onMounted(() => {
+onShow(() => {
+	console.log('购物车onshow开始')
 	getCart()
+	console.log('购物车onshow结束')
+
 })
+// onMounted(() => {
+// 	getCart()
+// })
 
 </script>
 

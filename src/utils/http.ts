@@ -15,18 +15,33 @@ export const http = <T>(options: CustomRequestOptions) => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           // 2.1 提取核心数据 res.data
           resolve(res.data as IResData<T>)
-        } else if (res.statusCode === 401) {
+        } else if (res.statusCode === 401 || res.statusCode === 403) {
           // 401错误  -> 清理用户信息，跳转到登录页
           // userStore.clearUserInfo()
-          uni.navigateTo({ url: '/pages/login/index' })
+          uni.showModal({
+            content: '身份认证过期',
+            showCancel: true,
+            confirmText: '前往登录',
+            cancelText: '继续浏览',
+            success: (e) => {
+              if (e.confirm) {
+                uni.navigateTo({ url: '/pages/login/index' })
+              } else {
+                uni.showToast({
+                  icon: 'none',
+                  title: '未登录状态下仅可浏览部分页面哦~'
+                })
+              }
+            }
+          })
           reject(res)
         } else {
           // 其他错误 -> 根据后端错误信息轻提示
-          !options.hideErrorToast &&
-            uni.showToast({
-              icon: 'none',
-              title: (res.data as IResData<T>).msg || '请求错误',
-            })
+          // !options.hideErrorToast &&
+          //   uni.showToast({
+          //     icon: 'none',
+          //     title: (res.data as IResData<T>).msg || '请求错误',
+          //   })
           reject(res)
         }
       },

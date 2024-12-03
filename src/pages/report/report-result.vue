@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationBarTitleText: '报告',
@@ -24,19 +24,38 @@
 					<view class="content-mbti">{{ reportTitle }}</view>
 					<view class="report-list-item-right flex justify-start items-start">
 						<view class="report-list-item-right-property flex justify-start items-center"
-							v-for="(item, index) in dimensionsItems" :key="index">
-							<view class="report-list-item-right-property-title">{{ item.title }}</view>
+							v-show="dimensionsItems.length <= 4" v-for="(item, index) in dimensionsItems" :key="index">
+							<view class="report-list-item-right-property-title w-114rpx">{{ item.title }}</view>
 							<view class="report-list-item-right-property-content flex justify-between items-center">
-								<view class="report-list-item-right-property-content-left"
+								<view class="report-list-item-right-property-content-left w-84rpx"
 									:class="item.score < 0 ? `color-text-${index}` : `color-gray`">{{ item.value }}
 								</view>
-								<view class="report-list-item-right-property-content-middle flex items-center"
+								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
 									:class="item.score < 0 ? 'justify-start' : 'justify-end'">
 									<view class="report-list-item-right-property-content-middle-step"
-										:class="`color-${index}`" :style="{ 'width': item.score + '%;' }"></view>
+										:class="`color-${index}`" :style="{ 'width': Math.abs(item.score) + '%;' }">
+									</view>
 								</view>
-								<view class="report-list-item-right-property-content-right"
+								<view class="report-list-item-right-property-content-right w-84rpx"
 									:class="item.score > 0 ? `color-text-${index}` : `color-gray`">
+									{{ item.reverse_value }}</view>
+							</view>
+						</view>
+						<view class="report-list-item-right-property flex justify-start items-center"
+							v-show="dimensionsItems.length > 4" v-for="(item, index) in dimensionsItems" :key="index">
+							<view class="report-list-item-right-property-title w-114rpx">{{ item.title }}</view>
+							<view class="report-list-item-right-property-content flex justify-between items-center">
+								<view class="report-list-item-right-property-content-left w-84rpx"
+									:class="item.score < 0 ? `text-green-500` : `color-gray`">{{ item.value }}
+								</view>
+								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
+									:class="item.score > 0 ? 'justify-start' : 'justify-end'">
+									<view class="report-list-item-right-property-content-middle-step"
+										:class="`bg-green-500`" :style="{ 'width': Math.abs() + '%;' }">
+									</view>
+								</view>
+								<view class="report-list-item-right-property-content-right w-84rpx"
+									:class="item.score > 0 ? `text-green-500` : `color-gray`">
 									{{ item.reverse_value }}</view>
 							</view>
 						</view>
@@ -47,7 +66,9 @@
 			<view class="result-item module" v-for="(item, index) in dimensionsItems" :key="index">
 				<view class="item-title flex justify-start items-center">
 					<view class="title-left">{{ item.title }}</view>
-					<view class="title-right" :class="`color-text-${index}`">{{ item.value }}</view>
+					<view class="title-right"
+						:class="`${dimensionsItems.length > 4 ? 'text-slate9' : `color-text-${index}`} color-text-${index}`">
+						{{ item.value }}</view>
 				</view>
 				<view class="item-details">
 					{{ item.text }}
@@ -108,24 +129,6 @@ const onShareTimeline = () => {
 		imageUrl: `${mbtiImg.value}`,
 		// imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
 	};
-}
-let handleShare = () => {
-	console.log('点击了分享')
-
-	uni.showShareTimelineOptions({
-		provider: "weixin",
-		// href: "http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/7Tz2CqszkkrCwJVQzvWSRay4vaqRoIbMoJzyw1Aq.png",
-		title: "快来给你的爱宠测一下MBTI吧",
-		query: '/pages/home/index',
-		summary: `${reportTitle.value}`,
-		imageUrl: `${mbtiImg.value}`,
-		success: function (res) {
-			console.log("success:" + JSON.stringify(res));
-		},
-		fail: function (err) {
-			console.log("fail:" + JSON.stringify(err));
-		}
-	});
 }
 let getPetInfoDetails = async (petId) => {
 	uni.showLoading({
@@ -191,8 +194,8 @@ onMounted(() => {
 })
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
-	reportId.value = options.reportId || 2071
-	cardId.value = options.cardId || 11
+	reportId.value = options.reportId || 2077
+	cardId.value = options.cardId || 2138
 	console.log('options.cardId', options.cardId)
 })
 </script>

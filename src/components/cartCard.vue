@@ -17,7 +17,7 @@
                 <!-- <div class="icon iconfont icon-down text-16rpx mr-24rpx"></div> -->
             </div>
             <div class="w-full flex justify-between items-center">
-                <div class="text-32rpx font-bold">￥{{ price * 0.01 }}</div>
+                <div class="text-32rpx font-bold">￥{{ (price * 0.01).toFixed(2) }}</div>
                 <div>
                     <!-- <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" @change="changeQuantity" /> -->
                     X {{ productQuantity }}
