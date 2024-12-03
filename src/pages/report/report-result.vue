@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
 	{
 	  style: {
 		navigationBarTitleText: '报告',
@@ -46,16 +46,16 @@
 							<view class="report-list-item-right-property-title w-114rpx">{{ item.title }}</view>
 							<view class="report-list-item-right-property-content flex justify-between items-center">
 								<view class="report-list-item-right-property-content-left w-84rpx"
-									:class="item.score < 0 ? `text-green-500` : `color-gray`">{{ item.value }}
+									:class="item.score < 0 ? `text-#20CEB0` : `color-gray`">{{ item.value }}
 								</view>
 								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
 									:class="item.score > 0 ? 'justify-start' : 'justify-end'">
 									<view class="report-list-item-right-property-content-middle-step"
-										:class="`bg-green-500`" :style="{ 'width': Math.abs() + '%;' }">
+										:class="`bg-#20CEB0`" :style="{ 'width': Math.abs() + '%;' }">
 									</view>
 								</view>
 								<view class="report-list-item-right-property-content-right w-84rpx"
-									:class="item.score > 0 ? `text-green-500` : `color-gray`">
+									:class="item.score > 0 ? `text-#20CEB0` : `color-gray`">
 									{{ item.reverse_value }}</view>
 							</view>
 						</view>
@@ -73,8 +73,8 @@
 				<view class="item-details">
 					{{ item.text }}
 				</view>
-				<view class="item-sug">建议</view>
-				<view class="sug-content">
+				<view class="item-sug" v-if="item.score <= 0">建议</view>
+				<view class="sug-content" v-if="item.score <= 0">
 					{{ item.suggest }}
 				</view>
 			</view>

@@ -144,3 +144,8 @@ export const systemConfig = (key) => {
 export const cancelOrder = (orderSN) => {
   return http.post(`/order/${orderSN}/cancel`)
 }
+
+//删除购物车
+export const deleteCart = (cartId) => {
+  return http.delete('/cart/' + cartId)
+}

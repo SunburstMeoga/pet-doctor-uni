@@ -20,7 +20,7 @@
 						<view class="h-full">
 							<view
 								class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"
-								@click="handleAction('操作3')">删除</view>
+								@click="handleAction(item)">删除</view>
 						</view>
 					</template>
 
@@ -56,7 +56,8 @@
 
 <script setup>
 import CartCard from '@/components/cartCard'
-import { cart, createOrder, pay } from '@/service/index'
+import { cart, createOrder, pay, deleteCart } from '@/service/index'
+import { uuid } from 'wot-design-uni/components/common/util'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
@@ -76,6 +77,25 @@ const changeQuantity = (e) => {
 	console.log('购物车卡片发生变化')
 
 	console.log(e)
+}
+const handleAction = async (item) => { //删除购物车
+	try {
+		uni.showLoading({
+			title: '加载中'
+		});
+		let result = await deleteCart(item.id)
+		uni.hideLoading()
+		uni.showToast({
+			title: result.message,
+			icon: 'none'
+		})
+		if (result.code === 0) {
+			getCart()
+		}
+	} catch (err) {
+
+	}
+
 }
 const handleCheckout = async () => { //点击结算按钮
 	if (cartIds.value.length === 0) {
