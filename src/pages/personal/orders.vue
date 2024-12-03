@@ -17,7 +17,7 @@
 		</div>
 		<view class="content flex justify-start items-center" v-if="ordersLis.length !== 0">
 			<view class="content-item" v-for="(item, index) in ordersLis" :key="index" @click="toDetails(item)">
-				<order-card :orderNumber="item.order_sn" :price="item.amount * 0.01"
+				<order-card :created_at="item.created_at" :orderNumber="item.order_sn" :price="item.amount * 0.01"
 					:product_picture="item.items[0].product_picture" :status="getOrderStatus(item.status)"
 					:count="item.items[0].quantity" :pickUpMethod="getPickUpMethod(item.dispatch_mode)" />
 			</view>

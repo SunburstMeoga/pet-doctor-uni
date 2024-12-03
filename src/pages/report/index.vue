@@ -28,8 +28,8 @@
 			</view>
 			<view class="report" v-if="cardList.length !== 0">
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
-					<swiper-item class="flex justify-center items-center" v-for="(item, index) in cardList"
-						:key="index">
+					<swiper-item class="flex justify-center items-center overflow-hidden"
+						v-for="(item, index) in cardList" :key="index">
 						<pet-card style="width: 622rpx;" :name="item.name" :breed="item.breed.name" :sex="item.sex"
 							:time="item.birth_at"></pet-card>
 					</swiper-item>
@@ -70,7 +70,26 @@
 				</view>
 			</uni-swipe-action> -->
 			<div v-for="(item, index) in reportList" :key="index" class="content-list-item mb-10rpx">
-				<wd-swipe-action class="flex justify-start items-center ">
+				<view class="report-list-item flex justify-start items-center">
+					<view class="report-list-item-left bg-cover bg-center">
+						<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
+					</view>
+					<view class="report-list-item-line"></view>
+					<view class="report-list-item-right flex justify-start items-start">
+						<view class="report-list-item-right-property flex justify-start items-center"
+							v-for="(_item, _index) in 4" :key="_index">
+							<view class="report-list-item-right-property-title">外倾性</view>
+							<view class="report-list-item-right-property-content flex justify-between items-center">
+								<view class="report-list-item-right-property-content-left">S</view>
+								<view class="report-list-item-right-property-content-middle">
+									<view class="report-list-item-right-property-content-middle-step"></view>
+								</view>
+								<view class="report-list-item-right-property-content-right">I</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<!-- <wd-swipe-action class="flex justify-start items-center ">
 					<view class="report-list-item flex justify-start items-center">
 						<view class="report-list-item-left bg-cover bg-center">
 							<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
@@ -96,7 +115,7 @@
 								@click="bindClick(item)">删除</div>
 						</div>
 					</template>
-				</wd-swipe-action>
+</wd-swipe-action> -->
 			</div>
 		</view>
 		<!-- <uni-preview-image :image-list="imageList" :show="showPreview"></uni-preview-image> -->

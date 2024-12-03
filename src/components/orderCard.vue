@@ -17,7 +17,10 @@
 					<view class="right-count">共 {{ count }} 件</view>
 				</view>
 			</view>
-			<view class="info-type">{{ pickUpMethod }}</view>
+			<view class="info-type flex justify-between items-center text-24rpx">
+				<div>{{ pickUpMethod }}</div>
+				<div>下单时间:{{ formatTimestamp(created_at) }}</div>
+			</view>
 		</view>
 	</view>
 </template>
@@ -48,8 +51,24 @@ const props = defineProps({
 	pickUpMethod: {
 		type: String,
 		default: ''
+	},
+	created_at: {
+		type: Number,
+		default: 0
 	}
 })
+const formatTimestamp = (timestamp) => { //格式化时间内
+	const date = new Date(timestamp * 1000);
+	// 获取月份，日期，小时，分钟和秒
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+	const seconds = String(date.getSeconds()).padStart(2, '0');
+	// 拼接格式为 MM-DD HH:mm:ss
+	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
 </script>
 
 <style lang="scss" scoped>
