@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -42,7 +42,7 @@
 			<view @click="toAddCard()" class="empty flex justify-center items-center" v-if="cardList.length === 0">
 				新增宠物身份证
 			</view>
-			<uni-swipe-action class="flex justify-start items-center"
+			<!-- <uni-swipe-action class="flex justify-start items-center"
 				v-if="cardList.length !== 0 && reportList.length !== 0">
 				<view v-for="(item, index) in reportList" :key="index" style="margin-bottom: 32rpx;">
 					<uni-swipe-action-item :right-options="options1" @click="bindClick()" @change="change">
@@ -68,7 +68,36 @@
 						</view>
 					</uni-swipe-action-item>
 				</view>
-			</uni-swipe-action>
+			</uni-swipe-action> -->
+			<div v-for="(item, index) in reportList" :key="index" class="content-list-item mb-10rpx">
+				<wd-swipe-action class="flex justify-start items-center ">
+					<view class="report-list-item flex justify-start items-center">
+						<view class="report-list-item-left bg-cover bg-center">
+							<image src="../../static/images/report/mbti-title.png" mode="aspectFill"></image>
+						</view>
+						<view class="report-list-item-line"></view>
+						<view class="report-list-item-right flex justify-start items-start">
+							<view class="report-list-item-right-property flex justify-start items-center"
+								v-for="(_item, _index) in 4" :key="_index">
+								<view class="report-list-item-right-property-title">外倾性</view>
+								<view class="report-list-item-right-property-content flex justify-between items-center">
+									<view class="report-list-item-right-property-content-left">S</view>
+									<view class="report-list-item-right-property-content-middle">
+										<view class="report-list-item-right-property-content-middle-step"></view>
+									</view>
+									<view class="report-list-item-right-property-content-right">I</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<template #right>
+						<div class="h-full">
+							<div class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"
+								@click="bindClick(item)">删除</div>
+						</div>
+					</template>
+				</wd-swipe-action>
+			</div>
 		</view>
 		<!-- <uni-preview-image :image-list="imageList" :show="showPreview"></uni-preview-image> -->
 	</view>

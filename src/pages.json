@@ -51,10 +51,11 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_list",
+      "path": "pages/report/index",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "报告"
       }
     },
     {
@@ -124,6 +125,13 @@
       }
     },
     {
+      "path": "pages/home/product_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品"
+      }
+    },
+    {
       "path": "pages/home/star_answer",
       "type": "page",
       "style": {
@@ -174,14 +182,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "宠物身份证"
-      }
-    },
-    {
-      "path": "pages/report/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "报告"
       }
     },
     {
