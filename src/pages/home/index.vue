@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -28,14 +28,14 @@
 				<div class="home-button home-mbti" @click="toAssessment('2')">
 					<!-- <div>喵喵MBTI测评</div> -->
 					<div class="home-button-icon"
-						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://47.238.229.145:8000/media/20241108/QMdEifybyGQ6K4T4rtw7VY56NpmL4XL80u9Ob85L.png');">
+						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241204/QLL4OOIPPR92ptUwyABOL3wqItBgdd16Lzdt0W1T.png');">
 						<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 					</div>
 				</div>
 				<div class="home-button home-mbti" @click="toAssessment('1')">
 					<!-- <div>汪汪MBTI测评</div> -->
 					<div class="home-button-icon"
-						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://47.238.229.145:8000/media/20241108/QMdEifybyGQ6K4T4rtw7VY56NpmL4XL80u9Ob85L.png');">
+						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241204/rjHFt8Y5XRb9W2SFaLAJnM1MYs6GEfsbqinN0iBv.png');">
 						<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 						<!-- {{getApp().go}} -->
 					</div>
@@ -44,7 +44,7 @@
 				<div class="home-button home-eval" @click="toAssessment('3')">
 					<!-- <div>定制健康测评</div> -->
 					<div class="home-button-icon"
-						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://47.238.229.145:8000/media/20241108/Sgk6WETT1GVMPbpBYoDz1eMtmrwOI08v1d2ApVBW.png');">
+						style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241204/BnA8ujtQEo3FUS0rwSVgqC82l9ycR4dmazxdeFfJ.png');">
 						<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 					</div>
 				</div>

@@ -42,7 +42,7 @@
 						<div class="text-48rpx font-bold">￥{{ totalPrice }}</div>
 					</div>
 					<div class="flex justify-between items-center ml-16rpx">
-						<div class=" bg-orange-4 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"
+						<div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"
 							@click="handleCheckout">
 							结算</div>
 					</div>

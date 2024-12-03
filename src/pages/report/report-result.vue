@@ -25,8 +25,9 @@
 					<view class="report-list-item-right flex justify-start items-start">
 						<view class="report-list-item-right-property flex justify-start items-center"
 							v-show="dimensionsItems.length <= 4" v-for="(item, index) in dimensionsItems" :key="index">
-							<view class="report-list-item-right-property-title w-114rpx">{{ item.title }}</view>
-							<view class="report-list-item-right-property-content flex justify-between items-center">
+							<view class="report-list-item-right-property-title min-w-114rpx">{{ item.title }}</view>
+							<view
+								class="report-list-item-right-property-content flex justify-between items-center flex-1">
 								<view class="report-list-item-right-property-content-left w-84rpx"
 									:class="item.score < 0 ? `color-text-${index}` : `color-gray`">{{ item.value }}
 								</view>
@@ -36,10 +37,11 @@
 										:class="`color-${index}`" :style="{ 'width': Math.abs(item.score) + '%;' }">
 									</view>
 								</view>
-								<view class="report-list-item-right-property-content-right w-84rpx"
-									:class="item.score > 0 ? `color-text-${index}` : `color-gray`">
-									{{ item.reverse_value }}</view>
+
 							</view>
+							<view class="report-list-item-right-property-content-right w-84rpx"
+								:class="item.score > 0 ? `color-text-${index}` : `color-gray`">
+								{{ item.reverse_value }}</view>
 						</view>
 						<view class="report-list-item-right-property flex justify-start items-center"
 							v-show="dimensionsItems.length > 4" v-for="(item, index) in dimensionsItems" :key="index">
@@ -194,8 +196,8 @@ onMounted(() => {
 })
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
-	reportId.value = options.reportId || 2077
-	cardId.value = options.cardId || 2138
+	reportId.value = options.reportId || 2079
+	cardId.value = options.cardId || 2139
 	console.log('options.cardId', options.cardId)
 })
 </script>

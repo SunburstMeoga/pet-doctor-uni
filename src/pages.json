@@ -51,13 +51,10 @@
   },
   "pages": [
     {
-      "path": "pages/home/index",
+      "path": "pages/home/product_list",
       "type": "home",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
+        "navigationBarTitleText": "商品"
       }
     },
     {
@@ -77,6 +74,16 @@
     {
       "path": "pages/home/group_buying",
       "type": "page"
+    },
+    {
+      "path": "pages/home/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
+      }
     },
     {
       "path": "pages/home/mbti_questiton",
@@ -114,13 +121,6 @@
         "navigationBarTitleText": "商品详情",
         "enableShareAppMessage": true,
         "enableShareTimeline": true
-      }
-    },
-    {
-      "path": "pages/home/product_list",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "商品"
       }
     },
     {

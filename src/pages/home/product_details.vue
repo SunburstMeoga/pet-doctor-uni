@@ -60,7 +60,7 @@
                     {{ item.sku_title }}
                 </div>
             </div>
-            <div class="w-full flex justify-center items-center bg-orange-3 text-red-5 text-24rpx h-57rpx"
+            <div class="w-full flex justify-center items-center bg-gradient-to-r to-#FEE8C3  from-#FED9C3 text-#F54940 text-24rpx h-57rpx"
                 v-if="productDetailsInfo.group_end_at && productDetailsInfo.is_group">
                 <div class="w-686rpx ">
                     截至 {{ formatTimestamp(productDetailsInfo.group_end_at) }}
@@ -80,7 +80,8 @@
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
                     <div class=" bg-black text-yellow operating-button" @click="handleAddCart">加入购物车</div>
-                    <div class=" bg-orange-4 text-white operating-button" @click="handleBuyNow">立即购买</div>
+                    <div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white operating-button"
+                        @click="handleBuyNow">立即购买</div>
 
                 </div>
 

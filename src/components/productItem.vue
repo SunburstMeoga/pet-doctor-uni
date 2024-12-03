@@ -20,7 +20,7 @@
                     {{ price }}
                 </div>
                 <div
-                    class="bg-orange rounded-16rpx text-white font-medium text-24rpx w-137rpx h-57rpx flex justify-center items-center">
+                    class="bg-gradient-to-r to-#FCE16A  from-#F15912 rounded-16rpx text-white font-medium text-24rpx w-137rpx h-57rpx flex justify-center items-center">
                     选规格</div>
             </div>
         </div>

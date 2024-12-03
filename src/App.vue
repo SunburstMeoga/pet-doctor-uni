@@ -5,7 +5,8 @@ onLaunch(() => {
   console.log('App Launch')
 })
 onShow(() => {
-  console.log('App Show')
+  console.log(uni.getStorageSync('token'))
+
 })
 onHide(() => {
   console.log('App Hide')

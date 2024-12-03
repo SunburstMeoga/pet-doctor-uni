@@ -77,7 +77,7 @@
                         style="border-top:1px solid #f3f4f6;">
                         <div class="w-686rpx flex justify-between items-center">
                             <div @click="confirmOrder"
-                                class=" bg-orange-4 text-white flex justify-center items-center rounded-16rpx w-full h-88rpx">
+                                class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-full h-88rpx">
                                 确认订单</div>
                         </div>
                     </div>
