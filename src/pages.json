@@ -51,16 +51,6 @@
   },
   "pages": [
     {
-      "path": "pages/home/index",
-      "type": "home",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
-      }
-    },
-    {
       "path": "pages/cart/index",
       "type": "page",
       "style": {
@@ -77,6 +67,16 @@
     {
       "path": "pages/home/group_buying",
       "type": "page"
+    },
+    {
+      "path": "pages/home/index",
+      "type": "hoem",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
+      }
     },
     {
       "path": "pages/home/mbti_questiton",

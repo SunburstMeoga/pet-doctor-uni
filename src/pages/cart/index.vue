@@ -6,7 +6,7 @@
     }
     </route>
 <template>
-	<div class="w-full h-screen bg-zinc-1 flex flex-col justify-start items-center">
+	<div class="w-full h-screen bg-zinc-1 flex flex-col justify-start items-center pb-200rpx">
 		<div class="w-full pt-32rpx flex flex-col justify-start items-center">
 			<div class="w-686rpx py-28rpx flex justify-center items-center bg-white rounded-24rpx overflow-hidden mb-28rpx"
 				v-for="(item, index) in cartList" :key="index">
@@ -39,7 +39,7 @@
 				<div class="flex justify-center items-center h-128rpx">
 					<div class="flex justify-between items-center text-orange-6">
 						<div class="ml-10rpx">总计</div>
-						<div class="text-48rpx font-bold">￥{{ totalPrice }}</div>
+						<div class="text-48rpx font-bold">￥{{ totalPrice.toFixed(2) || '0.00' }}</div>
 					</div>
 					<div class="flex justify-between items-center ml-16rpx">
 						<div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"
@@ -61,18 +61,29 @@ import { uuid } from 'wot-design-uni/components/common/util'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
-let totalPrice = ref(0) //总计
+// let totalPrice = ref(0.00) //总计
 const handleSelect = (item) => { //点击选择项
 	item.isSelect = !item.isSelect
 	selectItems.value = cartList.value.filter(item => item.isSelect) //筛选选中项
 	selectItems.value.map((item, index) => { //
-		totalPrice.value = item.quantity * ((item.product.price || 0) * 0.01)
+		console.log(item.quantity, item.product.price)
+		totalPrice.value = 0.00
+		item.total = item.quantity * ((item.product.price || 0) * 0.01)
+
+		totalPrice.value = (item.quantity * ((item.product.price || 0) * 0.01))
 		cartIds.value[index] = item.id
+		if (cartIds.value.length === 0) {
+			totalPrice.value = 0.00
+		}
+		console.log('总价', totalPrice.value)
 	})
 	console.log(selectItems.value)
 	console.log(cartIds.value)
 
 }
+const totalPrice = computed(() => {
+	return selectItems.value.reduce((sum, item) => sum + item.total, 0);
+});
 const changeQuantity = (e) => {
 	console.log('购物车卡片发生变化')
 

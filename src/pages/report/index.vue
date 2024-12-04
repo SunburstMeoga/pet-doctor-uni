@@ -30,7 +30,7 @@
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
 					<swiper-item class="flex justify-center items-center overflow-hidden"
 						v-for="(item, index) in cardList" :key="index">
-						<pet-card style="width: 622rpx;" class="overflow-hidden" :name="item.name"
+						<pet-card style="width: 622rpx;" class="overflow-hidden" :name="item.name" :to-jump="false"
 							:breed="item.breed.name" :sex="item.sex" :time="item.birth_at"></pet-card>
 					</swiper-item>
 				</swiper>

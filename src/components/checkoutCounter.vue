@@ -65,7 +65,7 @@
                     <div class="w-full flex justify-center items-center h-96rpx">
                         <div class="w-686rpx flex justify-between items-center">
                             <div class="text-48rpx text-slate-9 font-bold">￥{{ (productInfo.price * productQuantity *
-            0.01) }}</div>
+            0.01).toFixed(2) }}</div>
                             <!-- <div>
                                 <wd-input-number @change="updateProductQuantity" :modelValue="productQuantity" :min="1"
                                     :max="productInfo.stock" />

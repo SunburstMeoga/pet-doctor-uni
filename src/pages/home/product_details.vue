@@ -68,7 +68,8 @@
             </div>
             <div class="w-full flex justify-center items-center h-96rpx">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.price * 0.01 * productQuantity
+                    <div class="text-48rpx text-slate-9 font-bold">￥{{ (productDetailsInfo.price * 0.01 *
+                    productQuantity).toFixed(2)
                         }}</div>
                     <div>
                         <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
