@@ -296,7 +296,8 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
     } catch (err) {
         uni.hideLoading()
         uni.showToast({
-            title: '请求超时，请重试'
+            title: '请求超时，请重试',
+            icon: 'none'
         })
         console.log(err)
 
