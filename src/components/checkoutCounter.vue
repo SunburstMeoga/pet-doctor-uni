@@ -133,6 +133,7 @@ const pickMethodItems = ref([
 ])
 
 const handleMethodItem = (item) => {
+    console.log('子组件', item.id)
     selectPickMethod.value = item.id
 }
 
@@ -147,7 +148,7 @@ const confirmOrder = () => { //点击确认订单
     emit('confirmOrder', selectPickMethod.value)
 }
 const handleSelectAddress = () => { //点击选择地址
-    emit('selectAddress')
+    emit('selectAddress', selectPickMethod.value)
 }
 
 </script>
