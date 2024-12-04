@@ -113,6 +113,7 @@ let tags = ref([
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
 const handleSelectAddress = () => { //点击收银台的选择地址
+    console.log('取货方式', selectPickMethod.value === 0)
     if (selectPickMethod.value === 0) return
     uni.navigateTo({
         url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
