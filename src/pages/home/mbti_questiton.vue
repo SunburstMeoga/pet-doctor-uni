@@ -98,7 +98,7 @@ let handleOptions = async (_item, item, index) => {
 		let result = await createReport({ assessment_id: assessmentId.value, answer_ids: selectedIds.value.sort((a, b) => a - b), pet_card_id: cardId.value })
 		console.log('报告结果', result)
 		if (result.data.id) {
-			uni.navigateTo({
+			uni.redirectTo({
 				url: `/pages/report/report-result?reportId=${result.data.id}&cardId=${cardId.value}`
 			})
 		}

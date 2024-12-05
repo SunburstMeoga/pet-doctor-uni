@@ -28,10 +28,11 @@
 			</view>
 			<view class="report" v-if="cardList.length !== 0">
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
-					<swiper-item class="flex justify-center items-center overflow-hidden"
+					<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden"
 						v-for="(item, index) in cardList" :key="index">
-						<pet-card style="width: 622rpx;" class="overflow-hidden" :name="item.name" :to-jump="false"
-							:breed="item.breed.name" :sex="item.sex" :time="item.birth_at"></pet-card>
+						<pet-card style="width: 622rpx;" class="overflow-hidden rounded-24rpx" :name="item.name"
+							:id="item.id" :assessmentId="item.type.id" :toJump="true" :breed="item.breed.name"
+							:sex="item.sex" :time="item.birth_at"></pet-card>
 					</swiper-item>
 				</swiper>
 
@@ -42,7 +43,9 @@
 			<view @click="toAddCard()" class="empty flex justify-center items-center" v-if="cardList.length === 0">
 				新增宠物身份证
 			</view>
-			<div v-for="(item, index) in  reportList " :key="index" class="mb-10rpx">
+			<div v-for="(item, index) in  reportList " :key="index" class="mb-10rpx relative">
+				<div class="absolute w-full h-full z-10" @click="toReportDetails(item)">
+				</div>
 				<wd-swipe-action class="flex justify-start items-center ">
 					<div
 						class="w-606rpx rounded-24rpx overflow-hidden px-32rpx py-28rpx bg-#F7F7F7 flex justify-between items-center">
@@ -89,6 +92,7 @@
 	</view>
 </template>
 <script setup>
+import CartCard from '@/components/cartCard.vue';
 import petCard from '../../components/petCard.vue';
 import {
 	// orders,
@@ -110,7 +114,9 @@ let options1 = ref([{
 		minHeight: '228rpx'
 	}
 }])
+let currentCardId = ref(0)
 let reportList = ref([])
+let isLoading = ref(false)
 let bindClick = async (item) => {
 
 	try {
@@ -133,6 +139,12 @@ let bindClick = async (item) => {
 
 
 }
+const toReportDetails = (item) => {
+	console.log(item.id, currentCardId.value)
+	uni.navigateTo({
+		url: `/pages/report/report-result?reportId=${item.id}&cardId=${currentCardId.value}`
+	})
+}
 const addCustom = () => { //添加专属客服
 	uni.previewImage({
 		current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
@@ -141,17 +153,35 @@ const addCustom = () => { //添加专属客服
 }
 let swipeChange = async (e) => {
 	console.log(e)
-	console.log(currentReport.value)
-	let resReport = await reports({ pet_card_id: cardList.value[currentReport.value].id })
-	console.log('切换轮播图之后的宠物id', cardList.value[currentReport.value].id)
-	console.log('切换轮播图之后的报告', resReport)
+	if (isLoading.value) return
+	currentCardId.value = cardList.value[e.detail.current].id
+	console.log(currentCardId.value)
+	try {
+		isLoading.value = true
+		uni.showLoading({
+			title: "正在加载...",
+		})
+
+		let resReport = await reports({ pet_card_id: currentCardId.value })
+		reportList.value = resReport.data
+		console.log('报告', resReport)
+		uni.hideLoading()
+		isLoading.value = false
+		console.log(cardList.value)
+	} catch (err) {
+		console.log(err)
+		isLoading.value = false
+		uni.hideLoading()
+	}
+	// console.log('切换轮播图之后的宠物id', cardList.value[currentReport.value].id)
+	// console.log('切换轮播图之后的报告', currentReport.value)
 }
 let toAddCard = () => {
 	uni.navigateTo({
 		url: '/pages/personal/identityInfo'
 	})
 }
-onMounted(async () => {
+onShow(async () => {
 	try {
 		uni.showLoading({
 			title: "正在加载...",
@@ -168,8 +198,6 @@ onMounted(async () => {
 		uni.hideLoading()
 
 		cardList.value = petCardsList.data
-		console.log('宠物id', petCardsList.data[0].id)
-		console.log(petCardsList.data.length, petCardsList)
 		console.log(cardList.value)
 	} catch (err) {
 		console.log(err)
