@@ -56,16 +56,16 @@
 
 <script setup>
 import CartCard from '@/components/cartCard'
-import { cart, createOrder, pay, deleteCart } from '@/service/index'
+import { cart, createOrder, pay, deleteCart, checkoutOrder } from '@/service/index'
 import { uuid } from 'wot-design-uni/components/common/util'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
 // let totalPrice = ref(0.00) //总计
-const handleSelect = (item) => { //点击选择项
+const handleSelect = async (item) => { //点击选择项
 	item.isSelect = !item.isSelect
 	selectItems.value = cartList.value.filter(item => item.isSelect) //筛选选中项
-	selectItems.value.map((item, index) => { //
+	selectItems.value.map(async (item, index) => { //
 		console.log(item.quantity, item.product.price)
 		totalPrice.value = 0.00
 		item.total = item.quantity * ((item.product.price || 0) * 0.01)
@@ -74,6 +74,25 @@ const handleSelect = (item) => { //点击选择项
 		cartIds.value[index] = item.id
 		if (cartIds.value.length === 0) {
 			totalPrice.value = 0.00
+		}
+		try {
+			uni.showLoading({
+				title: '加载中'
+			})
+			let checkoutRes = await checkoutOrder({ cart_ids: cartIds.value }) //收银台
+			if (checkoutRes.code === 0) {
+				totalPrice.value = checkoutRes.data.total_amount * 0.01
+			} else {
+				uni.showToast({
+					title: checkoutRes.message,
+					icon: 'none'
+				})
+			}
+			uni.hideLoading()
+
+		} catch (err) {
+			uni.hideLoading()
+			console.log(err)
 		}
 		console.log('总价', totalPrice.value)
 	})
@@ -102,6 +121,9 @@ const handleAction = async (item) => { //删除购物车
 		})
 		if (result.code === 0) {
 			getCart()
+			totalPrice.value = 0.00
+			selectItems.value = []
+			cartIds.value = []
 		}
 	} catch (err) {
 		console.log(err)
@@ -121,6 +143,7 @@ const handleCheckout = async () => { //点击结算按钮
 		uni.showLoading({
 			title: '创建订单...'
 		})
+
 		let orderRes = await createOrder({ cart_ids: cartIds.value, dispatch_mode: 0 })
 		console.log(orderRes, '创建订单闲情')
 		if (orderRes.code === 0) {

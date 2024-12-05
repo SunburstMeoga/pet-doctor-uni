@@ -75,8 +75,8 @@
 					<view class="item-details">
 						{{ item.text }}
 					</view>
-					<view class="item-sug" v-if="item.score <= 0">建议</view>
-					<view class="sug-content" v-if="item.score <= 0">
+					<view class="item-sug" v-if="item.score <= 0 && item.suggest">建议</view>
+					<view class="sug-content" v-if="item.score <= 0 && item.suggest">
 						{{ item.suggest }}
 					</view>
 				</view>
