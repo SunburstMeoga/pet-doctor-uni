@@ -8,9 +8,13 @@
 </route>
 <template>
   <view class="flex justify-center items-center w-full h-screen flex-col">
-    <wd-button :loading="loading" @click="toLogin()" custom-class="login flex justify-center items-center btn"
+    <wd-button :loading="loading" @click="toLogin()" custom-class="login flex justify-center items-center btn mb-30rpx"
       style="margin-bottom: 20rpx">
       微信授权一键登录
+    </wd-button>
+    <wd-button :loading="loading" @click="notLogin()" custom-class="login flex justify-center items-center btn"
+      style="margin-bottom: 20rpx">
+      暂不登录
     </wd-button>
     <wd-popup v-model="show" position="bottom" custom-class="rounded-t-xl!" :close-on-click-modal="false">
       <view class="px8 pt10 pb20 grid gap12">
@@ -78,6 +82,11 @@ function openPrivacyContract() {
 }
 function handleAgreePrivacyAuthorization(e) {
   console.log(e)
+}
+const notLogin = () => {
+  uni.switchTab({
+    url: '/pages/home/index',
+  })
 }
 
 const onGetPhoneNumber = async (e) => {
