@@ -10,9 +10,9 @@
   <view class="flex justify-center items-center w-full h-screen flex-col">
     <wd-button :loading="loading" @click="toLogin()" custom-class="login flex justify-center items-center btn mb-30rpx"
       style="margin-bottom: 20rpx">
-      微信授权一键登录
+      手机号快捷登录
     </wd-button>
-    <wd-button :loading="loading" @click="notLogin()" custom-class="login flex justify-center items-center btn"
+    <wd-button @click="notLogin()" custom-class="login flex justify-center items-center btn"
       style="margin-bottom: 20rpx">
       暂不登录
     </wd-button>
