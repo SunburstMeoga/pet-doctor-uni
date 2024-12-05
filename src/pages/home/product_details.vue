@@ -230,9 +230,9 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
             item_id: selectSKU.value,
             quantity: productQuantity.value,
             dispatch_mode: productDetailsInfo.value.is_activity ? 2 : selectPickMethod.value,
-            contact_name: addressInfo.value.name,
-            contact_phone: addressInfo.value.phone,
-            address_id: addressInfo.value.id
+            contact_name: addressInfo.value.name || null,
+            contact_phone: addressInfo.value.phone || null,
+            address_id: addressInfo.value.id || null
         }
         try {
             uni.showLoading({

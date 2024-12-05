@@ -140,9 +140,10 @@ let bindClick = async (item) => {
 
 }
 const toReportDetails = (item) => {
-	console.log(item.id, currentCardId.value)
+	console.log(item.id, currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value)
+
 	uni.navigateTo({
-		url: `/pages/report/report-result?reportId=${item.id}&cardId=${currentCardId.value}`
+		url: `/pages/report/report-result?reportId=${item.id}&cardId=${currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value}`
 	})
 }
 const addCustom = () => { //添加专属客服
@@ -162,7 +163,7 @@ let swipeChange = async (e) => {
 			title: "正在加载...",
 		})
 
-		let resReport = await reports({ pet_card_id: currentCardId.value })
+		let resReport = await reports({ pet_card_id: currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value })
 		reportList.value = resReport.data
 		console.log('报告', resReport)
 		uni.hideLoading()
@@ -182,6 +183,9 @@ let toAddCard = () => {
 	})
 }
 onShow(async () => {
+	reportList.value = []
+	cardList.value = []
+	currentCardId.value = 0
 	try {
 		uni.showLoading({
 			title: "正在加载...",
@@ -194,15 +198,12 @@ onShow(async () => {
 			console.log('报告', resReport)
 			uni.hideLoading()
 		}
-
-		uni.hideLoading()
-
 		cardList.value = petCardsList.data
+		uni.hideLoading()
 		console.log(cardList.value)
 	} catch (err) {
 		console.log(err)
 	}
-
 })
 </script>
 
