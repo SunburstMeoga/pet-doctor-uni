@@ -42,7 +42,7 @@
 
 							</view>
 							<view class="report-list-item-right-property-content-right w-84rpx"
-								:class="item.score > 0 ? `color-text-${index}` : `color-gray`">
+								:class="item.score >= 0 ? `color-text-${index}` : `color-gray`">
 								{{ item.value }}</view>
 						</view>
 						<view class="report-list-item-right-property flex justify-start items-center"
@@ -72,47 +72,47 @@
 					<view class="title-left">{{ item.title }}</view>
 					<view class="title-right"
 						:class="`${dimensionsItems.length > 4 ? 'text-slate9' : `color-text-${index}`} color-text-${index}`">
-						{{ item.score < 0 ? item.value : item.reverse_value }}</view>
-					</view>
-					<view class="item-details">
-						{{ item.text }}
-					</view>
-					<view class="item-sug" v-if="item.score <= 0 && item.suggest">建议</view>
-					<view class="sug-content" v-if="item.score <= 0 && item.suggest">
-						{{ item.suggest }}
-					</view>
+						{{ item.score >= 0 ? item.value : item.reverse_value }}</view>
 				</view>
+				<view class="item-details">
+					{{ item.text }}
+				</view>
+				<view class="item-sug" v-if="item.score <= 0 && item.suggest">建议</view>
+				<view class="sug-content" v-if="item.score <= 0 && item.suggest">
+					{{ item.suggest }}
+				</view>
+			</view>
 
-				<view class="module program">
-					<view class="program-bg flex justify-center items-center image-bg"
-						style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/WK1GvrB7jcsnJf8NbCH7jAUhWREp4CmnXl5ARW7P.png');">
-					</view>
-					<view class="program-title">根据 <span style="font-weight: bold;">{{ petInfoObj.name }}</span>
-						的测评结果推荐以下商品
-					</view>
-					<view class="program-list flex justify-between items-center">
-						<view class="program-item" v-for="(item, index) in productList" :key="index">
-							<product-card @handleBuyNow="buyNow(item)" :title="item.title" :intro="item.intro"
-								:pictures="item.pictures[0]" :price="item.price * 0.01"></product-card>
-						</view>
+			<view class="module program">
+				<view class="program-bg flex justify-center items-center image-bg"
+					style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/WK1GvrB7jcsnJf8NbCH7jAUhWREp4CmnXl5ARW7P.png');">
+				</view>
+				<view class="program-title">根据 <span style="font-weight: bold;">{{ petInfoObj.name }}</span>
+					的测评结果推荐以下商品
+				</view>
+				<view class="program-list flex justify-between items-center">
+					<view class="program-item" v-for="(item, index) in productList" :key="index">
+						<product-card @handleBuyNow="buyNow(item)" :title="item.title" :intro="item.intro"
+							:pictures="item.pictures[0]" :price="item.price * 0.01"></product-card>
 					</view>
 				</view>
 			</view>
-			<view class="service-qrcode">
-				<image
-					src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png"
-					mode=""></image>
-			</view>
-			<view class="service-word">
-				添加专属客服，获取正确的医疗指导
-			</view>
-			<!-- <view class="share flex justify-center items-center">
+		</view>
+		<view class="service-qrcode">
+			<image
+				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png"
+				mode=""></image>
+		</view>
+		<view class="service-word">
+			添加专属客服，获取正确的医疗指导
+		</view>
+		<!-- <view class="share flex justify-center items-center">
 			<view class="share-button flex justify-center items-center" @click="handleShare()">
 				转发到朋友圈
 			</view>
 		</view> -->
 
-		</view>
+	</view>
 </template>
 
 <script setup>
