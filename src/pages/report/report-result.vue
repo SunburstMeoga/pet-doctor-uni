@@ -34,7 +34,8 @@
 								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
 									:class="item.score < 0 ? 'justify-start' : 'justify-end'">
 									<view class="report-list-item-right-property-content-middle-step"
-										:class="`color-${index}`" :style="{ 'width': Math.abs(item.score) + '%;' }">
+										:class="`color-${index}`"
+										:style="`width: ${(Math.abs(item.score) * 10) / 2 * 0.7}%;`">
 									</view>
 								</view>
 

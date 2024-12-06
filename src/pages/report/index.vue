@@ -67,7 +67,7 @@
 										:class="`${_item.score < 0 ? 'justify-start' : 'justify-end'}`">
 										<div class="h-full flex items-center"
 											:class="`  ${item.dimensions.length <= 4 ? `color-${_index}` : `${_item.score < 0 ? 'bg-#F15912' : 'bg-#20CEB0'}`}`"
-											:style="`width: ${Math.abs(_item.score) * 10}%;`">
+											:style="`width: ${(Math.abs(_item.score) * 10) / 2 * 0.7}%;`">
 										</div>
 									</div>
 									<div class="text-#8C8C8C text-24rpx"
