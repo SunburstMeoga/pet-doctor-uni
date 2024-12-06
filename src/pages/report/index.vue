@@ -62,7 +62,7 @@
 								<div class="ml-24rpx flex-1 flex justify-between items-center ">
 									<div class=" text-24rpx "
 										:class="`${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#8C8C8C' : 'text-#20CEB0'}`}  ${item.dimensions.length <= 4 ? `${_item.score < 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
-										{{ _item.value }}</div>
+										{{ _item.reverse_value }}</div>
 									<div class="mx-8rpx h-20rpx bg-#E5E5E5 rounded-4rpx flex-1  flex items-center"
 										:class="`${_item.score < 0 ? 'justify-start' : 'justify-end'}`">
 										<div class="h-full flex items-center"
@@ -73,7 +73,7 @@
 									<div class="text-#8C8C8C text-24rpx"
 										:class="` ${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#F15912' : 'text-8C8C8C'}`}  ${item.dimensions.length <= 4 ? `${_item.score > 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
 										{{
-				_item.reverse_value }}</div>
+				_item.value }}</div>
 								</div>
 
 							</div>

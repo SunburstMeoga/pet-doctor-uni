@@ -29,7 +29,8 @@
 							<view
 								class="report-list-item-right-property-content flex justify-between items-center flex-1">
 								<view class="report-list-item-right-property-content-left w-84rpx"
-									:class="item.score < 0 ? `color-text-${index}` : `color-gray`">{{ item.value }}
+									:class="item.score < 0 ? `color-text-${index}` : `color-gray`">{{ item.reverse_value
+									}}
 								</view>
 								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
 									:class="item.score < 0 ? 'justify-start' : 'justify-end'">
@@ -42,14 +43,14 @@
 							</view>
 							<view class="report-list-item-right-property-content-right w-84rpx"
 								:class="item.score > 0 ? `color-text-${index}` : `color-gray`">
-								{{ item.reverse_value }}</view>
+								{{ item.value }}</view>
 						</view>
 						<view class="report-list-item-right-property flex justify-start items-center"
 							v-show="dimensionsItems.length > 4" v-for="(item, index) in dimensionsItems" :key="index">
 							<view class="report-list-item-right-property-title w-114rpx">{{ item.title }}</view>
 							<view class="report-list-item-right-property-content flex justify-between items-center">
 								<view class="report-list-item-right-property-content-left w-84rpx"
-									:class="item.score < 0 ? `text-#20CEB0` : `color-gray`">{{ item.value }}
+									:class="item.score < 0 ? `text-#20CEB0` : `color-gray`">{{ item.reverse_value }}
 								</view>
 								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
 									:class="item.score > 0 ? 'justify-start' : 'justify-end'">
@@ -59,7 +60,7 @@
 								</view>
 								<view class="report-list-item-right-property-content-right w-84rpx"
 									:class="item.score > 0 ? `text-#20CEB0` : `color-gray`">
-									{{ item.reverse_value }}</view>
+									{{ item.value }}</view>
 							</view>
 						</view>
 					</view>

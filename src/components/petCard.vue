@@ -61,10 +61,10 @@ const props = defineProps({
 	}
 })
 const handleCard = () => {
-	console.log('点击宠物身份证')
+	console.log('点击宠物身份证', props.id, props.assessmentId)
 	if (!props.toJump) return
 	uni.navigateTo({
-		url: `/pages/home/mbti_questiton?cardId=${props.id}&assessmentId=${props.assessmentId || 2}`
+		url: `/pages/home/mbti_questiton?cardId=${props.id}&assessmentId=${props.assessmentId}`
 	})
 }
 </script>
