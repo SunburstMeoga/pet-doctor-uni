@@ -190,9 +190,11 @@ let handleSave = async () => {
 		// return
 		let result = await storePetCard({ name: petName.value, sex: sex.value, breed_id: breedId.value, birth_at: brithDay.value })
 		console.log(result)
+		console.log(result.data.id)
+
 		uni.hideLoading()
 		uni.navigateTo({
-			url: `/pages/home/star_answer?cardId=${result.data.id}&assessmentId=${assessmentId.value}`
+			url: `/pages/home/star_answer?cardId=${result.data.id}&assessmentId=${result.data.sex}`
 		})
 	} catch (err) {
 		console.log(err)

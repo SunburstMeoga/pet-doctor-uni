@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-between items-center w-533rpx">
         <div class="flex w-220rpx h-220rpx justify-center items-center rounded-16rpx overflow-hidden">
-            <img :src="img" alt="">
+            <img :src="img" alt="" mode="aspectFit">
         </div>
         <div class="flex flex-col w-289rpx h-220rpx items-start justify-start ml-24rpx relative">
             <div class="text-zinc-7 text-32rpx w-full font-bold">

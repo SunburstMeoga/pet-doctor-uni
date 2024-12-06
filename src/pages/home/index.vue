@@ -111,15 +111,18 @@ let toAssessment = (assessmentId) => {
 		})
 		return
 	}
-	if (cardsCount.value <= 0) {
-		uni.navigateTo({
-			url: `/pages/personal/identityInfo?assessmentId=${assessmentId}`
-		})
-	} else {
-		uni.navigateTo({
-			url: `/pages/home/star_answer?assessmentId=${assessmentId}`
-		})
-	}
+	uni.navigateTo({
+		url: '/pages/personal/petIDCardList'
+	})
+	// if (cardsCount.value <= 0) {
+	// 	uni.navigateTo({
+	// 		url: `/pages/personal/identityInfo?assessmentId=${assessmentId}`
+	// 	})
+	// } else {
+	// 	uni.navigateTo({
+	// 		url: `/pages/home/star_answer?assessmentId=${assessmentId}`
+	// 	})
+	// }
 }
 let handleShop = () => {
 	if (!uni.getStorageSync('token')) {
@@ -150,9 +153,9 @@ let handleHotActive = () => {
 }
 onMounted(async () => {
 	console.log(title.value)
-	let petCardsList = await petCards()
-	console.log(petCardsList.data.length, petCardsList)
-	cardsCount.value = petCardsList.data.length
+	// let petCardsList = await petCards()
+	// console.log(petCardsList.data.length, petCardsList)
+	// cardsCount.value = petCardsList.data.length
 })
 </script>
 
