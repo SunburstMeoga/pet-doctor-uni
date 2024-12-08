@@ -31,8 +31,8 @@
 					<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden"
 						v-for="(item, index) in cardList" :key="index">
 						<pet-card style="width: 622rpx;" class="overflow-hidden rounded-24rpx" :name="item.name"
-							:id="item.id" :assessmentId="item.type.id" :toJump="true" :breed="item.breed.name"
-							:sex="item.sex" :time="item.birth_at"></pet-card>
+							v-bind:toJump="false" :id="item.id" :assessmentId="item.type.id" :toJump="true"
+							:breed="item.breed.name" :sex="item.sex" :time="item.birth_at"></pet-card>
 					</swiper-item>
 				</swiper>
 
@@ -62,29 +62,29 @@
 								<div class="ml-24rpx flex-1 flex justify-between items-center ">
 									<div class=" text-24rpx "
 										:class="`${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#8C8C8C' : 'text-#20CEB0'}`}  ${item.dimensions.length <= 4 ? `${_item.score < 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
-										{{ _item.reverse_value }}</div>
-									<div class="mx-8rpx h-20rpx bg-#E5E5E5 rounded-4rpx flex-1  flex items-center"
-										:class="`${_item.score < 0 ? 'justify-start' : 'justify-end'}`">
-										<div class="h-full flex items-center"
-											:class="`  ${item.dimensions.length <= 4 ? `color-${_index}` : `${_item.score < 0 ? 'bg-#F15912' : 'bg-#20CEB0'}`}`"
-											:style="`width: ${(Math.abs(_item.score) * 10) / 2 * 0.7}%;`">
-										</div>
-									</div>
-									<div class="text-#8C8C8C text-24rpx"
-										:class="` ${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#F15912' : 'text-8C8C8C'}`}  ${item.dimensions.length <= 4 ? `${_item.score > 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
-										{{
-				_item.value }}</div>
-								</div>
+										{{ item.dimensions.length <= 4 ? _item.reverse_value : _item.value }}</div>
+											<div class="mx-8rpx h-20rpx bg-#E5E5E5 rounded-4rpx flex-1  flex items-center"
+												:class="`${_item.score < 0 ? `${item.dimensions.length <= 4 ? 'justify-start' : `justify-end`}` : `${item.dimensions.length <= 4 ? 'justify-end' : `justify-start`}`}`">
+												<div class="h-full flex items-center"
+													:class="`  ${item.dimensions.length <= 4 ? `color-${_index}` : `${_item.score < 0 ? 'bg-#F15912' : 'bg-#20CEB0'}`}`"
+													:style="`width: ${(Math.abs(_item.score) * 10) / 2 * 0.7}%;`">
+												</div>
+											</div>
+											<div class="text-#8C8C8C text-24rpx"
+												:class="` ${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#F15912' : 'text-8C8C8C'}`}  ${item.dimensions.length <= 4 ? `${_item.score > 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
+												{{ item.dimensions.length <= 4 ? _item.value : _item.reverse_value
+													}}</div>
+											</div>
 
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<template #right>
-						<div class="h-full">
-							<div class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"
-								@click="bindClick(item)">删除</div>
-						</div>
-					</template>
+							<template #right>
+								<div class="h-full">
+									<div class="h-full bg-red-500 flex justify-center items-center px-18rpx rounded-16rpx text-white"
+										@click="bindClick(item)">删除</div>
+								</div>
+							</template>
 				</wd-swipe-action>
 			</div>
 		</view>
@@ -117,6 +117,7 @@ let options1 = ref([{
 let currentCardId = ref(0)
 let reportList = ref([])
 let isLoading = ref(false)
+let recentReviews = ref({})
 let bindClick = async (item) => {
 
 	try {
@@ -164,7 +165,8 @@ let swipeChange = async (e) => {
 		})
 
 		let resReport = await reports({ pet_card_id: currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value })
-		reportList.value = resReport.data
+		recentReviews.value = resReport.data[0]
+		reportList.value = resReport.data.reverse();
 		console.log('报告', resReport)
 		uni.hideLoading()
 		isLoading.value = false
@@ -194,7 +196,7 @@ onShow(async () => {
 		console.log(petCardsList)
 		if (petCardsList.data.length !== 0) {
 			let resReport = await reports({ pet_card_id: petCardsList.data[0].id })
-			reportList.value = resReport.data
+			reportList.value = resReport.data.reverse();
 			console.log('报告', resReport)
 			uni.hideLoading()
 		}

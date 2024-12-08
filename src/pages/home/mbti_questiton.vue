@@ -132,7 +132,17 @@ onLoad((options) => {
 	if (options.cardId || options.assessmentId) {
 		cardId.value = options.cardId
 		assessmentId.value = options.assessmentId
-		// console.log('上个页面的cardid'cardId.value)
+		console.log('assessmentId=======', assessmentId.value)
+		if (assessmentId.value === '3' || assessmentId.value === 3) {
+			uni.setNavigationBarTitle({
+				title: '爱宠的健康测评'
+			});
+		} else {
+			uni.setNavigationBarTitle({
+				title: '测测爱宠的MBTI'
+			});
+		}
+
 	}
 })
 </script>

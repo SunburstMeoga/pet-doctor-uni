@@ -111,8 +111,9 @@ let toAssessment = (assessmentId) => {
 		})
 		return
 	}
+	console.log(`${assessmentId}`)
 	uni.navigateTo({
-		url: '/pages/personal/petIDCardList'
+		url: `/pages/personal/petIDCardList?assessmentId=${assessmentId}`
 	})
 	// if (cardsCount.value <= 0) {
 	// 	uni.navigateTo({

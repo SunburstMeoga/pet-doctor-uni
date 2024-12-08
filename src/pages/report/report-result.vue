@@ -50,17 +50,18 @@
 							<view class="report-list-item-right-property-title w-114rpx">{{ item.title }}</view>
 							<view class="report-list-item-right-property-content flex justify-between items-center">
 								<view class="report-list-item-right-property-content-left w-84rpx"
-									:class="item.score < 0 ? `text-#20CEB0` : `color-gray`">{{ item.reverse_value }}
+									:class="item.score >= 0 ? `text-#20CEB0` : `color-gray`">{{ item.value }}
 								</view>
 								<view class="report-list-item-right-property-content-middle flex items-center w-266rpx!"
-									:class="item.score > 0 ? 'justify-start' : 'justify-end'">
+									:class="item.score >= 0 ? 'justify-start' : 'justify-end'">
 									<view class="report-list-item-right-property-content-middle-step"
-										:class="`bg-#20CEB0`" :style="{ 'width': Math.abs() + '%;' }">
+										:class="`${item.score >= 0 ? 'bg-#20CEB0' : 'bg-#F15912'} bg-#20CEB0`"
+										:style="`width: ${(Math.abs(item.score) * 10) / 2 * 0.7}%;`">
 									</view>
 								</view>
 								<view class="report-list-item-right-property-content-right w-84rpx"
-									:class="item.score > 0 ? `text-#20CEB0` : `color-gray`">
-									{{ item.value }}</view>
+									:class="item.score < 0 ? `text-#F15912` : `color-gray`">
+									{{ item.reverse_value }}</view>
 							</view>
 						</view>
 					</view>
@@ -71,7 +72,7 @@
 				<view class="item-title flex justify-start items-center">
 					<view class="title-left">{{ item.title }}</view>
 					<view class="title-right"
-						:class="`${dimensionsItems.length > 4 ? 'text-slate9' : `color-text-${index}`} color-text-${index}`">
+						:class="`${dimensionsItems.length > 4 ? `${item.score >= 0 ? `text-#20CEB0` : `text-#F15912`}` : ``}`">
 						{{ item.score >= 0 ? item.value : item.reverse_value }}</view>
 				</view>
 				<view class="item-details">

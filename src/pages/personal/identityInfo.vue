@@ -194,7 +194,7 @@ let handleSave = async () => {
 
 		uni.hideLoading()
 		uni.navigateTo({
-			url: `/pages/home/star_answer?cardId=${result.data.id}&assessmentId=${result.data.sex}`
+			url: `/pages/home/star_answer?cardId=${result.data.id}&assessmentId=${assessmentId.value}`
 		})
 	} catch (err) {
 		console.log(err)
