@@ -4,8 +4,7 @@
 			<img mode="aspectFit" :src="cover" alt="">
 		</div>
 		<div class="absolute w-full h-full" v-else>
-			<img mode="aspectFit"
-				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/8H9tr4YHwh3bucLjCg0u9AcuUrxobSVCBJW5Uey9.png"
+			<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/8H9tr4YHwh3bucLjCg0u9AcuUrxobSVCBJW5Uey9.png"
 				alt="">
 		</div>
 		<view class="card-info">
