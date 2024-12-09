@@ -1,5 +1,13 @@
 <template>
-	<view class="swiper-item image-bg" @click="handleCard">
+	<view class="swiper-item image-bg relative" @click="handleCard">
+		<div class="absolute w-full h-full" v-if="showResult && cover">
+			<img mode="aspectFit" :src="cover" alt="">
+		</div>
+		<div class="absolute w-full h-full" v-else>
+			<img mode="aspectFit"
+				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/8H9tr4YHwh3bucLjCg0u9AcuUrxobSVCBJW5Uey9.png"
+				alt="">
+		</div>
 		<view class="card-info">
 			<view class="edit flex justify-center items-center" v-if="showEdit">
 				<view class="icon iconfont icon-bianji"></view>
@@ -8,6 +16,7 @@
 			<view class="card-info-property flex justify-start items-center">
 				<view class="diamond"></view>
 				<view class="card-info-property-variety">{{ breed }} | {{ sex === 1 ? '弟弟' : '妹妹' }}</view>
+
 				<view class="card-info-property-gender">
 					<image
 						:src="sex === 1 ? 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/xw5zyhJxcGairwn3f8dP0u84dSynNFNEMpotB1YP.png' : 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/km2tstUhBbT5PgGv5kMcxrTTWQZOo49Yhz2fqTgs.png'"
@@ -27,6 +36,14 @@ import { ref, defineProps } from 'vue'
 // const emit = defineEmits('handleCard')
 
 const props = defineProps({
+	cover: {
+		type: String,
+		default: ''
+	},
+	showResult: {
+		type: Boolean,
+		default: false
+	},
 	toJump: {
 		type: Boolean,
 		default: false
@@ -73,7 +90,6 @@ const handleCard = () => {
 .swiper-item {
 	width: 100%;
 	height: 220rpx;
-	background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/8H9tr4YHwh3bucLjCg0u9AcuUrxobSVCBJW5Uey9.png');
 
 }
 

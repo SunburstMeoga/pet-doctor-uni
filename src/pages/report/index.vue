@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -30,9 +30,10 @@
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
 					<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden"
 						v-for="(item, index) in cardList" :key="index">
-						<pet-card style="width: 622rpx;" class="overflow-hidden rounded-24rpx" :name="item.name"
-							v-bind:toJump="false" :id="item.id" :assessmentId="item.type.id" :toJump="true"
-							:breed="item.breed.name" :sex="item.sex" :time="item.birth_at"></pet-card>
+						<pet-card style="width: 622rpx;" class="overflow-hidden rounded-24rpx" showResult
+							:cover="item.cover" :name="item.name" v-bind:toJump="false" :id="item.id"
+							:assessmentId="item.type.id" :toJump="false" :breed="item.breed.name" :sex="item.sex"
+							:time="item.birth_at"></pet-card>
 					</swiper-item>
 				</swiper>
 
@@ -49,8 +50,17 @@
 				<wd-swipe-action class="flex justify-start items-center ">
 					<div
 						class="w-606rpx rounded-24rpx overflow-hidden px-32rpx py-28rpx bg-#F7F7F7 flex justify-between items-center">
-						<div class="w-112rpx h-122rpx">
-							<img src="../../static/images/report/mbti-title.png" alt="">
+						<div class="w-112rpx h-122rpx" v-show="item.assessment.id === 3 && currentPetType === 1">
+							<img src="../../static/images/report/狗-定制健康.png" alt="">
+						</div>
+						<div class="w-112rpx h-122rpx" v-show="item.assessment.id === 3 && currentPetType === 2">
+							<img src="../../static/images/report/猫-定制健康.png" alt="">
+						</div>
+						<div class="w-112rpx h-122rpx" v-show="item.assessment.id === 2 && currentPetType === 2">
+							<img src="../../static/images/report/猫-MBTI.png" alt="">
+						</div>
+						<div class="w-112rpx h-122rpx" v-show="item.assessment.id === 1 && currentPetType === 1">
+							<img src="../../static/images/report/狗-MBTI.png" alt="">
 						</div>
 						<div class="ml-36rpx pl-16rpx flex flex-col justify-between items-center w-440rpx"
 							style="border-left: 1rpx solid rgba(0,0,0,.2);"
@@ -115,6 +125,7 @@ let options1 = ref([{
 	}
 }])
 let currentCardId = ref(0)
+let currentPetType = ref(0)
 let reportList = ref([])
 let isLoading = ref(false)
 let recentReviews = ref({})
@@ -157,7 +168,9 @@ let swipeChange = async (e) => {
 	console.log(e)
 	if (isLoading.value) return
 	currentCardId.value = cardList.value[e.detail.current].id
-	console.log(currentCardId.value)
+	currentPetType.value = cardList.value[e.detail.current].type.id
+
+	console.log(currentCardId.value, '-----', cardList.value[e.detail.current].type.id, '-----', currentPetType.value)
 	try {
 		isLoading.value = true
 		uni.showLoading({
@@ -165,6 +178,7 @@ let swipeChange = async (e) => {
 		})
 
 		let resReport = await reports({ pet_card_id: currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value })
+
 		recentReviews.value = resReport.data[0]
 		reportList.value = resReport.data.reverse();
 		console.log('报告', resReport)
@@ -201,6 +215,7 @@ onShow(async () => {
 			uni.hideLoading()
 		}
 		cardList.value = petCardsList.data
+		currentPetType.value = petCardsList.data[0].type.id
 		uni.hideLoading()
 		console.log(cardList.value)
 	} catch (err) {

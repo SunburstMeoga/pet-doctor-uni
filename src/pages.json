@@ -51,6 +51,14 @@
   },
   "pages": [
     {
+      "path": "pages/report/index",
+      "type": "home",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "报告"
+      }
+    },
+    {
       "path": "pages/home/index",
       "type": "home",
       "style": {
@@ -174,14 +182,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "宠物身份证"
-      }
-    },
-    {
-      "path": "pages/report/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "报告"
       }
     },
     {
