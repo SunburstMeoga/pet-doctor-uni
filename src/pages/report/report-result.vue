@@ -14,7 +14,7 @@
 				<pet-card :name="petInfoObj.name" :breed="petInfoObj.breed.name" :sex="petInfoObj.sex"
 					:time="petInfoObj.birth_at"></pet-card>
 			</view>
-			<view class="module report-result">
+			<view class="module report-result relative z-50">
 				<image :src="mbtiImg" mode="aspectFit" style="border-radius: 24rpx;"></image>
 			</view>
 			<view class="eval-details module">
@@ -99,7 +99,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="service-qrcode">
+		<view class="service-qrcode" @click="addCustom">
 			<image
 				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png"
 				mode=""></image>
@@ -125,6 +125,8 @@ let dimensionsItems = ref([])
 let reportTitle = ref('')
 let cardId = ref('')
 let mbtiImg = ref('')
+let imageList = ref(['http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png'])
+
 let petInfoObj = ref({})
 const onShareTimeline = () => {
 	return {
@@ -135,6 +137,12 @@ const onShareTimeline = () => {
 		imageUrl: `${mbtiImg.value}`,
 		// imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
 	};
+}
+const addCustom = () => { //添加专属客服
+	uni.previewImage({
+		current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
+		urls: imageList.value // 需要预览的图片http链接列表
+	});
 }
 let getPetInfoDetails = async (petId) => {
 	uni.showLoading({

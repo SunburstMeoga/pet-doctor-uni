@@ -29,8 +29,8 @@
 					</div> -->
 				</div>
 			</div>
-			<div class="content-list" v-if="cardList.length !== 0">
-				<div v-for="(item, index) in cardList" :key="index" class="content-list-item">
+			<div class="content-list pb-200rpx" v-if="cardList.length !== 0">
+				<div v-for="(item, index) in cardList" :key="index" class="content-list-item ">
 					<wd-swipe-action class="flex justify-start items-center">
 						<pet-card :name="item.name" :breed="item.breed.name" :id="item.id" :sex="item.sex"
 							:toJump="true" :time="item.birth_at" :assessmentId="assessmentId"></pet-card>

@@ -61,14 +61,21 @@
 						</view>
 
 						<view class="info-one-name">具体是什么品种</view>
-						<wd-picker :columns="petTypeRange" use-default-slot @confirm="petVarietyChange"
+						<!-- <wd-picker :columns="petTypeRange" use-default-slot @confirm="petVarietyChange"
 							class="relative z-50">
 							<view class="info-one-input flex justify-between items-center"
 								style="margin-bottom: 64rpx;">
 								<view class="" style="margin-left: 32rpx; color: #222;">{{ selectPetVariety }}</view>
 								<view class="icon iconfont icon-a-duobianxing1"></view>
 							</view>
-						</wd-picker>
+						</wd-picker> -->
+						<picker mode="selector" :range="petTypeText" @change="petVarietyChange">
+							<view class="info-one-input flex justify-between items-center"
+								style="margin-bottom: 64rpx;">
+								<view class="" style="margin-left: 32rpx; color: #222;">{{ selectPetVariety }}</view>
+								<view class="icon iconfont icon-a-duobianxing1"></view>
+							</view>
+						</picker>
 
 						<view class="info-one-gender">弟弟or妹妹</view>
 						<view class="gender-type flex justify-start items-center">
@@ -137,6 +144,7 @@ let brithDay = ref('')
 let breedId = ref(null)
 let sex = ref(1)
 let assessmentId = ref('2')
+let petTypeText = ref([])
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
 	if (options.assessmentId) {
@@ -239,8 +247,8 @@ let endDate = computed(() => {
 })
 let petVarietyChange = (e) => {
 	console.log('e:', e);
-	selectPetVariety.value = e.selectedItems.value
-	breedId.value = e.selectedItems.id
+	selectPetVariety.value = petTypeText.value[e.detail.value]
+	breedId.value = petTypeRange.value[e.detail.value].id
 }
 //获取宠物品种
 let getPetBreeds = async (typeId) => {
@@ -250,13 +258,17 @@ let getPetBreeds = async (typeId) => {
 	try {
 		let result = await petBreeds(typeId)
 		petTypeRange.value = []
+		petTypeText.value = []
 		result.data.map(item => {
 			let obj = {}
 			obj.value = item.name
 			obj.id = item.id
+			obj.name = item.name
 			petTypeRange.value.push(obj)
+			petTypeText.value.push(item.name)
 		})
-		console.log(result)
+		// petTypeRange.value = ['美国', '中国', '巴西', '日本'],
+		console.log(petTypeRange.value)
 		uni.hideLoading()
 	} catch (err) {
 		console.log(err)

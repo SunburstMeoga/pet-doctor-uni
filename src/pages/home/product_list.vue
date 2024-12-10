@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品'
@@ -17,7 +17,6 @@
                     <wd-cell-group :title="item.title">
                         <div class="w-500rpx h-230rpx mb-40rpx" v-for="(_item, _index) in item.items" :key="_index"
                             @click="toDetails(_item)">
-                            {{ _index }}
                             <ProductItem :img="_item.pictures[0]" :title="_item.title" :price="_item.price * 0.01"
                                 :details="_item.intro" :tags="_item.tags" />
                         </div>
