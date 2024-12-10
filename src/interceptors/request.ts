@@ -53,7 +53,7 @@ const httpInterceptor = {
     const userStore = useUserStore()
     // const { token } = uni.getStorageSync('token')
     // if (token) {
-    //   options.header.Authorization = `${token}`
+    //   options.header.Authorization = `${}`
     // }
     options.header.Authorization = `${uni.getStorageSync('token')}`
   },
