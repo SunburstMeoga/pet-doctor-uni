@@ -37,8 +37,8 @@ export const reportDetails = (id) => {
 }
 
 // 获取商品列表
-export const allProduct = () => {
-  return http.get('/products')
+export const allProduct = (data) => {
+  return http.get('/products',data)
 }
 
 // 创建订单
@@ -153,4 +153,9 @@ export const deleteCart = (cartId) => {
 //删除宠物报告
 export const deleteReport = (id) => {
   return http.delete('report/' + id)
+}
+
+//商品组
+export const productGroup = () => {
+  return http.get('/product/groups')
 }

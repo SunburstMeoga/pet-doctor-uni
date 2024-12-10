@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品'
@@ -14,14 +14,10 @@
             <scroll-view class="content" scroll-y scroll-with-animation :scroll-top="scrollTop" :throttle="false"
                 @scroll="onScroll">
                 <view v-for="(item, index) in categories" :key="index" class="category">
-                    <!-- <div class="w-full flex justify-end items-center h-230rpx" v-for="(item, index) in productItems"
-                        :key="index">
-                        <ProductItem :img="item.pictures[0]" :title="item.title" :price="item.price"
-                            :details="item.intro" :tags="item.tags" />
-                    </div> -->
                     <wd-cell-group :title="item.title">
-                        <div class="w-500rpx h-230rpx mb-40rpx" v-for="(_item, _index) in productItems" :key="_index"
+                        <div class="w-500rpx h-230rpx mb-40rpx" v-for="(_item, _index) in item.items" :key="_index"
                             @click="toDetails(_item)">
+                            {{ _index }}
                             <ProductItem :img="_item.pictures[0]" :title="_item.title" :price="_item.price * 0.01"
                                 :details="_item.intro" :tags="_item.tags" />
                         </div>
@@ -36,26 +32,53 @@
 import { onMounted, ref } from 'vue'
 import { getRect, isArray } from 'wot-design-uni/components/common/util'
 import { ProductItem } from '../../components/productItem.vue'
-import { allProduct } from '@/service/index'
+import { allProduct, productGroup } from '@/service/index'
 
 const subCategories = new Array(24).fill({ title: '标题文字', label: '这是描述这是描述' }, 0, 24)
 const active = ref(1)
 const scrollTop = ref(0)
 const itemScrollTop = ref([])
 const productItems = ref([])
-const categories = ref([
-    {
-        label: '分类一',
-        title: '标题一',
-        items: subCategories
-    }
-])
-const getProductList = async () => {
+const categories = ref([])
+//商品组
+const getProductGroup = async () => {
     try {
         uni.showLoading({
             title: '加载中'
         });
-        let result = await allProduct()
+        let result = await productGroup()
+        console.log('商品组', result)
+        result.data.map(async (item) => {
+            let obj = {}
+            obj.label = item.name
+            obj.title = item.name
+            obj.id = item.id
+            let products = await allProduct({ group_id: item.id })
+            let productItems = products.data
+            obj.items = productItems
+            categories.value.push(obj)
+            console.log(categories.value)
+        })
+        // let res = await allProduct({ group_id: groupID })
+        //     {
+        //     label: '分类一',
+        //     title: '标题一',
+        //     items: subCategories
+        // }
+        console.log(categories.value)
+        uni.hideLoading();
+    } catch (err) {
+        console.log(err)
+        uni.hideLoading();
+    }
+}
+//商品列表
+const getProductList = async (groupID) => {
+    try {
+        uni.showLoading({
+            title: '加载中'
+        });
+        let result = await allProduct({ group_id: groupID })
         console.log('商品列表', result)
         productItems.value = result.data
         uni.hideLoading();
@@ -83,7 +106,8 @@ onMounted(() => {
             scrollTop.value = rects[active.value].top || 0
         }
     })
-    getProductList()
+    getProductGroup()
+
 })
 
 function handleChange({ value }) {
@@ -100,6 +124,7 @@ function onScroll(e) {
     const index = itemScrollTop.value.findIndex((top) => top > scrollTop && top - scrollTop <= threshold)
     if (index > -1) {
         active.value = index
+        console.log(active.value)
     }
 }
 </script>
