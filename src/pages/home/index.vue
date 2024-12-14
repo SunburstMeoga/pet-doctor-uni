@@ -17,41 +17,38 @@
 		</div>
 		<div class="home-banner">
 			<div class="home-video">
-				<!-- <video style="height: 1120rpx; width: 100%;" :muted="true" :loop="true" :autoplay="true"
-					:controls="false"
-					src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241023/jIaGiG9MPZYKGZXsOI9pZe61y2IlXIFMHz5t7Q0g.mp4"></video> -->
 				<image style="height: 1120rpx; width: 100%;" mode="aspectFill"
 					src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png">
 				</image>
 			</div>
-			<div class="w-full flex justify-center items-center absolute bottom-80rpx">
-				<div class="w-298rpx h-330rpx mr-24rpx" @click="toAI">
-					<img src="../../static/images/home/组合 356.png" alt="">
+			<div class="w-full flex flex-col justify-center items-center absolute bottom-80rpx">
+				<div class="w-full flex justify-center items-center">
+					<div class="w-218rpx h-212rpx mr-24rpx" @click="toAI">
+						<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/QtXKqPrGrfkgQTnNVrGZOSbzVzJE4H8m3Noiqw3J.png"
+							alt="">
+					</div>
+					<div class="flex flex-col justify-between items-center h-212rpx">
+						<div class="home-button" @click="toAssessment('2')">
+							<!-- <div>喵喵MBTI测评</div> -->
+							<div class="home-button-icon"
+								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/ci2YLkFZby0028UxBGJWJYJ0Xom2SFe5lQ7WI3MB.png');">
+								<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
+							</div>
+						</div>
+						<div class="home-button" @click="toAssessment('1')">
+							<!-- <div>汪汪MBTI测评</div> -->
+							<div class="home-button-icon"
+								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/5HklEeqQALpcxryHvuHiNY1UnIgHHOT48R6Pdw7h.png');">
+								<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
+								<!-- {{getApp().go}} -->
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="flex flex-col justify-end items-center">
-					<div class="home-button home-mbti" @click="toAssessment('2')">
-						<!-- <div>喵喵MBTI测评</div> -->
-						<div class="home-button-icon"
-							style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241204/QLL4OOIPPR92ptUwyABOL3wqItBgdd16Lzdt0W1T.png');">
-							<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-						</div>
-					</div>
-					<div class="home-button home-mbti" @click="toAssessment('1')">
-						<!-- <div>汪汪MBTI测评</div> -->
-						<div class="home-button-icon"
-							style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241204/rjHFt8Y5XRb9W2SFaLAJnM1MYs6GEfsbqinN0iBv.png');">
-							<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-							<!-- {{getApp().go}} -->
-						</div>
-					</div>
-
-					<div class="home-button home-eval" @click="toAssessment('3')">
-						<!-- <div>定制健康测评</div> -->
-						<div class="home-button-icon"
-							style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241204/BnA8ujtQEo3FUS0rwSVgqC82l9ycR4dmazxdeFfJ.png');">
-							<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-						</div>
-					</div>
+				<div class="w-550rpx flex justify-center items-center mt-24rpx h-94rpx" @click="toAssessment('3')">
+					<img mode="aspectFill"
+						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/eCGPQDXOC8Sa4soYNE8zh9zdaC0CNSLAaN66sz0H.png"
+						alt="">
 				</div>
 			</div>
 		</div>
@@ -136,23 +133,23 @@ let toAssessment = (assessmentId) => {
 	// }
 }
 let handleShop = () => {
-	if (!uni.getStorageSync('token')) {
-		uni.showModal({
-			content: '登录才可购买哦~',
-			showCancel: true,
-			confirmText: '前往登录',
-			success: (e) => {
-				console.log(e)
-				if (e.confirm) {
-					uni.navigateTo({
-						url: '/pages/login/index'
-					})
-				}
-			},
+	// if (!uni.getStorageSync('token')) {
+	// 	uni.showModal({
+	// 		content: '登录才可购买哦~',
+	// 		showCancel: true,
+	// 		confirmText: '前往登录',
+	// 		success: (e) => {
+	// 			console.log(e)
+	// 			if (e.confirm) {
+	// 				uni.navigateTo({
+	// 					url: '/pages/login/index'
+	// 				})
+	// 			}
+	// 		},
 
-		})
-		return
-	}
+	// 	})
+	// 	return
+	// }
 	uni.navigateTo({
 		url: '/pages/home/product_list'
 	})

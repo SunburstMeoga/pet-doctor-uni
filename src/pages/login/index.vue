@@ -8,12 +8,13 @@
 </route>
 <template>
   <view class="flex justify-center items-center w-full h-screen flex-col">
-    <wd-button :loading="loading" @click="toLogin()" custom-class="login flex justify-center items-center btn mb-30rpx"
-      style="margin-bottom: 20rpx">
+    <wd-button :loading="loading" @click="toLogin()" custom-style="border:none;"
+      custom-class="flex relative z-10 !items-center !border-none !justify-center !bg-gradient-to-r !to-#F9EB7D !from-#FDDC60 !mb-40rpx  !from-#222 !text-#222 !w-360rpx !h-94rpx !rounded-24rpx">
       手机号快捷登录
     </wd-button>
-    <wd-button @click="notLogin()" custom-class="login flex justify-center items-center btn"
-      style="margin-bottom: 20rpx">
+    <wd-button @click="notLogin()"
+      custom-class="flex  relative z-10 !items-center  !justify-center !w-360rpx !h-94rpx !rounded-24rpx !text-#222 !bg-transparent"
+      custom-style="border: 1px solid #000;">
       暂不登录
     </wd-button>
     <wd-popup v-model="show" position="bottom" custom-class="rounded-t-xl!" :close-on-click-modal="false">
