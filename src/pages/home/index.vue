@@ -24,21 +24,21 @@
 			<div class="w-full flex flex-col justify-center items-center absolute bottom-80rpx">
 				<div class="w-full flex justify-center items-center">
 					<div class="w-218rpx h-212rpx mr-24rpx" @click="toAI">
-						<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/QtXKqPrGrfkgQTnNVrGZOSbzVzJE4H8m3Noiqw3J.png"
+						<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/GpNSfHztrBzWEOnCKgTRYPLKTaoDxw0ewEoiyAG1.png"
 							alt="">
 					</div>
 					<div class="flex flex-col justify-between items-center h-212rpx">
 						<div class="home-button" @click="toAssessment('2')">
 							<!-- <div>喵喵MBTI测评</div> -->
 							<div class="home-button-icon"
-								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/ci2YLkFZby0028UxBGJWJYJ0Xom2SFe5lQ7WI3MB.png');">
+								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/3Dt0pcDJhpwidku8fOR0FR1WhREeMvrPCzTy4BlV.png');">
 								<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 							</div>
 						</div>
 						<div class="home-button" @click="toAssessment('1')">
 							<!-- <div>汪汪MBTI测评</div> -->
 							<div class="home-button-icon"
-								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/5HklEeqQALpcxryHvuHiNY1UnIgHHOT48R6Pdw7h.png');">
+								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/On1Acc5OW5rhIVrnCgTjbOpHeQtE0hZjrzx1wAsd.png');">
 								<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 								<!-- {{getApp().go}} -->
 							</div>
@@ -47,7 +47,7 @@
 				</div>
 				<div class="w-550rpx flex justify-center items-center mt-24rpx h-94rpx" @click="toAssessment('3')">
 					<img mode="aspectFill"
-						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241214/eCGPQDXOC8Sa4soYNE8zh9zdaC0CNSLAaN66sz0H.png"
+						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/CYp90WkuhCuAaqACkACz8LgMOXAMhP8oFhoK5EhW.png"
 						alt="">
 				</div>
 			</div>

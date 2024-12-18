@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -21,7 +21,7 @@
                     <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
                         class="flex justify-center items-center">
                         <view class="swiper-item" :class="'swiper-item' + index">
-                            <img :src="item" class="object-cover" alt="">
+                            <img :src="item" class="object-cover" alt="" mode="aspectFill">
                         </view>
                     </swiper-item>
                 </swiper>
@@ -397,6 +397,7 @@ const handleChange = ({ value }) => { //步进器
     console.log(value)
 }
 const handleSKUItem = (item) => {
+    productDetailsInfo.value['price'] = item.price
     selectSKU.value = item.id
 }
 const getProductDetails = async () => { //商品详情
@@ -415,7 +416,7 @@ const getProductDetails = async () => { //商品详情
     }
 }
 onLoad((options) => {
-    productId.value = options.productId
+    productId.value = options.productId || 1
     console.log(productId.value)
 })
 onShow(() => {

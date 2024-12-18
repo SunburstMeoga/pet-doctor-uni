@@ -51,6 +51,15 @@
   },
   "pages": [
     {
+      "path": "pages/home/product_details",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "商品详情",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
+      }
+    },
+    {
       "path": "pages/home/index",
       "type": "home",
       "style": {
@@ -106,15 +115,6 @@
     {
       "path": "pages/home/privacy_policy",
       "type": "page"
-    },
-    {
-      "path": "pages/home/product_details",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "商品详情",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
-      }
     },
     {
       "path": "pages/home/product_list",
