@@ -16,12 +16,12 @@
             </div>
         </div>
         <div class="w-full flex flex-col items-center -mt-60rpx relative z-1 h-auto">
-            <div class="w-686rpx h-400rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
-                <swiper class="swiper-box w-686rpx h-400rpx " @change="change" :current="swiperDotIndex">
+            <div class="w-686rpx h-686rpx rounded-6rpx overflow-hidden bg-white mb-28rpx">
+                <swiper class="swiper-box w-686rpx h-686rpx " @change="change" :current="swiperDotIndex">
                     <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
                         class="flex justify-center items-center">
                         <view class="swiper-item" :class="'swiper-item' + index">
-                            <img :src="item" class="object-cover" alt="" mode="aspectFill">
+                            <img :src="item" alt="" mode="aspectFit">
                         </view>
                     </swiper-item>
                 </swiper>
@@ -436,12 +436,12 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .swiper-box {
     width: 686rpx;
-    height: 400rpx;
+    height: 686rpx;
 }
 
 .swiper-item {
     width: 686rpx;
-    height: 400rpx;
+    height: 686rpx;
 }
 
 .operating-button {

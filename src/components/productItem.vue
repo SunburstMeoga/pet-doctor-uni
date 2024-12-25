@@ -7,7 +7,7 @@
             <div class="text-zinc-7 text-32rpx w-full font-bold">
                 {{ title }}
             </div>
-            <div class="text-zinc-5 w-full text-24rpx">
+            <div class="text-zinc-5 w-full text-22rpx">
                 {{ details }}
             </div>
             <div class="flex justify-start  items-center w-full" v-if="tags.length !== 0">
@@ -17,7 +17,7 @@
             </div>
             <div class="absolute bottom-0 right-0 flex justify-between items-center w-full">
                 <div class="text-slate-9 font-bold text-32rpx">
-                    {{ price }}
+                    {{ Number(price).toFixed(2) }}
                 </div>
                 <div
                     class="bg-gradient-to-r to-#FCE16A  from-#F15912 rounded-16rpx text-white font-medium text-24rpx w-137rpx h-57rpx flex justify-center items-center">
