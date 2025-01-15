@@ -42,7 +42,7 @@
             <div class="w-686rpx pb-600rpx">
                 <div class="w-full" v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index"
                     :src="item">
-                    <img :src="item" class="w-full max-h-1200rpx" mode="aspectFit" />
+                    <img :src="item" class="w-full h-1200rpx" mode="aspectFit" />
 
                 </div>
                 <!-- <img class="w-full h-auto block " style="border: 1px solid red;"
