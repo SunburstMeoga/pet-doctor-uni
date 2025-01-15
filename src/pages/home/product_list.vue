@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品'
@@ -7,7 +7,7 @@
     </route>
 <template>
     <div>
-        <view class="wraper">
+        <view class="wraper" v-if="categories.length !== 0">
             <wd-sidebar v-model="active" @change="handleChange">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
@@ -28,49 +28,99 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, nextTick } from 'vue'
 import { getRect, isArray } from 'wot-design-uni/components/common/util'
 import { ProductItem } from '../../components/productItem.vue'
 import { allProduct, productGroup } from '@/service/index'
+onMounted(async () => {
+    await nextTick(); // 确保 DOM 渲染完成
+    try {
+        await getProductGroup();
+        getRect('.category', true).then((rects) => {
+            if (Array.isArray(rects)) {
+                itemScrollTop.value = rects.map((item) => item.top || 0);
+                scrollTop.value = rects[active.value]?.top || 0;
+            } else {
+                console.warn('未找到任何 .category 节点');
+            }
+        }).catch((err) => {
+            console.error('getRect 出错', err);
+        });
+    } catch (err) {
+        console.error('初始化失败:', err);
+    }
 
+})
 const subCategories = new Array(24).fill({ title: '标题文字', label: '这是描述这是描述' }, 0, 24)
-const active = ref(1)
-const scrollTop = ref(0)
+const active = ref(0)
+const scrollTop = ref()
 const itemScrollTop = ref([])
 const productItems = ref([])
 const categories = ref([])
+// const categories = ref([
+//     {
+//         label: '分类一',
+//         title: '标题一',
+//         items: subCategories
+//     },
+//     {
+//         label: '分类二',
+//         title: '标题二',
+//         items: subCategories
+//     },
+//     {
+//         label: '分类三',
+//         title: '标题三',
+//         items: subCategories.slice(0, 18)
+//     },
+//     {
+//         label: '分类四',
+//         title: '标题四',
+//         items: subCategories.slice(0, 21)
+//     },
+//     {
+//         label: '分类五',
+//         title: '标题五',
+//         items: subCategories
+//     },
+//     {
+//         label: '分类六',
+//         title: '标题六',
+//         items: subCategories.slice(0, 18)
+//     },
+//     {
+//         label: '分类七',
+//         title: '标题七',
+//         items: subCategories
+//     }
+// ])
 //商品组
 const getProductGroup = async () => {
     try {
-        uni.showLoading({
-            title: '加载中'
+        uni.showLoading({ title: '加载中' });
+        const result = await productGroup();
+
+        categories.value = result.data.map((item) => ({
+            label: item.name,
+            title: item.name,
+            id: item.id,
+            items: [],
+        }));
+
+        const promises = categories.value.map(async (category) => {
+            const products = await allProduct({ group_id: category.id });
+            category.items = Array.isArray(products.data) ? products.data : [];
         });
-        let result = await productGroup()
-        console.log('商品组', result)
-        result.data.map(async (item) => {
-            let obj = {}
-            obj.label = item.name
-            obj.title = item.name
-            obj.id = item.id
-            let products = await allProduct({ group_id: item.id })
-            let productItems = products.data
-            obj.items = productItems
-            categories.value.push(obj)
-            console.log(categories.value)
-        })
-        // let res = await allProduct({ group_id: groupID })
-        //     {
-        //     label: '分类一',
-        //     title: '标题一',
-        //     items: subCategories
-        // }
-        console.log(categories.value)
-        uni.hideLoading();
-    } catch (err) {
-        console.log(err)
+
+        await Promise.all(promises);
+        console.log('分类数据加载完成:', categories.value);
+    } catch (error) {
+        console.error('获取商品组失败:', error);
+        uni.showToast({ title: '加载失败', icon: 'none' });
+    } finally {
         uni.hideLoading();
     }
-}
+};
 //商品列表
 const getProductList = async (groupID) => {
     try {
@@ -98,16 +148,7 @@ const toDetails = (item) => {
         url: `/pages/home/product_details?productId=${item.id}`
     });
 }
-onMounted(() => {
-    getRect('.category', true).then((rects) => {
-        if (isArray(rects)) {
-            itemScrollTop.value = rects.map((item) => item.top || 0)
-            scrollTop.value = rects[active.value].top || 0
-        }
-    })
-    getProductGroup()
 
-})
 
 function handleChange({ value }) {
     active.value = value
