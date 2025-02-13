@@ -54,7 +54,8 @@
       "path": "pages/home/product_list",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品"
+        "navigationBarTitleText": "商品",
+        "navigationStyle": "custom"
       }
     },
     {

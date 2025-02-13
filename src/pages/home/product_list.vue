@@ -1,13 +1,25 @@
 <route lang="json5" type="home">
     {
       style: {
-        navigationBarTitleText: '商品'
+        navigationBarTitleText: '商品',
+        navigationStyle:'custom'
       },
     }
     </route>
 <template>
     <div>
-        <view class="wraper" v-if="categories.length !== 0">
+        <div>
+            <CustomHeader>
+                <template #left>
+                    <view class="custom-left w-80rpx h-44rpx">
+                        <image
+                            src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/hypWQMYydqmA0adUQvDsBfa8DGox5bHeZnpZibOC.png" />
+                    </view>
+                </template>
+
+            </CustomHeader>
+        </div>
+        <view class="wraper mt-206rpx" v-if="categories.length !== 0">
             <wd-sidebar v-model="active" @change="handleChange">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
@@ -32,6 +44,7 @@ import { onMounted, ref, nextTick } from 'vue'
 import { getRect, isArray } from 'wot-design-uni/components/common/util'
 import { ProductItem } from '../../components/productItem.vue'
 import { allProduct, productGroup } from '@/service/index'
+import CustomHeader from '@/components/customHeader'
 onMounted(async () => {
     await nextTick(); // 确保 DOM 渲染完成
     try {
@@ -51,49 +64,11 @@ onMounted(async () => {
     }
 
 })
-const subCategories = new Array(24).fill({ title: '标题文字', label: '这是描述这是描述' }, 0, 24)
 const active = ref(0)
 const scrollTop = ref()
 const itemScrollTop = ref([])
 const productItems = ref([])
 const categories = ref([])
-// const categories = ref([
-//     {
-//         label: '分类一',
-//         title: '标题一',
-//         items: subCategories
-//     },
-//     {
-//         label: '分类二',
-//         title: '标题二',
-//         items: subCategories
-//     },
-//     {
-//         label: '分类三',
-//         title: '标题三',
-//         items: subCategories.slice(0, 18)
-//     },
-//     {
-//         label: '分类四',
-//         title: '标题四',
-//         items: subCategories.slice(0, 21)
-//     },
-//     {
-//         label: '分类五',
-//         title: '标题五',
-//         items: subCategories
-//     },
-//     {
-//         label: '分类六',
-//         title: '标题六',
-//         items: subCategories.slice(0, 18)
-//     },
-//     {
-//         label: '分类七',
-//         title: '标题七',
-//         items: subCategories
-//     }
-// ])
 //商品组
 const getProductGroup = async () => {
     try {
