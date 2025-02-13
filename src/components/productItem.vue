@@ -4,10 +4,10 @@
             <img :src="img" alt="" mode="aspectFit">
         </div>
         <div class="flex flex-col w-289rpx h-220rpx items-start justify-start ml-24rpx relative">
-            <div class="text-zinc-7 text-32rpx w-full font-bold">
+            <div class="text-#222 text-32rpx w-full">
                 {{ title }}
             </div>
-            <div class="text-zinc-5 w-full text-22rpx">
+            <div class="text-#595959 w-full text-24rpx">
                 {{ details }}
             </div>
             <div class="flex justify-start  items-center w-full" v-if="tags.length !== 0">
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="absolute bottom-0 right-0 flex justify-between items-center w-full">
-                <div class="text-slate-9 font-bold text-32rpx">
+                <div class="text-#222 font-bold text-32rpx">
                     {{ Number(price).toFixed(2) }}
                 </div>
                 <div
