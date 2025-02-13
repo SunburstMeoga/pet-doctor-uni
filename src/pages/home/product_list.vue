@@ -19,7 +19,7 @@
 
             </CustomHeader>
         </div>
-        <view class="wraper mt-206rpx" v-if="categories.length !== 0">
+        <view class="wraper pt-206rpx" v-if="categories.length !== 0">
             <wd-sidebar v-model="active" @change="handleChange">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
