@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品'
@@ -183,4 +183,21 @@ function onScroll(e) {
 }
 
 .customClass {}
+</style>
+<style>
+.wd-sidebar-item {
+    color: #8c8c8c !important;
+    font-size: 28px;
+}
+
+.wd-sidebar-item--active {
+    color: #222 !important;
+    font-weight: medium;
+    font-size: 28px;
+
+}
+
+.wd-sidebar-item--active::before {
+    background: #FCE16A !important;
+}
 </style>
