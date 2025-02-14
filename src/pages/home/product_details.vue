@@ -1,7 +1,8 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品详情',
+        navigationStyle:'custom',
         enableShareAppMessage: true,
    		 enableShareTimeline: true
       },

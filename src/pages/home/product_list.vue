@@ -13,19 +13,25 @@
                 <template #left>
                     <view class="custom-left w-80rpx h-44rpx">
                         <image
-                            src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/hypWQMYydqmA0adUQvDsBfa8DGox5bHeZnpZibOC.png" />
+                            src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/hypWQMYydqmA0adUQvDsBfa8DGox5bHeZnpZibOC.png"
+                            mode="aspectFit" />
                     </view>
                 </template>
 
             </CustomHeader>
         </div>
-        <view class="wraper pt-206rpx" v-if="categories.length !== 0">
-            <wd-sidebar v-model="active" @change="handleChange">
+        <div class="w-full fixed  h-full z-90">
+            <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/lAn879X4T0boACUqQLeRaARui2ISUKOeaYEQLsRQ.png"
+                alt="" mode="aspectFit">
+        </div>
+        <view class="wraper pt-206rpx relative z-100" v-if="categories.length !== 0">
+            <wd-sidebar v-model="active" @change="handleChange" style="width:  189rpx;">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
-            <scroll-view class="content" scroll-y scroll-with-animation :scroll-top="scrollTop" :throttle="false"
-                @scroll="onScroll">
-                <view v-for="(item, index) in categories" :key="index" class="category">
+            <scroll-view class="flex-1 bg-transparent!" scroll-y scroll-with-animation :scroll-top="scrollTop"
+                :throttle="false" @scroll="onScroll">
+                <view v-for="(item, index) in categories" :key="index" class="category"
+                    style="background-color: transparent !important;background: transparent !important;">
                     <wd-cell-group :title="item.title">
                         <div class="w-500rpx h-230rpx mb-40rpx" v-for="(_item, _index) in item.items" :key="_index"
                             @click="toDetails(_item)">
@@ -52,7 +58,7 @@ onMounted(async () => {
         getRect('.category', true).then((rects) => {
             if (Array.isArray(rects)) {
                 itemScrollTop.value = rects.map((item) => item.top || 0);
-                scrollTop.value = rects[active.value]?.top || 0;
+                scrollTop.value = rects[active.value]?.top - 100 || 0;
             } else {
                 console.warn('未找到任何 .category 节点');
             }
@@ -62,31 +68,26 @@ onMounted(async () => {
     } catch (err) {
         console.error('初始化失败:', err);
     }
-
 })
 const active = ref(0)
 const scrollTop = ref()
 const itemScrollTop = ref([])
-const productItems = ref([])
 const categories = ref([])
 //商品组
 const getProductGroup = async () => {
     try {
         uni.showLoading({ title: '加载中' });
         const result = await productGroup();
-
         categories.value = result.data.map((item) => ({
             label: item.name,
             title: item.name,
             id: item.id,
             items: [],
         }));
-
         const promises = categories.value.map(async (category) => {
             const products = await allProduct({ group_id: category.id });
             category.items = Array.isArray(products.data) ? products.data : [];
         });
-
         await Promise.all(promises);
         console.log('分类数据加载完成:', categories.value);
     } catch (error) {
@@ -96,27 +97,6 @@ const getProductGroup = async () => {
         uni.hideLoading();
     }
 };
-//商品列表
-const getProductList = async (groupID) => {
-    try {
-        uni.showLoading({
-            title: '加载中'
-        });
-        let result = await allProduct({ group_id: groupID })
-        console.log('商品列表', result)
-        productItems.value = result.data
-        uni.hideLoading();
-
-    } catch (err) {
-        console.log(err)
-        uni.hideLoading();
-        uni.showToast({
-            title: err,
-
-            icon: 'none'
-        });
-    }
-}
 const toDetails = (item) => {
     console.log(item, `${item.id}`)
     uni.navigateTo({
@@ -150,29 +130,33 @@ function onScroll(e) {
     height: calc(100vh - var(--window-top));
     height: calc(100vh - var(--window-top) - constant(safe-area-inset-bottom));
     height: calc(100vh - var(--window-top) - env(safe-area-inset-bottom));
+    background: transparent !important;
 }
-
-.content {
-    flex: 1;
-    background: #fff;
-}
-
-.customClass {}
 </style>
 <style>
 .wd-sidebar-item {
     color: #8c8c8c !important;
     font-size: 28px;
+    background: transparent !important;
 }
 
 .wd-sidebar-item--active {
     color: #222 !important;
     font-weight: medium;
     font-size: 28px;
-
 }
 
 .wd-sidebar-item--active::before {
     background: #FCE16A !important;
+}
+
+.wd-sidebar__padding,
+.wd-sidebar,
+.wd-cell-group__body,
+.wd-cell-group__title,
+.category,
+.wd-cell-group,
+.wraper {
+    background: transparent !important;
 }
 </style>

@@ -18,7 +18,7 @@ function back() {
 </script>
 
 <template>
-    <view class="fixed top-0 left-0 w-full flex items-end z-100" :style="{ height: `${barHeight}px` }">
+    <view class="fixed top-0 left-0 w-full flex items-end z-90" :style="{ height: `${barHeight}px` }">
         <view class="relative w-full" :style="{
         height: `${menuButton?.height}px`,
         lineHeight: `${menuButton?.height}px`,

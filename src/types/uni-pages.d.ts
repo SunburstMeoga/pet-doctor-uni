@@ -5,6 +5,7 @@
 
 interface NavigateToOptions {
   url: "/pages/home/product_list" |
+       "/pages/home/product_details" |
        "/pages/home/index" |
        "/pages/cart/index" |
        "/pages/home/address_list" |
@@ -14,7 +15,6 @@ interface NavigateToOptions {
        "/pages/home/order_details" |
        "/pages/home/pet_mbti" |
        "/pages/home/privacy_policy" |
-       "/pages/home/product_details" |
        "/pages/home/star_answer" |
        "/pages/home/store_address" |
        "/pages/login/index" |
