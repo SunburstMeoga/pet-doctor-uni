@@ -1,18 +1,19 @@
 <template>
     <div>
         <wd-popup :modelValue="showCheckoutCounter" position="bottom" :safe-area-inset-bottom="true"
-            custom-style="max-height: 1000rpx; background: #f4f4f5; overflow: scroll;" closable @close="handleClose">
+            custom-style="max-height: 1000rpx; background: #f4f4f5; overflow: scroll; border-radius: 24rpx 24rpx 0 0;"
+            closable @close="handleClose">
             <div class="w-full flex flex-col justify-start items-center">
-                <div class="text-slate-9 font-medium text-32rpx mb-48rpx pt-26rpx">确认订单
+                <div class="text-#222 font-medium text-32rpx mb-48rpx pt-26rpx">确认订单
                 </div>
                 <div class="w-686rpx flex justify-between items-center mb-28rpx">
                     <div @click="handleMethodItem(item)" class="operating-button"
                         v-for="(item, index) in pickMethodItems" :key="index"
-                        :class="selectPickMethod === item.id ? 'bg-yellow-4' : 'bg-white'">
+                        :class="selectPickMethod === item.id ? 'bg-#FCE16A text-#222 font-medium' : 'bg-white text-#595959'">
                         {{ item.title }}
                     </div>
                 </div>
-                <div class="w-686rpx flex justify-between items-center py-14rpx rounded-16rpx mb-48rpx text-gray-600"
+                <div class="w-686rpx flex justify-between items-center py-14rpx rounded-16rpx mb-48rpx text-#222"
                     style="border: 1px solid #e4e4e7;" @click="handleSelectAddress">
                     <div class="ml-20rpx">
                         <div class="flex justify-start items-center" v-show="selectPickMethod === 0">
@@ -44,19 +45,19 @@
                     </div>
                     <div class="ml-28rpx w-416rpx flex flex-col justify-between items-end h-240rpx">
                         <div>
-                            <div class="text-slate-9 font-medium text-28rpx mb-12rpx">{{ productInfo.title }}</div>
-                            <div class="text-zinc-6 text-28rpx ">{{ productInfo.intro }}</div>
+                            <div class="text-#222 font-medium text-32rpx mb-12rpx">{{ productInfo.title }}</div>
+                            <div class="text-#595959 text-28rpx ">{{ productInfo.intro }}</div>
                         </div>
-                        <div class="flex text-zinc-6 text-28rpx  ">X{{ productQuantity }}</div>
+                        <div class="flex text-#222 text-28rpx  ">X{{ productQuantity }}</div>
                     </div>
                 </div>
                 <div class="w-686rpx pt-28rpx">
-                    <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
+                    <div class="text-#222 text-28rpx font-medium mb-16rpx">规格</div>
                 </div>
                 <div class="w-full flex justify-start items-center">
                     <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
                         @click="handleSKUItem(item)" v-for="(item, index) in productInfo.items" :key="index"
-                        :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
+                        :class="selectSKU === item.id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959'">
                         {{ item.sku_title }}
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                     style="border-top:1px solid #f3f4f6;">
                     <div class="w-full flex justify-center items-center h-96rpx">
                         <div class="w-686rpx flex justify-between items-center">
-                            <div class="text-48rpx text-slate-9 font-bold">￥{{ (productInfo.price * productQuantity *
+                            <div class="text-48rpx text-#222 font-bold">￥{{ (productInfo.price * productQuantity *
             0.01).toFixed(2) }}</div>
                             <!-- <div>
                                 <wd-input-number @change="updateProductQuantity" :modelValue="productQuantity" :min="1"
