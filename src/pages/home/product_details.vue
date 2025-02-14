@@ -29,19 +29,16 @@
             </div>
         </div>
         <div class="w-full flex flex-col items-center -mt-60rpx relative z-1 h-auto">
-            <div class="w-686rpx h-400rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
-                <swiper class="w-686rpx h-400rpx" :indicator-dots="false" @change="onSwiperChange">
+            <div class="w-686rpx  h-686rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
+                <swiper class="w-686rpx  h-686rpx" :indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.5)"
+                    indicator-active-color="#ffffff">
                     <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
                         class="flex justify-center items-center">
-                        <view class="w-686rpx h-400rpx" :class="'swiper-item' + index">
+                        <view class="w-686rpx  h-686rpx" :class="'swiper-item' + index">
                             <image :src="item" mode="aspectFill" class="w-full h-full" />
                         </view>
                     </swiper-item>
                 </swiper>
-                <view class="flex justify-center mt-20rpx relative z-100" style="border: 1px solid red;">
-                    <view v-for="(_, index) in productDetailsInfo.pictures" :key="index"
-                        :class="['custom-dot', { 'custom-dot-active': currentIndex === index }]"></view>
-                </view>
             </div>
             <div class="w-686rpx text-36rpx font-medium  mb-28rpx">
                 {{ productDetailsInfo.title }}
@@ -75,8 +72,16 @@
                 </view>
             </view>
         </div>
+        <div @click="handleCart"
+            class="fixed z-100 bottom-516rpx right-0 flex justify-center items-center rounded-l-full w-112rpx h-64rpx bg-#F159121A transition-transform duration-300"
+            :style="{
+                border: '1px solid #F15912',
+                borderRight: 'none',
+                transform: isCollapsed ? 'translateX(100%)' : 'translateX(0)',
+            }">
+            <wd-icon name="cart" size="22px" color="#F15912"></wd-icon>
+        </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white">
-
             <div class="w-full flex justify-center items-center bg-gradient-to-r to-#FEE8C3  from-#FED9C3 text-#F54940 text-24rpx h-57rpx"
                 v-if="productDetailsInfo.group_end_at && productDetailsInfo.is_group">
                 <div class="w-686rpx ">
@@ -117,7 +122,7 @@ import CheckoutCounter from '@/components/checkoutCounter'
 import { checkoutOrder } from '@/service/index'
 import { productDetails, addCard, createOrder, orderStatus, systemConfig, addresses, pay } from '@/service/index'
 import CustomHeader from '@/components/customHeader'
-
+import { ref, onMounted, onUnmounted } from 'vue';
 let productId = ref(0)
 let productDetailsInfo = ref({})
 let selectSKU = ref(1) //选择的sku
@@ -128,17 +133,38 @@ let selectPickMethod = ref(0)
 let pickUpSite = ref('')
 let addressItems = ref([])
 let addressInfo = ref({})
+// 控制元素是否收起
+const isCollapsed = ref(false);
+
 let tags = ref([
     { title: '上新', tagStyle: 'bg-orange-5 text-white' },
     { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
-const currentIndex = ref(0);
-
-const onSwiperChange = (event) => { //轮播图指示点发生变化
-    currentIndex.value = event.detail.current;
-    console.log(currentIndex.value)
+// 防抖函数
+function debounce(func, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
 }
+//点击购物车
+const handleCart = () => {
+    uni.switchTab({
+        url: '/pages/cart/index'
+    })
+}
+// 处理滚动事件
+const handleScroll = debounce(() => {
+    console.log(isCollapsed.value)
+    isCollapsed.value = true; // 滑动时收起
+    setTimeout(() => {
+        isCollapsed.value = false; // 停止滑动后展开
+    }, 1000); // 200ms 后展开
+}, 10); // 防抖时间 100ms
 const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选择地址
     selectPickMethod.value = selectPickMethodChild
     console.log('取货方式', selectPickMethod.value)
@@ -417,13 +443,9 @@ onShow(() => {
     getSystemConfig()
     getAddressItems()
 })
-// 清理函数，组件卸载时停止轮询
-onUnmounted(() => {
-    if (pollingTimer) {
-        clearTimeout(pollingTimer);
-        pollingTimer = null;
-    }
-});
+onPageScroll(() => {
+    handleScroll()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -432,16 +454,15 @@ onUnmounted(() => {
 }
 </style>
 <style>
-.custom-dot {
+/* 覆盖默认指示点样式 */
+.wx-swiper-dot {
     width: 10rpx;
     height: 10rpx;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
-    margin: 0 5rpx;
-    transition: all 0.3s ease;
 }
 
-.custom-dot-active {
+.wx-swiper-dot-active {
     width: 20rpx;
     height: 10rpx;
     border-radius: 5rpx;
