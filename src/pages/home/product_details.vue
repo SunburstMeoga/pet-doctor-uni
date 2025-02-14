@@ -10,6 +10,12 @@
     </route>
 <template>
     <div class="flex flex-col justify-start items-center">
+        <div>
+            <CustomHeader :showButton="true" color="#fff">
+
+
+            </CustomHeader>
+        </div>
         <div class="w-full h-417rpx relative ">
             <div class="w-full h-417rpx absolute inset-0">
                 <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241128/LZIDSbbyqBlBleWhryCDuwt1KxgLp652wikP9F2Y.png"
@@ -21,8 +27,8 @@
                 <swiper class="swiper-box w-686rpx h-686rpx " @change="change" :current="swiperDotIndex">
                     <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
                         class="flex justify-center items-center">
-                        <view class="swiper-item" :class="'swiper-item' + index">
-                            <img :src="item" alt="" mode="aspectFit">
+                        <view class="swiper-item rounded-24rpx overflow-hidden" :class="'swiper-item' + index">
+                            <img :src="item" alt="" mode="aspectFit" class="rounded-24rpx overflow-hidden">
                         </view>
                     </swiper-item>
                 </swiper>
@@ -40,27 +46,26 @@
             <div class="w-686rpx text-zinc-4 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.intro }}
             </div>
-            <div class="w-686rpx pb-600rpx">
-                <div class="w-full" v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index"
-                    :src="item">
-                    <img :src="item" class="w-full h-1200rpx" mode="aspectFit" />
-
+            <div class="w-686rpx">
+                <div class="w-686rpx pt-28rpx">
+                    <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
                 </div>
-                <!-- <img class="w-full h-auto block " style="border: 1px solid red;"
-                    v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index" :src="item"> -->
+                <div class="w-full flex justify-start items-center">
+                    <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
+                        @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
+                        :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
+                        {{ item.sku_title }}
+                    </div>
+                </div>
             </div>
+            <view class="w-full pb-300rpx">
+                <view class="w-full" v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index">
+                    <image :src="item" mode="widthFix" class="w-full" />
+                </view>
+            </view>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white">
-            <div class="w-686rpx pt-28rpx">
-                <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
-            </div>
-            <div class="w-full flex justify-start items-center">
-                <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
-                    @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
-                    :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
-                    {{ item.sku_title }}
-                </div>
-            </div>
+
             <div class="w-full flex justify-center items-center bg-gradient-to-r to-#FEE8C3  from-#FED9C3 text-#F54940 text-24rpx h-57rpx"
                 v-if="productDetailsInfo.group_end_at && productDetailsInfo.is_group">
                 <div class="w-686rpx ">
@@ -70,7 +75,7 @@
             <div class="w-full flex justify-center items-center h-96rpx">
                 <div class="w-686rpx flex justify-between items-center">
                     <div class="text-48rpx text-slate-9 font-bold">￥{{ (productDetailsInfo.price * 0.01 *
-                    productQuantity).toFixed(2)
+                productQuantity).toFixed(2)
                         }}</div>
                     <div>
                         <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
@@ -83,7 +88,8 @@
                 <div class="w-686rpx flex justify-between items-center">
                     <div class=" bg-black text-yellow operating-button" @click="handleAddCart">加入购物车</div>
                     <div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white operating-button"
-                        @click="handleBuyNow">立即购买</div>
+                        @click="handleBuyNow">
+                        立即购买</div>
 
                 </div>
 
@@ -99,6 +105,8 @@
 import CheckoutCounter from '@/components/checkoutCounter'
 import { checkoutOrder } from '@/service/index'
 import { productDetails, addCard, createOrder, orderStatus, systemConfig, addresses, pay } from '@/service/index'
+import CustomHeader from '@/components/customHeader'
+
 let productId = ref(0)
 let productDetailsInfo = ref({})
 let selectSKU = ref(1) //选择的sku
