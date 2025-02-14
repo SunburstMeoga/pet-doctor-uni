@@ -11,27 +11,37 @@
 <template>
     <div class="flex flex-col justify-start items-center">
         <div>
-            <CustomHeader :showButton="true" color="#fff">
-
-
-            </CustomHeader>
+            <CustomHeader :showButton="true" color="#fff"></CustomHeader>
         </div>
-        <div class="w-full h-417rpx relative ">
+        <div class="w-full h-417rpx relative">
+            <div class="w-full h-full relative z-1 flex justify-between items-end">
+                <div class="w-686rpx w-full flex justify-between items-center mb-88rpx">
+                    <div class="w-230rpx h-144rpx" style="border:1px solid red;"></div>
+                    <div class="w-392rpx flex justify-end items-center " style="border: 1px solid red;">
+                        <div v-for="(item, index)  in 3" :key="index" :class="[index !== 2 ? 'mr-16rpx' : '']"
+                            class="rounded-14rpx w-120rpx h-120rpx" style="border:1px solid red;"></div>
+                    </div>
+                </div>
+            </div>
             <div class="w-full h-417rpx absolute inset-0">
                 <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241128/LZIDSbbyqBlBleWhryCDuwt1KxgLp652wikP9F2Y.png"
                     alt="">
             </div>
         </div>
         <div class="w-full flex flex-col items-center -mt-60rpx relative z-1 h-auto">
-            <div class="w-686rpx h-686rpx rounded-6rpx overflow-hidden bg-white mb-28rpx">
-                <swiper class="swiper-box w-686rpx h-686rpx " @change="change" :current="swiperDotIndex">
+            <div class="w-686rpx h-400rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
+                <swiper class="w-686rpx h-400rpx" :indicator-dots="false" @change="onSwiperChange">
                     <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
                         class="flex justify-center items-center">
-                        <view class="swiper-item rounded-24rpx overflow-hidden" :class="'swiper-item' + index">
-                            <img :src="item" alt="" mode="aspectFit" class="rounded-24rpx overflow-hidden">
+                        <view class="w-686rpx h-400rpx" :class="'swiper-item' + index">
+                            <image :src="item" mode="aspectFill" class="w-full h-full" />
                         </view>
                     </swiper-item>
                 </swiper>
+                <view class="flex justify-center mt-20rpx relative z-100" style="border: 1px solid red;">
+                    <view v-for="(_, index) in productDetailsInfo.pictures" :key="index"
+                        :class="['custom-dot', { 'custom-dot-active': currentIndex === index }]"></view>
+                </view>
             </div>
             <div class="w-686rpx text-36rpx font-medium  mb-28rpx">
                 {{ productDetailsInfo.title }}
@@ -43,7 +53,7 @@
                     {{ item.title }}
                 </div>
             </div>
-            <div class="w-686rpx text-zinc-4 text-28rpx mb-24rpx">
+            <div class="w-686rpx text-#595959 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.intro }}
             </div>
             <div class="w-686rpx">
@@ -51,9 +61,10 @@
                     <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
                 </div>
                 <div class="w-full flex justify-start items-center">
-                    <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx ml-32rpx text-24rpx font-medium flex-wrap mb-28rpx"
+                    <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx text-24rpx font-medium flex-wrap mb-28rpx"
                         @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
-                        :class="selectSKU === item.id ? 'bg-yellow-3 text-slate-9' : 'bg-zinc-2 text-slate-6'">
+                        :class="[selectSKU === item.id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959',
+            { 'ml-24rpx': index !== 0 }]">
                         {{ item.sku_title }}
                     </div>
                 </div>
@@ -86,7 +97,7 @@
             </div>
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class=" bg-black text-yellow operating-button" @click="handleAddCart">加入购物车</div>
+                    <div class=" bg-#222 text-#FCE068 operating-button" @click="handleAddCart">加入购物车</div>
                     <div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white operating-button"
                         @click="handleBuyNow">
                         立即购买</div>
@@ -122,6 +133,12 @@ let tags = ref([
     { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
+const currentIndex = ref(0);
+
+const onSwiperChange = (event) => { //轮播图指示点发生变化
+    currentIndex.value = event.detail.current;
+    console.log(currentIndex.value)
+}
 const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选择地址
     selectPickMethod.value = selectPickMethodChild
     console.log('取货方式', selectPickMethod.value)
@@ -186,40 +203,7 @@ const checkOrderStatus = async (orderSN) => { //检查订单状态
         uni.hideLoading()
     }
 }
-// const toCreateOrder = async (params) => { //创建订单
-//     try {
-//         uni.showLoading({
-//             title: '加载中'
-//         })
-//         let orderRes = await createOrder(params)
-//         console.log('创建订单结果', orderRes)
 
-//         let orderSN = orderRes.data.order_sn
-//         pollingTimer = setInterval(async () => { //轮询订单状态
-//             try {
-//                 const statusResponse = await checkOrderStatus(orderSN);
-//                 console.log('订单状态', statusResponse)
-//                 if (statusResponse.status === 0) {
-//                     // 如果状态还是pending，继续轮询
-//                 } else {
-//                     // 如果状态变为success或fail，停止轮询并更新订单状态
-//                     clearInterval(pollingTimer);
-//                     pollingTimer = null;
-//                     orderStatus.value = statusResponse.status;
-//                 }
-//             } catch (error) {
-//                 console.error('查询订单状态时出错:', error);
-//                 // 处理错误，可能需要重新尝试请求或停止轮询
-//                 clearInterval(pollingTimer);
-//                 pollingTimer = null;
-//             }
-//         }, 1000);
-//     } catch (err) {
-//         console.log(err)
-//         uni.hideLoading()
-//     }
-
-// }
 const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台确认订单按钮
     console.log(selectPickMethodChild)
     selectPickMethod.value = selectPickMethodChild
@@ -443,17 +427,24 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.swiper-box {
-    width: 686rpx;
-    height: 686rpx;
-}
-
-.swiper-item {
-    width: 686rpx;
-    height: 686rpx;
-}
-
 .operating-button {
     @apply w-329rpx h-88rpx text-28rpx font-medium rounded-16rpx flex justify-center items-center;
+}
+</style>
+<style>
+.custom-dot {
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0 5rpx;
+    transition: all 0.3s ease;
+}
+
+.custom-dot-active {
+    width: 20rpx;
+    height: 10rpx;
+    border-radius: 5rpx;
+    background-color: #ffffff;
 }
 </style>
