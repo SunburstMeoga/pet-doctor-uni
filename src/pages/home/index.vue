@@ -22,34 +22,37 @@
 				</image>
 			</div>
 			<div class="w-full flex flex-col justify-center items-center absolute bottom-80rpx">
-				<div class="w-full flex justify-center items-center">
-					<div class="w-218rpx h-212rpx mr-24rpx" @click="toAI">
-						<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/GpNSfHztrBzWEOnCKgTRYPLKTaoDxw0ewEoiyAG1.png"
+				<div class="bg-white/50 backdrop-blur-md rounded-24rpx p-40rpx w-606rpx">
+					<div class="w-full flex justify-center items-center">
+						<div class="w-218rpx h-212rpx mr-24rpx" @click="toAI">
+							<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250216/NM9SxrzwarrHuXrwe4Bk68x9wcN8h0q0KZZJBcJ2.png"
+								alt="">
+						</div>
+						<div class="flex flex-col justify-between items-center h-212rpx">
+							<div class="home-button" @click="toAssessment('2')">
+								<!-- <div>喵喵MBTI测评</div> -->
+								<div class="home-button-icon"
+									style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png');">
+									<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
+								</div>
+							</div>
+							<div class="home-button" @click="toAssessment('1')">
+								<!-- <div>汪汪MBTI测评</div> -->
+								<div class="home-button-icon"
+									style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png');">
+									<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
+									<!-- {{getApp().go}} -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="w-606rpx flex justify-center items-center mt-24rpx h-94rpx" @click="toAssessment('3')">
+						<img mode="aspectFill"
+							src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/a7UwvqjDHAFa4o63PCauBYxhsxnO2Vc2um5yxdi8.png"
 							alt="">
 					</div>
-					<div class="flex flex-col justify-between items-center h-212rpx">
-						<div class="home-button" @click="toAssessment('2')">
-							<!-- <div>喵喵MBTI测评</div> -->
-							<div class="home-button-icon"
-								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/3Dt0pcDJhpwidku8fOR0FR1WhREeMvrPCzTy4BlV.png');">
-								<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-							</div>
-						</div>
-						<div class="home-button" @click="toAssessment('1')">
-							<!-- <div>汪汪MBTI测评</div> -->
-							<div class="home-button-icon"
-								style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/On1Acc5OW5rhIVrnCgTjbOpHeQtE0hZjrzx1wAsd.png');">
-								<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-								<!-- {{getApp().go}} -->
-							</div>
-						</div>
-					</div>
 				</div>
-				<div class="w-550rpx flex justify-center items-center mt-24rpx h-94rpx" @click="toAssessment('3')">
-					<img mode="aspectFill"
-						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241215/CYp90WkuhCuAaqACkACz8LgMOXAMhP8oFhoK5EhW.png"
-						alt="">
-				</div>
+
 			</div>
 		</div>
 		<div class="acvive">
@@ -180,7 +183,7 @@ onMounted(async () => {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 308rpx;
+	width: 364rpx;
 	height: 94rpx;
 	color: #222;
 	font-size: 32rpx;

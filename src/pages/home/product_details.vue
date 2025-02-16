@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="w-full h-417rpx absolute inset-0">
-                <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241128/LZIDSbbyqBlBleWhryCDuwt1KxgLp652wikP9F2Y.png"
+                <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250216/XOVNAdbasMWkDtVDpHMwoA9YubP94EMIUB9kPVaa.png"
                     alt="">
             </div>
         </div>
@@ -103,8 +103,7 @@
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
                     <div class=" bg-#222 text-#FCE068 operating-button" @click="handleAddCart">加入购物车</div>
-                    <div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white operating-button"
-                        @click="handleBuyNow">
+                    <div class=" bg-#FD7420 text-white operating-button" @click="handleBuyNow">
                         立即购买</div>
 
                 </div>
