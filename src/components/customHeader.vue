@@ -32,7 +32,7 @@ function back() {
     }" @click="back">
                 <wd-icon name="thin-arrow-left" size="16px" :style="{ color }"></wd-icon>
             </button>
-            <view class="absolute top-0 hfull text-base bg-transparent flex items-center gap1" :style="{
+            <view class="absolute top-0 h-full text-base bg-transparent flex items-center gap1" :style="{
         left: `${windowWidth - menuButton?.right}px`,
         lineHeight: `${menuButton?.height}px`,
         color,

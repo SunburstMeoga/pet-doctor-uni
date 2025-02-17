@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -181,8 +181,6 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .content {
 	height: calc(100vh - var(--window-top));
-	height: calc(100vh - var(--window-top) - constant(safe-area-inset-bottom));
-	height: calc(100vh - var(--window-top) - env(safe-area-inset-bottom));
 }
 
 .home-operating {

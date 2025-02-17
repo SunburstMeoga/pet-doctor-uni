@@ -86,6 +86,8 @@ let buyNow = () => {
 			border-radius: 24rpx;
 			position: relative;
 
+
+			/* IE 10 */
 			.details-left {
 				width: 220rpx;
 				height: 220rpx;
