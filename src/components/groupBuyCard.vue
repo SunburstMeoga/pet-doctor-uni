@@ -85,7 +85,15 @@ let buyNow = () => {
 			height: 228rpx;
 			border-radius: 24rpx;
 			position: relative;
-
+			background: linear-gradient(to bottom, #FFF7EF, #FFFFFF);
+			/* 如果需要支持旧版浏览器，可以添加以下代码 */
+			background: -webkit-linear-gradient(top, #FFF7EF, #FFFFFF);
+			/* Safari 5.1-6, Chrome 10-25 */
+			background: -moz-linear-gradient(top, #FFF7EF, #FFFFFF);
+			/* Firefox 3.6-15 */
+			background: -o-linear-gradient(top, #FFF7EF, #FFFFFF);
+			/* Opera 11.1-12 */
+			background: -ms-linear-gradient(top, #FFF7EF, #FFFFFF);
 
 			/* IE 10 */
 			.details-left {
