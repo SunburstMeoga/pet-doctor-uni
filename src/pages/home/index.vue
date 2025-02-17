@@ -9,19 +9,31 @@
 	}
 	</route>
 <template>
-	<div class="content">
-		<div class="logo">
-			<image mode="aspectFit"
-				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241127/tacl0itkBbPXmlK9T2aMSjFqC7ZTORzQWF0FptIo.png"
-				alt="" />
-		</div>
-		<div class="home-banner">
-			<div class="home-video">
-				<image style="height: 1120rpx; width: 100%;" mode="aspectFill"
-					src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png">
-				</image>
+	<div class="bg-gradient-to-b to-#FEFCEF  from-#FFF5CD content">
+		<CustomHeader>
+			<template #left>
+				<div class="w-295rpx h-44rpx">
+					<image mode="aspectFit"
+						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/TMMYNzv72B3AnsQQkl6wtt3Ii8uEd58dgupYNFEj.png"
+						alt="" />
+				</div>
+			</template>
+
+		</CustomHeader>
+		<div class="w-full">
+			<div class=" w-full">
+				<swiper class="w-full  h-752rpx" :indicator-dots="false" indicator-color="rgba(255, 255, 255, 0.5)"
+					indicator-active-color="#ffffff">
+					<swiper-item v-for="(item, index) in 3" :key="index" class="flex justify-center items-center">
+						<view class="w-full  h-752rpx" :class="'swiper-item' + index">
+							<image
+								src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png"
+								mode="aspectFill" class="w-full h-full" />
+						</view>
+					</swiper-item>
+				</swiper>
 			</div>
-			<div class="w-full flex flex-col justify-center items-center absolute bottom-80rpx">
+			<div class="w-full flex flex-col justify-center items-center -mt-70rpx">
 				<div class="bg-white/50 backdrop-blur-md rounded-24rpx p-40rpx w-606rpx">
 					<div class="w-full flex justify-center items-center">
 						<div class="w-218rpx h-212rpx mr-24rpx" @click="toAI">
@@ -55,19 +67,13 @@
 
 			</div>
 		</div>
-		<div class="acvive">
-			<div class="one" @click="handleShop">
-				<!-- <div class="word">
-					商城
-				</div> -->
+		<div class="w-686rpx flex mx-auto items-center justify-between mt-32rpx">
+			<div class="w-238rpx h-232rpx" @click="handleShop">
 				<image mode="aspectFill"
 					:src="`http://47.238.229.145:8000/media/20241108/fqon6fCvn9uBCx7leDWaijzoe2j4llrscIrQ39FC.png`"
 					alt="" />
 			</div>
-			<div class="two" @click="handleHotActive">
-				<!-- <div class="word">
-					热门活动
-				</div> -->
+			<div class="w-422rpx h-232rpx" @click="handleHotActive">
 				<image mode="aspectFill"
 					src="http://47.238.229.145:8000/media/20241108/OfBk7SgW5XFvapDKxPv8Abp2HE7xMJxe8KtGokXu.png"
 					alt="" />
@@ -77,6 +83,8 @@
 </template>
 
 <script setup>
+import CustomHeader from '@/components/customHeader'
+
 import {
 	ref,
 	getCurrentInstance,
@@ -171,6 +179,12 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.content {
+	height: calc(100vh - var(--window-top));
+	height: calc(100vh - var(--window-top) - constant(safe-area-inset-bottom));
+	height: calc(100vh - var(--window-top) - env(safe-area-inset-bottom));
+}
+
 .home-operating {
 	position: absolute;
 	bottom: 50rpx;
@@ -199,88 +213,6 @@ onMounted(async () => {
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
-	}
-}
-
-.home-mbti {
-	background-color: #fff;
-	margin-bottom: 24rpx;
-}
-
-.home-eval {
-	background-color: #fce068;
-	// margin-top: 24rpx;
-}
-
-.content {
-	position: relative;
-	background-color: #FFFBF2;
-	height: 100vh;
-}
-
-.logo {
-	width: 296rpx;
-	height: 44rpx;
-	position: absolute;
-	z-index: 9999;
-	top: 112rpx;
-	left: 32rpx;
-}
-
-.home-banner {
-	// width: 100%;
-	height: 1158rpx;
-	/* background-image: url("../../static/images/home/home-banner.png"); */
-	position: relative;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: contain;
-}
-
-.home-video {
-	width: 100%;
-	height: 1120rpx;
-	position: absolute;
-	left: 0;
-	top: 0;
-}
-
-.acvive {
-	width: 100%;
-	background-color: #FFFBF2;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	height: 302rpx;
-}
-
-.one {
-	width: 238rpx;
-	height: 232rpx;
-	position: relative;
-
-	.word {
-		padding: 20rpx 0 0 20rpx;
-		color: #65431D;
-		font-size: 40rpx;
-		position: absolute;
-		left: 0;
-		top: 0;
-	}
-}
-
-.two {
-	width: 420rpx;
-	height: 232rpx;
-	position: relative;
-
-	.word {
-		padding: 20rpx 0 0 20rpx;
-		color: #65431D;
-		font-size: 40rpx;
-		position: absolute;
-		left: 0;
-		top: 0;
 	}
 }
 </style>
