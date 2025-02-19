@@ -20,18 +20,22 @@
 		</div>
 		<view class="flex-col flex justify-start  items-center pt-170rpx">
 			<view class="flex h-116rpx justify-start items-center w-686rpx mx-auto">
-				<view class="flex justify-start items-center" :class="{ 'ml-40rpx': item.id === 2 }"
-					v-for="(item, index) in activityItems" :key="index" @click="handleActivityItem(item)">
-					<div class="w-56rpx h-56rpx">
-						<img class="w-full h-full"
-							:src="item.id === currentActivityType ? `${item.active}` : `${item.icon}`" alt="">
+				<view class="flex justify-start items-center transition-all duration-300"
+					:class="{ 'ml-40rpx': item.id === 2 }" v-for="(item, index) in activityItems" :key="index"
+					@click="handleActivityItem(item)">
+					<!-- 图片部分 -->
+					<div class="w-56rpx h-56rpx transition-all duration-300">
+						<img class="w-full h-full transition-all duration-300"
+							:src="item.id === currentActivityType ? `${item.active}` : `${item.icon}`" alt="" />
 					</div>
-					<div class="ml-12rpx ml-12rpx" :class="{
+
+					<!-- 文字部分 -->
+					<div class="ml-12rpx transition-all duration-300" :class="{
 				'text-36rpx text-#222 font-medium': item.id === currentActivityType,
 				'text-28rpx text-#595959': item.id !== currentActivityType,
-
 			}">
-						{{ item.title }}</div>
+						{{ item.title }}
+					</div>
 				</view>
 			</view>
 			<view class=" flex flex-col justify-start items-center w-full" v-if="currentActivityType === 1">
@@ -135,5 +139,11 @@ onMounted(() => {
 			}
 		}
 	}
+}
+</style>
+<style>
+/* 添加过渡动画 */
+.transition-all {
+	transition: all 0.3s ease;
 }
 </style>
