@@ -34,13 +34,21 @@
 						{{ item.title }}</div>
 				</view>
 			</view>
-			<view class=" flex flex-col justify-start items-center w-full">
+			<view class=" flex flex-col justify-start items-center w-full" v-if="currentActivityType === 1">
 				<view class="w-686rpx h-341rpx  rounded-24rpx overflow-hidden mb-28rpx"
 					v-for="(item, index) in productList" :key="index" @click="buyNow(item)">
 					<group-buy-card :time="formatTimestamp(item.group_end_at)" :detail_pictures="item.pictures[0]"
 						:title="item.title" :intro="item.intro" :tagsItems="item.tags"
 						:price="item.price * 0.01"></group-buy-card>
 				</view>
+			</view>
+			<view class=" flex flex-col justify-start items-center w-full h-full text-#000 font-medium"
+				v-if="currentActivityType === 2">
+				<view class="w-686rpx  rounded-24rpx overflow-hidden mb-28rpx bg-white"
+					v-for="(item, index) in productList" :key="index" @click="buyNow(item)">
+					<offline-activities />
+				</view>
+
 			</view>
 		</view>
 
@@ -51,13 +59,15 @@
 import { ref, onMounted } from 'vue'
 import { allProduct, createOrder, pay } from '@/service/index'
 import GroupBuyCard from '../../components/GroupBuyCard.vue';
+import OfflineActivities from '../../components/offlineActivities.vue';
+
 import CustomHeader from '@/components/customHeader'
 
 let activityItems = ref([ //活动类型
 	{ id: 1, title: '团购活动', icon: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/eV06eKAnpu9kshHMw5rZ0yCBCB1bhztBj3j1rcAP.png', active: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/KEst0R9EjXfgt7Xfu0aTFPedngaV7fnY9m6idECl.png' },
 	{ id: 2, title: '线下活动', icon: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/XbL5cFVoZ5sOjt478swt19KzF6cBdPrU4e6UMEY5.png', active: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/y42AhT4FBIWCY9vZQXfV1vZrn37H5uWwCkzwuhi4.png' }])
 let productList = ref([])
-let currentActivityType = ref(1)
+let currentActivityType = ref(2)
 const handleActivityItem = (item) => {
 	currentActivityType.value = item.id
 }
@@ -67,8 +77,6 @@ let buyNow = async (item) => { //点击立即购买按钮
 		url: `/pages/home/product_details?productId=${item.id}`
 	});
 
-	// console.log(payRes, '支付')
-	// console.log('创建订单', res)
 }
 const formatTimestamp = (timestamp) => {
 	const date = new Date(timestamp * 1000);
@@ -100,12 +108,12 @@ onMounted(() => {
 	background-color: rgb(245, 245, 245);
 
 	.content {
-		width: 100%;
 		flex-direction: column;
+		width: 100%;
 
 		&-tab {
-			height: 100rpx;
 			width: 686rpx;
+			height: 100rpx;
 
 			.tab-item {
 				width: 160px;
@@ -121,9 +129,9 @@ onMounted(() => {
 
 			.list-item {
 				width: 686rpx;
-				border-radius: 24rpx;
 				margin-bottom: 28rpx;
 				overflow: hidden;
+				border-radius: 24rpx;
 			}
 		}
 	}
