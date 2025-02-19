@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -21,14 +21,33 @@
 
 		</CustomHeader>
 		<div class="w-full">
+			<!-- <div class="w-full relative">
+				<swiper class="w-full h-752rpx" :indicator-dots="false" indicator-type="expand"
+					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff"
+					@change="onSwiperChange">
+					<swiper-item v-for="(item, index) in swiperItems" :key="index"
+						class="flex justify-center items-center">
+						<view class="w-full h-752rpx">
+							<image :src="item.swiperImg" mode="aspectFill" class="w-full h-full" />
+						</view>
+					</swiper-item>
+				</swiper>
+				<div v-for="(item, index) in swiperItems" :key="index"
+					class="absolute top-0 left-0 w-full h-752rpx flex justify-center items-center transition-opacity duration-500"
+					:class="{ 'opacity-0': activeIndex !== index, 'opacity-100': activeIndex === index }">
+					<image :src="item.coverText" mode="aspectFit" class="w-full h-full" />
+				</div>
+			</div> -->
 			<div class=" w-full">
-				<swiper class="w-full  h-752rpx" :indicator-dots="false" indicator-color="rgba(255, 255, 255, 0.5)"
-					indicator-active-color="#ffffff">
-					<swiper-item v-for="(item, index) in 3" :key="index" class="flex justify-center items-center">
-						<view class="w-full  h-752rpx" :class="'swiper-item' + index">
-							<image
-								src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png"
-								mode="aspectFill" class="w-full h-full" />
+				<swiper class="w-full  h-752rpx" :indicator-dots="false" indicator-type="expand"
+					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff">
+					<swiper-item v-for="(item, index) in swiperItems" :key="index"
+						class="flex justify-center items-center relative">
+						<div class="w-full h-752rpx absolute z-1 bg-#4A260C99">
+							<image :src="item.coverText" mode="aspectFill" class="w-full h-full" />
+						</div>
+						<view class="w-full  h-752rpx relative" :class="'swiper-item' + index">
+							<image :src="item.swiperImg" mode="aspectFill" class="w-full h-full" />
 						</view>
 					</swiper-item>
 				</swiper>
@@ -42,18 +61,13 @@
 						</div>
 						<div class="flex flex-col justify-between items-center h-212rpx">
 							<div class="home-button" @click="toAssessment('2')">
-								<!-- <div>喵喵MBTI测评</div> -->
 								<div class="home-button-icon"
 									style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png');">
-									<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
 								</div>
 							</div>
 							<div class="home-button" @click="toAssessment('1')">
-								<!-- <div>汪汪MBTI测评</div> -->
 								<div class="home-button-icon"
 									style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png');">
-									<!-- <image src="/static/images/icon/right.png" mode="aspectFill"></image> -->
-									<!-- {{getApp().go}} -->
 								</div>
 							</div>
 						</div>
@@ -64,7 +78,6 @@
 							alt="">
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<div class="w-686rpx flex mx-auto items-center justify-between mt-32rpx">
@@ -87,16 +100,14 @@ import CustomHeader from '@/components/customHeader'
 
 import {
 	ref,
-	getCurrentInstance,
 	onMounted
 } from 'vue'
-// import MyTabbarVue from '../../components/my-tabbar.vue';
-import {
-	login,
-	petCards
-} from '@/service/index'
 let title = ref('hello')
-let cardsCount = ref(0)
+let swiperItems = ref([ //顶部轮播图
+	{ swiperImg: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250219/0kv4dbEU9Cdkbi6eKgC6Dphx7tRA7jsy8o3uXeEc.png', coverText: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250219/Jyn6g8dQtbPCW2auBAeX50r30q7cuN7zoVzoqLYL.png' },
+	{ swiperImg: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png', coverText: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250219/5zOT1f6lodBUUKf0tfNRAHzu362UXpWNi4wkl0k6.png' }
+])
+let activeIndex = ref(0) // 当前轮播图的索引
 const onShareAppMessage = () => {
 	return {
 		title: "喵博士 X 汪博士",
@@ -110,6 +121,9 @@ const toAI = () => {
 	uni.navigateToMiniProgram({
 		appId: 'wx75c75149744b7b84',
 	})
+}
+const onSwiperChange = (event) => { //监听当前轮播图 索引
+	activeIndex.value = event.detail.current;
 }
 let toAssessment = (assessmentId) => {
 	if (!uni.getStorageSync('token')) {
@@ -133,34 +147,8 @@ let toAssessment = (assessmentId) => {
 	uni.navigateTo({
 		url: `/pages/personal/petIDCardList?assessmentId=${assessmentId}`
 	})
-	// if (cardsCount.value <= 0) {
-	// 	uni.navigateTo({
-	// 		url: `/pages/personal/identityInfo?assessmentId=${assessmentId}`
-	// 	})
-	// } else {
-	// 	uni.navigateTo({
-	// 		url: `/pages/home/star_answer?assessmentId=${assessmentId}`
-	// 	})
-	// }
 }
 let handleShop = () => {
-	// if (!uni.getStorageSync('token')) {
-	// 	uni.showModal({
-	// 		content: '登录才可购买哦~',
-	// 		showCancel: true,
-	// 		confirmText: '前往登录',
-	// 		success: (e) => {
-	// 			console.log(e)
-	// 			if (e.confirm) {
-	// 				uni.navigateTo({
-	// 					url: '/pages/login/index'
-	// 				})
-	// 			}
-	// 		},
-
-	// 	})
-	// 	return
-	// }
 	uni.navigateTo({
 		url: '/pages/home/product_list'
 	})
@@ -172,9 +160,6 @@ let handleHotActive = () => {
 }
 onMounted(async () => {
 	console.log(title.value)
-	// let petCardsList = await petCards()
-	// console.log(petCardsList.data.length, petCardsList)
-	// cardsCount.value = petCardsList.data.length
 })
 </script>
 
@@ -212,5 +197,10 @@ onMounted(async () => {
 		background-position: center;
 		background-size: cover;
 	}
+}
+</style>
+<style>
+.transition-opacity {
+	transition: opacity 0.5s ease;
 }
 </style>
