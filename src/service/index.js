@@ -38,7 +38,7 @@ export const reportDetails = (id) => {
 
 // 获取商品列表
 export const allProduct = (data) => {
-  return http.get('/products',data)
+  return http.get('/products', data)
 }
 
 // 创建订单
@@ -120,7 +120,7 @@ export const addresses = () => {
   return http.get('/addresses')
 }
 
-//新增收货地址 
+//新增收货地址
 export const storeAddress = (data) => {
   return http.post('/address', data)
 }
@@ -158,4 +158,11 @@ export const deleteReport = (id) => {
 //商品组
 export const productGroup = () => {
   return http.get('/product/groups')
+}
+
+//以下为分销系统功能api
+
+//绑定关系
+export const bindUser = (data) => {
+  return http.post('/front/promotion/user/bind', data)
 }

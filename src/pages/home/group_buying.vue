@@ -49,7 +49,7 @@
 			<view class=" flex flex-col justify-start items-center w-full h-full text-#000 font-medium"
 				v-if="currentActivityType === 2">
 				<view class="w-686rpx  rounded-24rpx overflow-hidden mb-28rpx bg-white"
-					v-for="(item, index) in productList" :key="index" @click="buyNow(item)">
+					v-for="(item, index) in productList" :key="index" @click="handleOfflineActivities(item)">
 					<offline-activities />
 				</view>
 
@@ -71,9 +71,14 @@ let activityItems = ref([ //活动类型
 	{ id: 1, title: '团购活动', icon: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/eV06eKAnpu9kshHMw5rZ0yCBCB1bhztBj3j1rcAP.png', active: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/KEst0R9EjXfgt7Xfu0aTFPedngaV7fnY9m6idECl.png' },
 	{ id: 2, title: '线下活动', icon: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/XbL5cFVoZ5sOjt478swt19KzF6cBdPrU4e6UMEY5.png', active: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/y42AhT4FBIWCY9vZQXfV1vZrn37H5uWwCkzwuhi4.png' }])
 let productList = ref([])
-let currentActivityType = ref(2)
+let currentActivityType = ref(1)
 const handleActivityItem = (item) => {
 	currentActivityType.value = item.id
+}
+const handleOfflineActivities = (item) => {  //点击前往线下活动
+	uni.navigateTo({
+		url: '/pages/home/event_egistration'
+	})
 }
 let buyNow = async (item) => { //点击立即购买按钮
 	console.log(item, `${item.id}`)

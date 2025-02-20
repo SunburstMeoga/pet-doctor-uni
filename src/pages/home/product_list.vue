@@ -31,7 +31,7 @@
             <scroll-view class="flex-1 bg-transparent!" scroll-y scroll-with-animation :scroll-top="scrollTop"
                 :throttle="false" @scroll="onScroll">
                 <view v-for="(item, index) in categories" :key="index" class="category"
-                    style="background-color: transparent !important;background: transparent !important;">
+                    style="background: transparent !important;background-color: transparent !important;">
                     <wd-cell-group :title="item.title">
                         <div class="w-500rpx h-230rpx mb-40rpx" v-for="(_item, _index) in item.items" :key="_index"
                             @click="toDetails(_item)">
@@ -135,15 +135,15 @@ function onScroll(e) {
 </style>
 <style>
 .wd-sidebar-item {
+    font-size: 24rpx !important;
     color: #8c8c8c !important;
-    font-size: 28px;
     background: transparent !important;
 }
 
 .wd-sidebar-item--active {
+    font-size: 24rpx !important;
+    font-weight: medium !important;
     color: #222 !important;
-    font-weight: medium;
-    font-size: 28px;
 }
 
 .wd-sidebar-item--active::before {
@@ -158,5 +158,9 @@ function onScroll(e) {
 .wd-cell-group,
 .wraper {
     background: transparent !important;
+}
+
+.wd-cell-group__left text {
+    font-size: 24rpx !important;
 }
 </style>

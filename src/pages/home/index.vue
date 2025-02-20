@@ -62,12 +62,12 @@
 						<div class="flex flex-col justify-between items-center h-212rpx">
 							<div class="home-button" @click="toAssessment('2')">
 								<div class="home-button-icon"
-									style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png');">
+									style="width:100%;height: 100%; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png'); background-repeat: no-repeat; background-size: cover;">
 								</div>
 							</div>
 							<div class="home-button" @click="toAssessment('1')">
 								<div class="home-button-icon"
-									style="width:100%;height: 100%; background-repeat: no-repeat; background-size: cover; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png');">
+									style="width:100%;height: 100%; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png'); background-repeat: no-repeat; background-size: cover;">
 								</div>
 							</div>
 						</div>
@@ -161,6 +161,10 @@ let handleHotActive = () => {
 onMounted(async () => {
 	console.log(title.value)
 })
+onShow(async (options) => {
+	console.log('小程序加载')
+	console.log(options)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -172,18 +176,18 @@ onMounted(async () => {
 	position: absolute;
 	bottom: 50rpx;
 	left: 0;
-	width: 308rpx;
 	flex-direction: column;
+	width: 308rpx;
 }
 
 .home-button {
 	display: flex;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
 	width: 364rpx;
 	height: 94rpx;
-	color: #222;
 	font-size: 32rpx;
+	color: #222;
 	border-radius: 24rpx;
 
 	&-title {}

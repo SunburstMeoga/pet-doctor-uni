@@ -5,8 +5,15 @@
 				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250219/T7yJjfritIoZMqgqgVChr68P5ZbtH5YcuoXmpMWu.png" />
 		</div>
 		<div class="w-full h-full relative z-1">
-			<div class="w-full h-65rpx flex  justify-start items-center text-24rpx pl-28rpx text-#F54940 font-medium ">
-				截至{{ time }}</div>
+			<div class="w-642rpx  mx-auto h-65rpx flex  justify-between items-center  ">
+				<div class="text-24rpx  text-#F54940 font-medium">截至{{ time }}</div>
+				<div class="flex justify-end items-center">
+					<div class="text-24rpx text-#FF8703">已参与58<span class="text-#595959">/100</span> </div>
+					<div class="ml-8rpx w-80rpx rounded-full h-16rpx bg-#FFBF79 flex justify-start items-center">
+						<div class="h-16rpx w-30% bg-#FF8703 rounded-full"></div>
+					</div>
+				</div>
+			</div>
 			<div
 				class="bg-gradient-to-b to-#FFFFFF  from-#FFF7EF h-278rpx w-686rpx rounded-24rpx flex justify-center items-center">
 				<div class="w-642rpx h-228rpx flex justify-between items-center">
@@ -32,16 +39,19 @@
 						<div class="flex justify-between items-center w-full h-57rpx">
 							<div class="h-37rpx flex justify-start items-start">
 								<div class="font-medium text-24rpx transform translate-y-2rpx">￥</div>
-								<div class="font-bold text-32rpx ml-4rpx">23423</div>
+								<div class="font-bold text-32rpx ml-4rpx">{{ price.toFixed(2) }}</div>
 							</div>
-							<div class="flex rounded-12rpx overflow-hidden">
+							<div class="bg-#F36D1F rounded-full w-64rpx h-42rpx flex justify-center items-center">
+								<wd-icon name="add" size="24rpx" color="#fff"></wd-icon>
+							</div>
+							<!-- <div class="flex rounded-12rpx overflow-hidden">
 								<div class="bg-#F7A040  flex justify-center items-center w-88rpx h-57rpx">
 									<wd-icon name="cart" size="40rpx" color="#fff"></wd-icon>
 								</div>
 								<div
 									class="font-medium w-144rpx text-24rpx text-#fff  flex justify-center items-center bg-gradient-to-r to-#FCE16A  from-#F15912 h-57rpx">
 									立即购买</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 

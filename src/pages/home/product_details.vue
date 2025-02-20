@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -102,9 +102,9 @@
             </div>
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class=" bg-#222 text-#FCE068 operating-button" @click="handleAddCart">加入购物车</div>
-                    <div class=" bg-#FD7420 text-white operating-button" @click="handleBuyNow">
-                        立即购买</div>
+                    <div class=" w-full bg-#222 text-#FCE068 operating-button" @click="handleAddCart">加入购物车</div>
+                    <!-- <div class=" bg-#FD7420 text-white operating-button" @click="handleBuyNow">
+                        立即购买</div> -->
 
                 </div>
 
@@ -449,7 +449,7 @@ onPageScroll(() => {
 
 <style lang="scss" scoped>
 .operating-button {
-    @apply w-329rpx h-88rpx text-28rpx font-medium rounded-16rpx flex justify-center items-center;
+    @apply h-88rpx text-28rpx font-medium rounded-16rpx flex justify-center items-center;
 }
 </style>
 <style>
@@ -457,14 +457,14 @@ onPageScroll(() => {
 .wx-swiper-dot {
     width: 10rpx;
     height: 10rpx;
-    border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
 }
 
 .wx-swiper-dot-active {
     width: 20rpx;
     height: 10rpx;
-    border-radius: 5rpx;
     background-color: #ffffff;
+    border-radius: 5rpx;
 }
 </style>
