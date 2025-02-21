@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -152,9 +152,7 @@ function debounce(func, delay) {
 }
 //点击购物车
 const handleCart = () => {
-    uni.switchTab({
-        url: '/pages/cart/index'
-    })
+    url: '/pages/cart/index'
 }
 // 处理滚动事件
 const handleScroll = debounce(() => {

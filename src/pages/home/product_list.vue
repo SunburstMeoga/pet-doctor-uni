@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品',
@@ -25,6 +25,14 @@
                 alt="" mode="aspectFit">
         </div>
         <view class="wraper pt-206rpx relative z-100" v-if="categories.length !== 0">
+            <div @click="handleCart"
+                class="fixed z-100 bottom-516rpx right-0 flex justify-center items-center rounded-l-full w-112rpx h-64rpx bg-#F159121A transition-transform duration-300"
+                :style="{
+            border: '1px solid #F15912',
+            borderRight: 'none'
+        }">
+                <wd-icon name="cart" size="22px" color="#F15912"></wd-icon>
+            </div>
             <wd-sidebar v-model="active" @change="handleChange" style="width:  189rpx;">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
@@ -73,6 +81,12 @@ const active = ref(0)
 const scrollTop = ref()
 const itemScrollTop = ref([])
 const categories = ref([])
+//点击购物车
+const handleCart = () => {
+    uni.navigateTo({
+        url: '/pages/cart/index'
+    })
+}
 //商品组
 const getProductGroup = async () => {
     try {
@@ -97,6 +111,7 @@ const getProductGroup = async () => {
         uni.hideLoading();
     }
 };
+//前往商品详情
 const toDetails = (item) => {
     console.log(item, `${item.id}`)
     uni.navigateTo({

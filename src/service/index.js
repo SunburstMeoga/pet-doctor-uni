@@ -8,7 +8,7 @@ export const assessmentDetails = (id) => {
 
 // 登录
 export const login = (params) => {
-  return http.post('/login', params)
+  return http.post('/front/account/login/mp', params)
 }
 
 // 宠物身份证列表

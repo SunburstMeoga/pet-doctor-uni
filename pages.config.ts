@@ -41,15 +41,15 @@ export default defineUniPages({
       {
         iconPath: 'static/images/icon/cart.png',
         selectedIconPath: 'static/images/icon/cart-active.png',
-        pagePath: 'pages/cart/index',
-        text: '购物车',
+        pagePath: 'pages/home/product_list',
+        text: '商城',
       },
       {
         iconPath: 'static/images/icon/personal.png',
         selectedIconPath: 'static/images/icon/personal-active.png',
         pagePath: 'pages/personal/index',
         text: '个人',
-      }
+      },
     ],
   },
 })

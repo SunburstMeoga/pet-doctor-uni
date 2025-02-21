@@ -38,8 +38,8 @@
       {
         "iconPath": "static/images/icon/cart.png",
         "selectedIconPath": "static/images/icon/cart-active.png",
-        "pagePath": "pages/cart/index",
-        "text": "购物车"
+        "pagePath": "pages/home/product_list",
+        "text": "商城"
       },
       {
         "iconPath": "static/images/icon/personal.png",
@@ -51,13 +51,11 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_details",
+      "path": "pages/home/product_list",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品详情",
-        "navigationStyle": "custom",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
+        "navigationBarTitleText": "商品",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -129,11 +127,13 @@
       "type": "page"
     },
     {
-      "path": "pages/home/product_list",
+      "path": "pages/home/product_details",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "商品",
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "商品详情",
+        "navigationStyle": "custom",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
