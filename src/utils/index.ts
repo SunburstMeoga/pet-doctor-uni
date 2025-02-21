@@ -134,13 +134,16 @@ export const getEvnBaseUrl = () => {
 
     switch (envVersion) {
       case 'develop':
-        baseUrl = 'https://api.drmeowwang001.com/api'
+        // baseUrl = 'https://api.drmeowwang001.com/api'
+        baseUrl = 'https://pet-dev-api.wekisen.me'
         break
       case 'trial':
-        baseUrl = 'https://api.drmeowwang001.com/api'
+        // baseUrl = 'https://api.drmeowwang001.com/api'
+        baseUrl = 'https://pet-dev-api.wekisen.me'
         break
       case 'release':
-        baseUrl = 'https://api.drmeowwang001.com/api'
+        // baseUrl = 'https://api.drmeowwang001.com/api'
+        baseUrl = 'https://pet-dev-api.wekisen.me'
         break
     }
   }
@@ -164,6 +167,7 @@ export const getEvnBaseUploadUrl = () => {
     switch (envVersion) {
       case 'develop':
         baseUploadUrl = 'https://api.drmeowwang001.com/apiupload'
+
         break
       case 'trial':
         baseUploadUrl = 'https://api.drmeowwang001.com/apiupload'

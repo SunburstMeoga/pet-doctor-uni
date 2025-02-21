@@ -149,7 +149,7 @@ let toAssessment = (assessmentId) => {
 	})
 }
 let handleShop = () => {
-	uni.navigateTo({
+	uni.switchTab({
 		url: '/pages/home/product_list'
 	})
 }

@@ -43,8 +43,9 @@
                     <wd-cell-group :title="item.title">
                         <div class="w-500rpx h-230rpx mb-40rpx" v-for="(_item, _index) in item.items" :key="_index"
                             @click="toDetails(_item)">
-                            <ProductItem :img="_item.pictures[0]" :title="_item.title" :price="_item.price * 0.01"
-                                :details="_item.intro" :tags="_item.tags" />
+                            <ProductItem :img="_item.product_image" :title="_item.product_name"
+                                :price="_item.product_unit_price_min" :details="_item.product_tips"
+                                :tags="_item.tags" />
                         </div>
                     </wd-cell-group>
                 </view>
@@ -92,15 +93,17 @@ const getProductGroup = async () => {
     try {
         uni.showLoading({ title: '加载中' });
         const result = await productGroup();
-        categories.value = result.data.map((item) => ({
-            label: item.name,
-            title: item.name,
-            id: item.id,
+        categories.value = result.data.items.map((item) => ({
+            label: item.category_name,
+            title: item.category_name,
+            id: item.category_id,
             items: [],
         }));
         const promises = categories.value.map(async (category) => {
-            const products = await allProduct({ group_id: category.id });
-            category.items = Array.isArray(products.data) ? products.data : [];
+            const products = await allProduct({
+                category_id: category.id
+            });
+            category.items = Array.isArray(products.data.items) ? products.data.items : [];
         });
         await Promise.all(promises);
         console.log('分类数据加载完成:', categories.value);
@@ -115,7 +118,7 @@ const getProductGroup = async () => {
 const toDetails = (item) => {
     console.log(item, `${item.id}`)
     uni.navigateTo({
-        url: `/pages/home/product_details?productId=${item.id}`
+        url: `/pages/home/product_details?productId=${item.item_id}`
     });
 }
 

@@ -67,6 +67,13 @@
       }
     },
     {
+      "path": "pages/home/event_egistration",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "活动报名"
+      }
+    },
+    {
       "path": "pages/cart/index",
       "type": "page",
       "style": {
@@ -78,13 +85,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "收货地址"
-      }
-    },
-    {
-      "path": "pages/home/event_egistration",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "活动报名"
       }
     },
     {

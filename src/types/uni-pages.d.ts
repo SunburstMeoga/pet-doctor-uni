@@ -6,9 +6,9 @@
 interface NavigateToOptions {
   url: "/pages/home/product_list" |
        "/pages/home/group_buying" |
+       "/pages/home/event_egistration" |
        "/pages/cart/index" |
        "/pages/home/address_list" |
-       "/pages/home/event_egistration" |
        "/pages/home/index" |
        "/pages/home/mbti_questiton" |
        "/pages/home/order_checkout" |

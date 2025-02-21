@@ -17,9 +17,13 @@
             <div class="w-full h-full relative z-1 flex justify-between items-end">
                 <div class="w-686rpx w-full flex justify-between items-center mb-88rpx">
                     <div class="w-230rpx h-144rpx" style="border:1px solid red;"></div>
-                    <div class="w-392rpx flex justify-end items-center " style="border: 1px solid red;">
-                        <div v-for="(item, index)  in 3" :key="index" :class="[index !== 2 ? 'mr-16rpx' : '']"
-                            class="rounded-14rpx w-120rpx h-120rpx" style="border:1px solid red;"></div>
+                    <div class="w-392rpx overflow-x-scroll flex justify-end items-center "
+                        style="border: 1px solid red;">
+                        <div v-for="(item, index)  in productDetailsInfo.recommend_products" :key="index"
+                            :class="[index !== productDetailsInfo.recommend_products.length - 1 ? 'mr-16rpx' : '']"
+                            class="rounded-14rpx w-120rpx h-120rpx" style="border:1px solid red;">
+                            <image :src="item.product_image" mode="scaleToFill" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -421,7 +425,7 @@ const getProductDetails = async () => { //商品详情
         uni.showLoading({
             title: '加载中'
         });
-        let result = await productDetails(productId.value)
+        let result = await productDetails({ item_id: productId.value })
         console.log('商品详情', result)
         productDetailsInfo.value = result.data
         selectSKU.value = result.data.items[0].id
@@ -437,8 +441,8 @@ onLoad((options) => {
 })
 onShow(() => {
     getProductDetails()
-    getSystemConfig()
-    getAddressItems()
+    // getSystemConfig()
+    // getAddressItems()
 })
 onPageScroll(() => {
     handleScroll()

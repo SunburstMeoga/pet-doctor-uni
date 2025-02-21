@@ -8,7 +8,7 @@ export const assessmentDetails = (id) => {
 
 // 登录
 export const login = (params) => {
-  return http.post('/front/account/login/mp', params)
+  return http.post('/account/login/mp', params)
 }
 
 // 宠物身份证列表
@@ -38,7 +38,7 @@ export const reportDetails = (id) => {
 
 // 获取商品列表
 export const allProduct = (data) => {
-  return http.get('/products', data)
+  return http.get('/front/pt/product/list', data)
 }
 
 // 创建订单
@@ -86,8 +86,8 @@ export const petInfo = (petId) => {
 }
 
 //商品详情
-export const productDetails = (productId) => {
-  return http.get('/product/' + productId)
+export const productDetails = (data) => {
+  return http.get('/front/pt/product/detail', data)
 }
 
 //购物车列表
@@ -157,12 +157,12 @@ export const deleteReport = (id) => {
 
 //商品组
 export const productGroup = () => {
-  return http.get('/product/groups')
+  return http.get('/front/pt/product/listCategory')
 }
 
 //以下为分销系统功能api
 
 //绑定关系
 export const bindUser = (data) => {
-  return http.post('/front/promotion/user/bind', data)
+  return http.post('/promotion/user/bind', data)
 }

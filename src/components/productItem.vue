@@ -11,7 +11,12 @@
                 {{ details }}
             </div>
             <div class="flex justify-start  items-center w-full" v-if="tags.length !== 0">
-                <div class="" v-for="(item, index) in tags" :key="index">
+                <div class="text-20rpx w-56rpx h-28rpx flex justify-center items-center rounded-4rpx" :class="{
+                'bg-#F15912 text-#FFFFFF': index === 0,
+                'bg-#FAAD1426 text-#FAAD14': index === 1,
+                'bg-#3B8AFA26 text-#3B8AFA': index === 2,
+                'ml-8rpx': index !== 0,
+            }" v-for="(item, index) in tags" :key="index">
                     {{ item }}
                 </div>
             </div>
@@ -49,8 +54,8 @@ const props = defineProps({
         default: () => []
     },
     price: {
-        type: Number,
-        default: 0
+        type: String,
+        default: '0'
     }
 })
 
