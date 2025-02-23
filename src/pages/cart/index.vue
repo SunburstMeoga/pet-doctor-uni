@@ -57,7 +57,6 @@
 <script setup>
 import CartCard from '@/components/cartCard'
 import { cart, createOrder, pay, deleteCart, checkoutOrder } from '@/service/index'
-import { uuid } from 'wot-design-uni/components/common/util'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id

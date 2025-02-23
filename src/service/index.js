@@ -8,7 +8,7 @@ export const assessmentDetails = (id) => {
 
 // 登录
 export const login = (params) => {
-  return http.post('/account/login/mp', params)
+  return http.post('/front/account/login/mp', params)
 }
 
 // 宠物身份证列表
@@ -91,13 +91,13 @@ export const productDetails = (data) => {
 }
 
 //购物车列表
-export const cart = () => {
-  return http.get('/cart')
+export const cart = (data) => {
+  return http.get('/front/trade/cart/list', data)
 }
 
 //添加购物车
 export const addCard = (data) => {
-  return http.post('/cart', data)
+  return http.post('/front/trade/cart/add', data)
 }
 
 //收银台

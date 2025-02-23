@@ -1,6 +1,7 @@
 // 全局要用的类型放到这里
 
 type IResData<T> = {
+  status: number
   code: number
   msg: string
   data: T

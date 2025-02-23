@@ -15,16 +15,25 @@
         </div>
         <div class="w-full h-417rpx relative">
             <div class="w-full h-full relative z-1 flex justify-between items-end">
-                <div class="w-686rpx w-full flex justify-between items-center mb-88rpx">
-                    <div class="w-230rpx h-144rpx" style="border:1px solid red;"></div>
-                    <div class="w-392rpx overflow-x-scroll flex justify-end items-center "
-                        style="border: 1px solid red;">
-                        <div v-for="(item, index)  in productDetailsInfo.recommend_products" :key="index"
+                <div class="w-686rpx flex justify-between items-center mb-88rpx mx-auto">
+                    <div class="w-230rpx">
+                        <image :src="productDetailsInfo.product_recommend_tag.product_recommend_tag_image"
+                            mode="widthFix" />
+                    </div>
+                    <div class="w-392rpx overflow-x-scroll flex items-center relative">
+                        <!-- 左侧内阴影 -->
+                        <div
+                            class="absolute left-0 top-0 h-full w-20rpx pointer-events-none bg-gradient-to-r from-[rgba(0,0,0,0.1)] to-transparent z-1">
+                        </div>
+
+                        <!-- 图片循环 -->
+                        <div v-for="(item, index) in productDetailsInfo.recommend_products" :key="index"
                             :class="[index !== productDetailsInfo.recommend_products.length - 1 ? 'mr-16rpx' : '']"
-                            class="rounded-14rpx w-120rpx h-120rpx" style="border:1px solid red;">
-                            <image :src="item.product_image" mode="scaleToFill" />
+                            class="rounded-14rpx overflow-hidden w-120rpx h-120rpx flex-shrink-0">
+                            <image :src="item.product_image" mode="widthFix" />
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="w-full h-417rpx absolute inset-0">
@@ -36,7 +45,7 @@
             <div class="w-686rpx  h-686rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
                 <swiper class="w-686rpx  h-686rpx" :indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.5)"
                     indicator-active-color="#ffffff">
-                    <swiper-item v-for="(item, index) in productDetailsInfo.pictures" :key="index"
+                    <swiper-item v-for="(item, index) in productImages" :key="index"
                         class="flex justify-center items-center">
                         <view class="w-686rpx  h-686rpx" :class="'swiper-item' + index">
                             <image :src="item" mode="aspectFill" class="w-full h-full" />
@@ -64,17 +73,18 @@
                 <div class="w-full flex justify-start items-center">
                     <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx text-24rpx font-medium flex-wrap mb-28rpx"
                         @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
-                        :class="[selectSKU === item.id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959',
+                        :class="[selectSKU == item.id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959',
             { 'ml-24rpx': index !== 0 }]">
-                        {{ item.sku_title }}
+                        {{ item.name }}
                     </div>
                 </div>
             </div>
-            <view class="w-full pb-300rpx">
+            <!-- <view class="w-full pb-300rpx">
                 <view class="w-full" v-for="(item, index) in productDetailsInfo.detail_pictures" :key="index">
                     <image :src="item" mode="widthFix" class="w-full" />
                 </view>
-            </view>
+            </view> -->
+            <div class="w-full pb-300rpx" v-html="productDetailsInfo.product_detail" />
         </div>
         <div @click="handleCart"
             class="fixed z-100 bottom-516rpx right-0 flex justify-center items-center rounded-l-full w-112rpx h-64rpx bg-#F159121A transition-transform duration-300"
@@ -94,9 +104,8 @@
             </div>
             <div class="w-full flex justify-center items-center h-96rpx">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class="text-48rpx text-slate-9 font-bold">￥{{ (productDetailsInfo.price * 0.01 *
-                productQuantity).toFixed(2)
-                        }}</div>
+                    <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.product_unit_price_min }}
+                    </div>
                     <div>
                         <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
                             :max="productDetailsInfo.stock" />
@@ -128,7 +137,7 @@ import CustomHeader from '@/components/customHeader'
 import { ref, onMounted, onUnmounted } from 'vue';
 let productId = ref(0)
 let productDetailsInfo = ref({})
-let selectSKU = ref(1) //选择的sku
+let selectSKU = ref() //选择的sku
 let productQuantity = ref(1) //要购买的商品数量
 let pollingTimer = null; //订单轮询定时器
 let showCheckoutCounter = ref(false) //显示隐藏收银台
@@ -136,6 +145,7 @@ let selectPickMethod = ref(0)
 let pickUpSite = ref('')
 let addressItems = ref([])
 let addressInfo = ref({})
+let productImages = ref({}) //轮播图照片
 // 控制元素是否收起
 const isCollapsed = ref(false);
 
@@ -156,7 +166,9 @@ function debounce(func, delay) {
 }
 //点击购物车
 const handleCart = () => {
-    url: '/pages/cart/index'
+    uni.navigateTo({
+        url: '/pages/cart/index'
+    })
 }
 // 处理滚动事件
 const handleScroll = debounce(() => {
@@ -370,7 +382,7 @@ const handleAddCart = async () => { //点击添加购物车
         uni.showLoading({
             title: '加载中'
         });
-        let params = { item_id: selectSKU.value, quantity: productQuantity.value }
+        let params = { item_id: productId.value, quantity: productQuantity.value }
         console.log(params)
         let result = await addCard(params)
         console.log('添加购物车', result)
@@ -417,7 +429,7 @@ const handleChange = ({ value }) => { //步进器
     console.log(value)
 }
 const handleSKUItem = (item) => {
-    productDetailsInfo.value['price'] = item.price
+    productDetailsInfo.value['product_unit_price_min'] = item.price
     selectSKU.value = item.id
 }
 const getProductDetails = async () => { //商品详情
@@ -426,9 +438,35 @@ const getProductDetails = async () => { //商品详情
             title: '加载中'
         });
         let result = await productDetails({ item_id: productId.value })
+
         console.log('商品详情', result)
         productDetailsInfo.value = result.data
-        selectSKU.value = result.data.items[0].id
+        //处理商品轮播图数组
+        const sanitizedString = result.data.product_spec
+            .replace(/^"(.*)"$/, '$1')  // 移除首尾双引号
+            .replace(/\\"/g, '"');      // 处理转义双引号（如果有）
+
+        // 2️⃣ 解析为数组
+        try {
+            const specArray = JSON.parse(sanitizedString);
+
+            // ✅ 验证结果
+            console.log(Array.isArray(specArray)); // true
+            console.log(specArray[0].item);
+            productDetailsInfo.value.items = specArray[0].item
+            console.log(productDetailsInfo.value.items)
+            selectSKU.value = specArray[0].item[0].id
+        } catch (e) {
+            console.error("解析失败:", e);
+        }
+        const imageArray = result.data.image.item_image_other
+            ? result.data.image.item_image_other
+                .split(',')                // 按逗号分割
+                .map(url => url.trim())     // 去除每个元素两端的空格
+                .filter(url => url !== '') // 过滤空字符串
+            : [];                          // 空值保护
+        productImages.value = imageArray
+        console.log(productImages.value)
         uni.hideLoading();
     } catch (err) {
         console.log(err)
@@ -436,7 +474,7 @@ const getProductDetails = async () => { //商品详情
     }
 }
 onLoad((options) => {
-    productId.value = options.productId || 1
+    productId.value = options.productId || 8
     console.log(productId.value)
 })
 onShow(() => {
@@ -468,5 +506,11 @@ onPageScroll(() => {
     height: 10rpx;
     background-color: #ffffff;
     border-radius: 5rpx;
+}
+
+img {
+    max-width: 100% !important;
+    object-fit: contain !important;
+    border: 1px solid red;
 }
 </style>

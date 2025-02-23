@@ -51,26 +51,13 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_list",
+      "path": "pages/home/index",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/home/group_buying",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/home/event_egistration",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "活动报名"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -88,13 +75,18 @@
       }
     },
     {
-      "path": "pages/home/index",
+      "path": "pages/home/event_egistration",
       "type": "page",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
+        "navigationBarTitleText": "活动报名"
+      }
+    },
+    {
+      "path": "pages/home/group_buying",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -134,6 +126,14 @@
         "navigationStyle": "custom",
         "enableShareAppMessage": true,
         "enableShareTimeline": true
+      }
+    },
+    {
+      "path": "pages/home/product_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品",
+        "navigationStyle": "custom"
       }
     },
     {

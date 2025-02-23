@@ -113,7 +113,9 @@ const props = defineProps({
     }
 })
 let selectSKU = computed(() => {
+    console.log('子组件已选择的sku')
     return props.productInfo.items[0].id
+
 }) //选择的sku
 // let productQuantity = ref(1) //要购买的商品数量
 let selectPickMethod = ref(0)

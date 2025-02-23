@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品',
@@ -101,7 +101,9 @@ const getProductGroup = async () => {
         }));
         const promises = categories.value.map(async (category) => {
             const products = await allProduct({
-                category_id: category.id
+                category_id: category.id,
+                kind_id: 1201,
+                size: 1000
             });
             category.items = Array.isArray(products.data.items) ? products.data.items : [];
         });
