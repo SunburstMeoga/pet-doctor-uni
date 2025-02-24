@@ -51,13 +51,18 @@
   },
   "pages": [
     {
-      "path": "pages/home/index",
+      "path": "pages/personal/orders",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "全部订单"
+      }
+    },
+    {
+      "path": "pages/personal/index",
       "type": "home",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
+        "navigationBarTitleText": ""
       }
     },
     {
@@ -87,6 +92,16 @@
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/home/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -165,21 +180,6 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "身份证"
-      }
-    },
-    {
-      "path": "pages/personal/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": ""
-      }
-    },
-    {
-      "path": "pages/personal/orders",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "全部订单"
       }
     },
     {

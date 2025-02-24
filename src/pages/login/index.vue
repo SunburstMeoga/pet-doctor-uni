@@ -93,22 +93,6 @@ const notLogin = () => {
 const onGetPhoneNumber = async (e) => {
   console.log(e)
   if (e.code) {
-    // try {
-    //   const response = await loginApi(loginCode.value, iv.value, encryptedData.value, e.code)
-    //   setToken(response.data.token)
-    //   setUserInfo(response.data.userInfo)
-    //   toast.show({ msg: `登录成功，${userInfo.value.nickname} 👏🏻欢迎回来`, duration: 4000 })
-    //   setTimeout(() => {
-    //     const redirectUri = currRoute().query.redirect
-    //     if (redirectUri) {
-    //       isTabbarPage(redirectUri)
-    //         ? uni.switchTab({ url: redirectUri })
-    //         : uni.redirectTo({ url: redirectUri })
-    //     } else {
-    //       uni.switchTab({ url: '/pages/index/index' })
-    //     }
-    //   }, 2000)
-    // } catch (error) {}
     try {
       // console.log(encryptedData, iv, code)
       const result = await login({
@@ -116,14 +100,14 @@ const onGetPhoneNumber = async (e) => {
         iv: iv.value,
         encrypted_data: encryptedData.value,
       })
-      console.log(result)
-      if (result.code !== 0) {
+      console.log('登录信息 ', result)
+      if (result.code !== 200) {
         uni.showToast({
-          title: result.message,
+          title: result.msg,
           icon: 'none'
         })
       } else {
-        uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
+        uni.setStorageSync('token', `Bearer ${result.data.token}`)
         uni.setStorageSync('hasPhone', result.data.has_phone)
 
         console.log('用户token', uni.getStorageSync('token'))

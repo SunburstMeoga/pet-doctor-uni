@@ -135,7 +135,7 @@ const handleCancelOrder = async () => { //点击取消订单
         let result = await cancelOrder(orderSN.value)
         uni.hideLoading()
         uni.showToast({
-            title: result.message,
+            title: result.msg,
             icon: 'none'
         });
         if (result.code === 0) {

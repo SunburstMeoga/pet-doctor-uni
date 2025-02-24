@@ -115,7 +115,7 @@ const handleAction = async (item) => { //删除购物车
 		let result = await deleteCart(item.id)
 		uni.hideLoading()
 		uni.showToast({
-			title: result.message,
+			title: result.msg,
 			icon: 'none'
 		})
 		if (result.code === 0) {

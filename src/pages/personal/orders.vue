@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '全部订单',
@@ -10,7 +10,7 @@
 		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx static top-0"
 			style="background-color: rgb(245, 245, 245);">
 			<div class="rounded-8rpx px-16rpx py-8rpx text-28rpx" @click="handleType(item)"
-				:class="selectType === item.status ? 'bg-slate9 text-amber font-medium' : 'bg-zinc2 text-zinc4'"
+				:class="selectType === item.status ? 'bg-#222222 text-#FCE068 font-medium' : 'bg-#EDEDED text-#000000A6'"
 				v-for="(item, index) in orderTypes" :key="index">
 				{{ item.title }}
 			</div>
@@ -93,11 +93,11 @@ const getOrderStatus = (orderStatus) => {
 	return description;
 }
 let orderTypes = ref([
-	{ title: '全部', status: '' },
-	{ title: '待付款', status: 0 },
-	{ title: '已取消', status: 4 },
-	{ title: '待收货', status: 2 },
-	{ title: '已完成', status: 3 },
+	{ title: '全部', status: 0 },
+	{ title: '待付款', status: 2010 },
+	{ title: '已取消', status: 2050 },
+	{ title: '待收货', status: 2040 },
+	{ title: '已完成', status: 2060 },
 
 ])
 const handleType = async (item) => {
@@ -109,9 +109,9 @@ let getOrders = async (orderStatus) => { //订单列表
 	try {
 		uni.showLoading()
 		console.log('查询的订单状态', orderStatus)
-		let res = await orders({ status: orderStatus })
+		let res = await orders({ order_state_id: orderStatus })
 		console.log('订单列表', res)
-		ordersLis.value = res.data
+		ordersLis.value = res.data.items
 		uni.hideLoading()
 	} catch (err) {
 		console.log(err)
@@ -132,8 +132,8 @@ onLoad((options) => {
 .empty {
 	width: 100%;
 	height: 100vh;
-	color: #222;
 	font-size: 32rpx;
+	color: #222;
 }
 
 .container {
@@ -142,16 +142,16 @@ onLoad((options) => {
 	background-color: rgb(245, 245, 245);
 
 	.content {
-		width: 100%;
 		flex-direction: column;
-		overflow-y: scroll;
+		width: 100%;
 		padding-bottom: 60rpx;
+		overflow-y: scroll;
 
 		.content-item {
 			width: 686rpx;
 			margin-bottom: 28rpx;
-			border-radius: 24rpx;
 			overflow: hidden;
+			border-radius: 24rpx;
 		}
 	}
 }

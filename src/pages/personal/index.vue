@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -18,10 +18,10 @@
 			<view class="infor-details flex justify-between items-center">
 				<view class="infor-details-left flex justify-start items-start">
 					<view class="infor-details-left-avator">
-						<image :src="userInfoObj.avatar" mode="aspectFit"></image>
+						<image :src="userInfoObj.user_avatar" mode="aspectFit"></image>
 					</view>
 					<view class="infor-details-left-base flex justify-center items-start">
-						<view class="infor-details-left-base-name">{{ userInfoObj.nickname }}</view>
+						<view class="infor-details-left-base-name">{{ userInfoObj.user_nickname }}</view>
 						<view class="infor-details-left-base-intro">喵博士 X 汪博士</view>
 					</view>
 				</view>
@@ -83,7 +83,7 @@
 import {
 	login, userInfo
 } from '@/service/index'
-onMounted(() => {
+onShow(() => {
 	console.log('token', uni.getStorageSync('token'))
 	getUserInfo()
 	if (uni.getStorageSync('token')) {
@@ -110,8 +110,8 @@ const addCustom = () => { //添加专属客服
 }
 let getUserInfo = async () => {
 	let res = await userInfo()
-	let { avatar, nickname } = res.data
-	userInfoObj.value = { avatar, nickname }
+	let { user_avatar, user_nickname } = res.data
+	userInfoObj.value = { user_avatar, user_nickname }
 	console.log('个人资料', res)
 }
 let handleOrder = (status) => {
@@ -191,27 +191,27 @@ let toLogin = async () => {
 
 <style lang="scss" scoped>
 .container {
+	min-height: 100vh;
 	// border:1px solid red;
 	background-color: #F7F7F7;
-	min-height: 100vh;
 
 	.login {
 		width: 200rpx;
 		height: 56rpx;
-		border-radius: 12rpx;
-		background-color: #FCE16A;
-		color: #222;
 		font-size: 28rpx;
+		color: #222;
+		background-color: #FCE16A;
+		border-radius: 12rpx;
 		// display: block;
 	}
 
 	.logo {
-		width: 296rpx;
-		height: 44rpx;
 		position: absolute;
-		z-index: 9999;
 		top: 112rpx;
 		left: 32rpx;
+		z-index: 9999;
+		width: 296rpx;
+		height: 44rpx;
 	}
 
 	.infor {
@@ -219,29 +219,29 @@ let toLogin = async () => {
 		height: 408rpx;
 
 		&-details {
-			margin-top: 216rpx;
 			width: 686rpx;
+			margin-top: 216rpx;
 
 			&-left {
 
 				&-avator {
 					width: 128rpx;
 					height: 128rpx;
-					border-radius: 50%;
-					border: 1rpx solid #FCE16A;
 					overflow: hidden;
+					border: 1rpx solid #FCE16A;
+					border-radius: 50%;
 				}
 
 				&-base {
-					color: #222;
 					flex-direction: column;
-					margin-left: 16rpx;
 					height: 128rpx;
+					margin-left: 16rpx;
+					color: #222;
 
 					&-name {
-						font-size: 36rpx;
 						height: 50rpx;
 						margin-bottom: 10rpx;
+						font-size: 36rpx;
 						font-weight: medium;
 					}
 
@@ -257,8 +257,8 @@ let toLogin = async () => {
 					color: #595959;
 
 					&-icon {
-						font-size: 48rpx;
 						margin-bottom: 10rpx;
+						font-size: 48rpx;
 					}
 
 					&-word {
@@ -277,8 +277,8 @@ let toLogin = async () => {
 			width: 686rpx;
 			height: 330rpx;
 			margin: 0 auto;
-			border-radius: 24rpx;
 			overflow: hidden;
+			border-radius: 24rpx;
 
 			&-operating {
 				width: 686rpx;
@@ -286,8 +286,8 @@ let toLogin = async () => {
 				background-color: #fff;
 
 				&-items {
-					width: 171rpx;
 					flex-direction: column;
+					width: 171rpx;
 					color: #222;
 
 					&-icon {
@@ -311,20 +311,20 @@ let toLogin = async () => {
 	}
 
 	.other-info {
+		flex-direction: column;
+		width: 686rpx;
 		margin: 0 auto;
 		margin-top: 30rpx;
-		width: 686rpx;
-		flex-direction: column;
-		border-radius: 24rpx;
 		overflow: hidden;
 		background-color: #fff;
+		border-radius: 24rpx;
 
 		&-items {
 			width: 622rpx;
 			height: 96rpx;
+			font-size: 28rpx;
 			line-height: 96rpx;
 			color: #474747;
-			font-size: 28rpx;
 
 		}
 	}

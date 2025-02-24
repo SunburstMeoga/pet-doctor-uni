@@ -55,7 +55,7 @@ export const pay = (data) => {
 export const orders = (params) => {
   // 如果http.get不支持直接传递params作为查询参数，你可能需要手动构建查询字符串
   // 例如：return http.get('/orders?' + new URLSearchParams(params).toString());
-  return http.get('/orders', params) // 假设http.get的第二个参数可以接收一个包含params的对象
+  return http.get('/front/trade/order/list', params) // 假设http.get的第二个参数可以接收一个包含params的对象
 }
 
 // 报告列表（同上）
@@ -77,7 +77,7 @@ export const deletePet = (cardId) => {
 
 // 获取个人信息
 export const userInfo = () => {
-  return http.get('/user/info')
+  return http.get('/front/account/user/info')
 }
 
 // 查看宠物信息

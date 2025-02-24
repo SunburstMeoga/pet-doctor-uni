@@ -138,7 +138,7 @@ let bindClick = async (item) => {
 		let result = await deleteReport(item.id)
 		uni.hideLoading()
 		uni.showToast({
-			title: result.message,
+			title: result.msg,
 			icon: 'none'
 		})
 		if (result.code === 0) {
@@ -231,37 +231,37 @@ onShow(async () => {
 }
 
 .empty {
-	color: #FCE068;
-	font-size: 32rpx;
-	background-color: #222;
 	width: 324rpx;
 	height: 92rpx;
-	border-radius: 24rpx;
 	margin: 0 auto;
 	margin-top: 100rpx;
+	font-size: 32rpx;
+	color: #FCE068;
+	background-color: #222;
+	border-radius: 24rpx;
 }
 
 .content {
 	position: relative;
-	width: 100%;
 	flex-direction: column;
-	border-radius: 50% / 10%;
-	border-top-right-radius: 0%;
-	border-top-left-radius: 0%;
+	width: 100%;
 	overflow: hidden;
+	border-radius: 50% / 10%;
+	border-top-left-radius: 0%;
+	border-top-right-radius: 0%;
 
 	.swiper-box {
+		flex-direction: column;
 		width: 750rpx;
 		height: 220rpx;
-		flex-direction: column;
 		// border: 1px solid red;
 	}
 
 	.swiper-item {
 		width: 622rpx;
 		height: 220rpx;
-		text-align: center;
 		line-height: 220rpx;
+		text-align: center;
 	}
 }
 
@@ -278,21 +278,21 @@ onShow(async () => {
 	}
 
 	&-name {
-		color: black;
-		margin-bottom: 40rpx;
-		font-size: 16rpx;
 		// border: 1px solid orchid;
 		height: 18rpx;
+		margin-bottom: 40rpx;
+		font-size: 16rpx;
 		font-weight: bolder;
+		color: black;
 	}
 
 	&-property {
-		margin-bottom: 26rpx;
 		height: 40rpx;
+		margin-bottom: 26rpx;
 
 		&-variety {
-			font-size: 28rpx;
 			margin: 0 12rpx;
+			font-size: 28rpx;
 		}
 
 		&-gender {
@@ -311,17 +311,17 @@ onShow(async () => {
 }
 
 .report-list {
-	width: 670rpx;
 	flex-direction: column;
+	width: 670rpx;
 	margin: 0 auto;
 	margin-top: 34rpx;
 
 	&-item {
 		width: 670rpx;
 		min-height: 172rpx;
+		padding: 28rpx 0;
 		background-color: #F7F7F7;
 		border-radius: 16rpx;
-		padding: 28rpx 0;
 
 
 		&-left {
@@ -331,24 +331,24 @@ onShow(async () => {
 		}
 
 		&-line {
-			height: 172rpx;
 			width: 1rpx;
+			height: 172rpx;
 			margin-right: 16rpx;
 			background-color: #c8c8c8;
 		}
 
 		&-right {
-			flex-direction: column;
 			flex: 1;
+			flex-direction: column;
 
 			&-property {
 				flex: 1;
 
 				// border: 1px solid red;
 				&-title {
-					color: #8c8c8c;
-					font-size: 24rpx;
 					margin-right: 40rpx;
+					font-size: 24rpx;
+					color: #8c8c8c;
 				}
 
 				&-content {
@@ -357,30 +357,30 @@ onShow(async () => {
 
 					// border: 1px solid blue;
 					&-left {
-						color: #faad14;
 						font-size: 24rpx;
+						color: #faad14;
 					}
 
 					&-middle {
 						flex: 1;
 						height: 20rpx;
-						border-radius: 4rpx;
-						background-color: #e5e5e5;
 						margin: 0 8rpx;
+						background-color: #e5e5e5;
+						border-radius: 4rpx;
 
 						// border: 1px solid red;
 						&-step {
 							width: 200rpx;
 							height: 20rpx;
-							border-radius: 4rpx;
 							background-color: #faad14;
+							border-radius: 4rpx;
 						}
 					}
 
 					&-right {
-						color: #8c8c8c;
 
 						font-size: 24rpx;
+						color: #8c8c8c;
 					}
 				}
 			}
@@ -389,22 +389,22 @@ onShow(async () => {
 }
 
 .logo {
-	width: 296rpx;
-	height: 22rpx;
 	position: absolute;
-	z-index: 9999;
 	top: 112rpx;
 	left: 32rpx;
+	z-index: 9999;
+	width: 296rpx;
+	height: 22rpx;
 }
 
 .add-service {
 	width: 686rpx;
 	height: 88rpx;
-	background-color: #fff;
-	border-radius: 24rpx;
-	color: #222;
 	margin-top: 208rpx;
 	margin-bottom: 32rpx;
+	color: #222;
+	background-color: #fff;
+	border-radius: 24rpx;
 
 	&-hi {
 		width: 80rpx;
@@ -418,30 +418,30 @@ onShow(async () => {
 	}
 
 	&-right {
-		font-size: 22rpx;
 		margin-right: 28rpx;
+		font-size: 22rpx;
 	}
 }
 
 
 .color-0 {
-	background-color: #faad14;
 	color: #faad14;
+	background-color: #faad14;
 }
 
 .color-1 {
-	background-color: #3B8AFA;
 	color: #3B8AFA;
+	background-color: #3B8AFA;
 }
 
 .color-2 {
-	background-color: #F15912;
 	color: #F15912;
+	background-color: #F15912;
 }
 
 .color-3 {
-	background-color: #AA60FA;
 	color: #AA60FA;
+	background-color: #AA60FA;
 }
 
 .color-text-0 {
