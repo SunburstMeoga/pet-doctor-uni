@@ -141,7 +141,7 @@ let bindClick = async (item) => {
 			title: result.msg,
 			icon: 'none'
 		})
-		if (result.code === 0) {
+		if (result.code === 200) {
 			getCart()
 		}
 	} catch (err) {

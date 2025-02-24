@@ -138,7 +138,7 @@ const handleCancelOrder = async () => { //点击取消订单
             title: result.msg,
             icon: 'none'
         });
-        if (result.code === 0) {
+        if (result.code === 200) {
             getOrderDetails()
         }
     } catch (err) {

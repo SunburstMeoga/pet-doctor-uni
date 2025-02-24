@@ -146,8 +146,8 @@ export const cancelOrder = (orderSN) => {
 }
 
 //删除购物车
-export const deleteCart = (cartId) => {
-  return http.delete('/cart/' + cartId)
+export const deleteCart = (data) => {
+  return http.delete('/front/trade/cart/remove', data)
 }
 
 //删除宠物报告

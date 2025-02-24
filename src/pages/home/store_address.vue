@@ -130,10 +130,10 @@ const handleConfirm = async () => { //点击确认添加地址按钮
         console.log('新增地址', result)
         uni.hideLoading()
         uni.showToast({
-            title: result.msg,
+            title: result.message,
             icon: 'none'
         });
-        if (result.code !== 0) {
+        if (result.code !== 200) {
             return
         }
         if (operating.value === 'select') {

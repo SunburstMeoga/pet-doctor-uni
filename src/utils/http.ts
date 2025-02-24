@@ -16,7 +16,7 @@ export const http = <T>(options: CustomRequestOptions) => {
         if (
           res.statusCode === 401 ||
           res.statusCode === 403 ||
-          (res.data as IResData<T>)?.status === 250
+          (res.data as IResData<T>)?.code === 400
         ) {
           // 401错误  -> 清理用户信息，跳转到登录页
           // userStore.clearUserInfo()

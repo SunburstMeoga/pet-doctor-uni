@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -387,12 +387,12 @@ const handleAddCart = async () => { //点击添加购物车
         uni.showLoading({
             title: '加载中'
         });
-        let params = { item_id: productId.value, quantity: productQuantity.value }
+        let params = { item_id: productId.value, cart_quantity: productQuantity.value }
         console.log(params)
         let result = await addCard(params)
         console.log('添加购物车', result)
         uni.hideLoading();
-        if (result.code !== 0) {
+        if (result.code !== 200) {
             uni.showToast({
                 title: '添加购物车失败，请重试',
                 icon: 'none'

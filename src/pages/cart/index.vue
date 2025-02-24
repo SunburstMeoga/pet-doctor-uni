@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '购物车',
@@ -13,9 +13,10 @@
 				<wd-swipe-action>
 					<!-- <wd-cell title="标题文字" value="内容"/> -->
 					<CartCard @handleSelect="handleSelect(item)" :isSelect="item.isSelect"
-						:title="item && item.product && item.product.title" :productQuantity="item.quantity"
-						:items="item.product.items" :picture="item.product.picture"
-						:price="item.product.price * item.quantity || 0" @changeQuantity="changeQuantity" />
+						:title="item.items[0].product_name" :productQuantity="item.items[0].item_quantity_frozen"
+						:items="[]" :picture="item.items[0].product_image"
+						:price="item.items[0].item_market_price * item.items[0].item_quantity_frozen || 0"
+						@changeQuantity="changeQuantity" />
 					<template #right>
 						<view class="h-full">
 							<view
@@ -27,7 +28,7 @@
 				</wd-swipe-action>
 			</div>
 		</div>
-		<div class="fixed bottom-0 left-0  w-full flex flex-col items-center justify-center bg-white h-128rpx"
+		<div class="fixed bottom-0 left-0  w-full flex flex-col items-center justify-center bg-white h-128rpx pb-30rpx"
 			style="border-top:1px solid #f3f4f6;">
 			<div class="w-686rpx flex justify-between items-center">
 				<div class="flex justify-start items-center text-zinc">
@@ -112,13 +113,13 @@ const handleAction = async (item) => { //删除购物车
 		uni.showLoading({
 			title: '加载中'
 		});
-		let result = await deleteCart(item.id)
+		let result = await deleteCart(item.cart_id)
 		uni.hideLoading()
 		uni.showToast({
 			title: result.msg,
 			icon: 'none'
 		})
-		if (result.code === 0) {
+		if (result.code === 200) {
 			getCart()
 			totalPrice.value = 0.00
 			selectItems.value = []
@@ -207,7 +208,7 @@ const getCart = async () => { //获取购物车列表
 		});
 		let result = await cart()
 		console.log('购物车列表', result)
-		cartList.value = result.data
+		cartList.value = result.data.items
 		console.log(cartList.value)
 		cartList.value.map(item => {
 			item.isSelect = false

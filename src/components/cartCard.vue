@@ -6,8 +6,7 @@
                 :class="isSelect ? 'text-slate-9 font-bold' : 'text-zinc-5'"></div>
         </div>
         <div class="ml-10rpx w-240rpx h-240rpx ">
-            <img class="rounded-16rpx overflow-hidden"
-                :src="`http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/${picture}`" alt="">
+            <img class="rounded-16rpx overflow-hidden" :src="`${picture}`" alt="">
         </div>
         <div class="flex justify-between items-start flex-col w-322rpx ml-24rpx h-220rpx">
             <div class="text-28rpx">{{ title }}</div>
@@ -17,7 +16,7 @@
                 <!-- <div class="icon iconfont icon-down text-16rpx mr-24rpx"></div> -->
             </div>
             <div class="w-full flex justify-between items-center">
-                <div class="text-32rpx font-bold">￥{{ (price * 0.01).toFixed(2) }}</div>
+                <div class="text-32rpx font-bold">￥{{ price }}</div>
                 <div>
                     <!-- <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" @change="changeQuantity" /> -->
                     X {{ productQuantity }}

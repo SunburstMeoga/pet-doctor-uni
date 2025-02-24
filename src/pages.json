@@ -51,18 +51,8 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_details",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "商品详情",
-        "navigationStyle": "custom",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
-      }
-    },
-    {
       "path": "pages/cart/index",
-      "type": "page",
+      "type": "home",
       "style": {
         "navigationBarTitleText": "购物车"
       }
@@ -127,6 +117,16 @@
     {
       "path": "pages/home/privacy_policy",
       "type": "page"
+    },
+    {
+      "path": "pages/home/product_details",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品详情",
+        "navigationStyle": "custom",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
+      }
     },
     {
       "path": "pages/home/product_list",
