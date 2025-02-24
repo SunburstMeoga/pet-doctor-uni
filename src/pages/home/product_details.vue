@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品详情',
@@ -28,6 +28,7 @@
 
                         <!-- 图片循环 -->
                         <div v-for="(item, index) in productDetailsInfo.recommend_products" :key="index"
+                            @click="toRecommendProduct(item)"
                             :class="[index !== productDetailsInfo.recommend_products.length - 1 ? 'mr-16rpx' : '']"
                             class="rounded-14rpx overflow-hidden w-120rpx h-120rpx flex-shrink-0">
                             <image :src="item.product_image" mode="widthFix" />
@@ -154,6 +155,10 @@ let tags = ref([
     { title: '猫猫', tagStyle: 'bg-amber-1 text-amber-4' },
     { title: '毛绒', tagStyle: 'bg-sky-1 text-sky-4' }
 ])
+//跳转推荐商品
+const toRecommendProduct = (item) => {
+    uni.redirectTo({ url: `/pages/home/product_details?productId=${item.item_id}` })
+}
 // 防抖函数
 function debounce(func, delay) {
     let timer;

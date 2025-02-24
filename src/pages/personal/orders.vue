@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '全部订单',
@@ -32,7 +32,7 @@
 import OrderCard from '../../components/orderCard.vue'
 import { orders } from '@/service/index'
 let ordersLis = ref([])
-let selectType = ref('')
+let selectType = ref(0)
 // 0=待付款
 // 1=已付款待发货
 // 2=已发货带收货
