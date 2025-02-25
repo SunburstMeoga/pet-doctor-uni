@@ -12,11 +12,10 @@
 				v-for="(item, index) in cartList" :key="index">
 				<wd-swipe-action>
 					<!-- <wd-cell title="标题文字" value="内容"/> -->
-					<CartCard @handleSelect="handleSelect(item)" :isSelect="item.isSelect"
-						:title="item.items[0].product_name" :productQuantity="item.items[0].item_quantity_frozen"
-						:items="[]" :picture="item.items[0].product_image"
-						:price="item.items[0].item_market_price * item.items[0].item_quantity_frozen || 0"
-						@changeQuantity="changeQuantity" />
+					<CartCard @handleSelect="handleSelect(item)" :isSelect="item.isSelect" :title="item.product_name"
+						:productQuantity="item.cart_quantity" :items="item.item_name" :picture="item.product_image"
+						:price="item.item_market_price * item.cart_quantity || 0"
+						@changeQuantity="changeQuantity(item)" />
 					<template #right>
 						<view class="h-full">
 							<view
@@ -38,9 +37,9 @@
 					</div> 已选 ({{ selectItems.length }})
 				</div>
 				<div class="flex justify-center items-center h-128rpx">
-					<div class="flex justify-between items-center text-orange-6">
+					<div class="flex justify-between items-center text-#F15912">
 						<div class="ml-10rpx">总计</div>
-						<div class="text-48rpx font-bold">￥{{ totalPrice.toFixed(2) || '0.00' }}</div>
+						<div class="text-48rpx font-bold">￥{{ totalPrice || '0.00' }}</div>
 					</div>
 					<div class="flex justify-between items-center ml-16rpx">
 						<div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"
@@ -66,47 +65,48 @@ const handleSelect = async (item) => { //点击选择项
 	item.isSelect = !item.isSelect
 	selectItems.value = cartList.value.filter(item => item.isSelect) //筛选选中项
 	selectItems.value.map(async (item, index) => { //
-		console.log(item.quantity, item.product.price)
+		console.log(item.cart_quantity, item.item_market_price)
 		totalPrice.value = 0.00
-		item.total = item.quantity * ((item.product.price || 0) * 0.01)
-
-		totalPrice.value = (item.quantity * ((item.product.price || 0) * 0.01))
-		cartIds.value[index] = item.id
+		item.total = item.cart_quantity * item.item_market_price //计算单个商品总价
+		totalPrice.value = (item.cart_quantity * item.item_market_price) //计算选中的项总价
+		console.log('总价', totalPrice.value)
 		if (cartIds.value.length === 0) {
 			totalPrice.value = 0.00
 		}
-		try {
-			uni.showLoading({
-				title: '加载中'
-			})
-			let checkoutRes = await checkoutOrder({ cart_ids: cartIds.value }) //收银台
-			if (checkoutRes.code === 0) {
-				totalPrice.value = checkoutRes.data.total_amount * 0.01
-			} else {
-				uni.showToast({
-					title: checkoutRes.message,
-					icon: 'none'
-				})
-			}
-			uni.hideLoading()
-
-		} catch (err) {
-			uni.hideLoading()
-			console.log(err)
-		}
-		console.log('总价', totalPrice.value)
+		// console.log('总价', totalPrice.value)
 	})
-	console.log(selectItems.value)
-	console.log(cartIds.value)
+	const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
+		.join(',');
+	console.log(cart_id)
+	try {
+		uni.showLoading({
+			title: '加载中'
+		})
+		let checkoutRes = await checkoutOrder({ cart_id: cart_id }) //收银台
+
+		console.log('收银台', checkoutRes)
+		if (checkoutRes.code === 200) {
+			totalPrice.value = checkoutRes.data.order_money_amount
+		} else {
+			uni.showToast({
+				title: checkoutRes.message,
+				icon: 'none'
+			})
+		}
+		uni.hideLoading()
+
+	} catch (err) {
+		uni.hideLoading()
+		console.log(err)
+	}
+	console.log('选中的购物车items', selectItems.value)
 
 }
 const totalPrice = computed(() => {
 	return selectItems.value.reduce((sum, item) => sum + item.total, 0);
 });
-const changeQuantity = (e) => {
-	console.log('购物车卡片发生变化')
-
-	console.log(e)
+const changeQuantity = (e, item) => {
+	console.log('购物车卡片的数量发生变化', e, item)
 }
 const handleAction = async (item) => { //删除购物车
 	try {
@@ -207,8 +207,8 @@ const getCart = async () => { //获取购物车列表
 			title: '加载中'
 		});
 		let result = await cart()
-		console.log('购物车列表', result)
-		cartList.value = result.data.items
+		console.log('购物车列表', result.data.items[0].items)
+		cartList.value = result.data.items[0].items
 		console.log(cartList.value)
 		cartList.value.map(item => {
 			item.isSelect = false

@@ -43,7 +43,7 @@ export const allProduct = (data) => {
 
 // 创建订单
 export const createOrder = (data) => {
-  return http.post('/order', data)
+  return http.post('/front/trade/order/add', data)
 }
 
 // 支付
@@ -102,7 +102,7 @@ export const addCard = (data) => {
 
 //收银台
 export const checkoutOrder = (data) => {
-  return http.post('/checkout', data)
+  return http.get('/front/trade/cart/checkout', data)
 }
 
 //订单详情
