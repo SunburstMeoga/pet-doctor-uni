@@ -48,7 +48,7 @@ export const createOrder = (data) => {
 
 // 支付
 export const pay = (data) => {
-  return http.post('/pay', data)
+  return http.post('/front/pay/consumeDeposit/wechatMiniPay', data)
 }
 
 // 订单列表（注意：通常GET请求不使用data参数，而是使用查询参数，这里假设http.get能处理这种情况或已作适配）

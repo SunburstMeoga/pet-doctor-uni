@@ -21,11 +21,11 @@
 
 			</CustomHeader>
 		</div>
-		<div class="w-full fixed  h-full z-90">
+		<div class="w-full fixed  h-full z-80">
 			<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/lAn879X4T0boACUqQLeRaARui2ISUKOeaYEQLsRQ.png"
 				alt="" mode="aspectFit">
 		</div>
-		<div class="w-full pt-200rpx flex flex-col justify-start items-center relative z-100">
+		<div class="w-full pt-200rpx flex flex-col justify-start items-center relative z-90">
 			<div class="w-686rpx py-28rpx flex justify-center items-center bg-white rounded-24rpx overflow-hidden mb-28rpx"
 				v-for="(item, index) in cartList" :key="index">
 				<wd-swipe-action>
@@ -45,7 +45,7 @@
 				</wd-swipe-action>
 			</div>
 		</div>
-		<div class="fixed bottom-0 left-0  w-full flex flex-col items-center justify-center bg-white h-128rpx pb-30rpx"
+		<div class="fixed bottom-0 left-0 z-100  w-full flex flex-col items-center justify-center bg-white h-128rpx pb-30rpx"
 			style="border-top:1px solid #f3f4f6;">
 			<div class="w-686rpx flex justify-between items-center">
 				<div class="flex justify-start items-center text-zinc">
@@ -60,7 +60,7 @@
 						<div class="text-48rpx font-bold">￥{{ totalPrice || '0.00' }}</div>
 					</div>
 					<div class="flex justify-between items-center ml-16rpx">
-						<div class=" bg-gradient-to-r to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"
+						<div class=" bg-gradient-to-tr to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"
 							@click="handleCheckout">
 							结算</div>
 					</div>
@@ -118,6 +118,7 @@ const handleSelect = async (item) => { //点击选择项
 
 	} catch (err) {
 		uni.hideLoading()
+		item.selectItems = false
 		console.log(err)
 	}
 	console.log('选中的购物车items', selectItems.value)
@@ -154,7 +155,8 @@ const handleAction = async (item) => { //删除购物车
 
 }
 const handleCheckout = async () => { //点击结算按钮
-	if (cartIds.value.length === 0) {
+	console.log('点击了结算按钮')
+	if (selectItems.value.length === 0) {
 		uni.showToast({
 			title: '请先选择至少一个结算项',
 			icon: 'none'
@@ -165,16 +167,32 @@ const handleCheckout = async () => { //点击结算按钮
 		uni.showLoading({
 			title: '创建订单...'
 		})
-
-		let orderRes = await createOrder({ cart_ids: cartIds.value, dispatch_mode: 0 })
+		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
+			.join(',');
+		console.log(cart_id)
+		let orderRes = await createOrder({
+			cart_id: cart_id,
+			dispatch_mode: 0,
+			chain_id: '',
+			user_voucher_ids: '',
+			payment_type_id: 1302,
+			redemption_ids: '',
+			order_message: '',
+			virtual_service_date: '',
+			virtual_service_time: '',
+			salesperson_id: '',
+			user_invoice_id: '',
+			user_nickname: '',
+			currency_id: ''
+		})
 		console.log(orderRes, '创建订单闲情')
-		if (orderRes.code === 0) {
+		if (orderRes.code === 200) {
 			setTimeout(async () => {
 				try {
 					uni.showLoading({
 						title: '加载中'
 					})
-					let payResult = await pay({ order_sn: orderRes.data.order_sn })
+					let payResult = await pay({ order_id: orderRes.data.order_ids.join(',') })
 					console.log('支付结果', payResult)
 					uni.requestPayment({
 						"timeStamp": payResult.data.timeStamp,
@@ -184,19 +202,19 @@ const handleCheckout = async () => { //点击结算按钮
 						"paySign": payResult.data.paySign,
 						"success": function (res) {
 							uni.navigateTo({
-								url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
 							})
 							uni.hideLoading()
 						},
 						"fail": function (res) {
 							uni.navigateTo({
-								url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
 							})
 							uni.hideLoading()
 						},
 						"complete": function (res) {
 							uni.navigateTo({
-								url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
 							})
 							uni.hideLoading()
 						}
