@@ -22,8 +22,8 @@
                     <div class="font-bold text-32rpx ml-4rpx">{{ price }}</div>
                 </div>
                 <div>
-                    <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" @change="changeQuantity" />
-                    <!-- X {{ productQuantity }} -->
+                    <!-- <wd-input-number :modelValue="productQuantity" :min="1" :max="1000" @change="changeQuantity" /> -->
+                    X {{ productQuantity }}
                 </div>
             </div>
         </div>

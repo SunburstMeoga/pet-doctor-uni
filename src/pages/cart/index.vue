@@ -2,12 +2,30 @@
     {
       style: {
         navigationBarTitleText: '购物车',
+        navigationStyle:'custom'
+
       },
     }
     </route>
 <template>
 	<div class="w-full h-screen bg-zinc-1 flex flex-col justify-start items-center pb-200rpx">
-		<div class="w-full pt-32rpx flex flex-col justify-start items-center">
+		<div>
+			<CustomHeader>
+				<template #left>
+					<view class="custom-left w-120rpx h-44rpx">
+						<image
+							src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250225/TGEUIUUgpT7CLkSgm39RSkEr70PTpdrKPQsqcK3d.png"
+							mode="aspectFit" />
+					</view>
+				</template>
+
+			</CustomHeader>
+		</div>
+		<div class="w-full fixed  h-full z-90">
+			<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/lAn879X4T0boACUqQLeRaARui2ISUKOeaYEQLsRQ.png"
+				alt="" mode="aspectFit">
+		</div>
+		<div class="w-full pt-200rpx flex flex-col justify-start items-center relative z-100">
 			<div class="w-686rpx py-28rpx flex justify-center items-center bg-white rounded-24rpx overflow-hidden mb-28rpx"
 				v-for="(item, index) in cartList" :key="index">
 				<wd-swipe-action>
@@ -15,7 +33,7 @@
 					<CartCard @handleSelect="handleSelect(item)" :isSelect="item.isSelect" :title="item.product_name"
 						:productQuantity="item.cart_quantity" :items="item.item_name" :picture="item.product_image"
 						:price="item.item_market_price * item.cart_quantity || 0"
-						@changeQuantity="changeQuantity(item)" />
+						@changeQuantity="(e) => changeQuantity(e, item)" />
 					<template #right>
 						<view class="h-full">
 							<view
@@ -56,12 +74,15 @@
 
 <script setup>
 import CartCard from '@/components/cartCard'
+import CustomHeader from '@/components/customHeader'
+
 import { cart, createOrder, pay, deleteCart, checkoutOrder } from '@/service/index'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
-// let totalPrice = ref(0.00) //总计
+let totalPrice = ref(0.00) //总计
 const handleSelect = async (item) => { //点击选择项
+	totalPrice.value = 0.00
 	item.isSelect = !item.isSelect
 	selectItems.value = cartList.value.filter(item => item.isSelect) //筛选选中项
 	selectItems.value.map(async (item, index) => { //
@@ -102,18 +123,19 @@ const handleSelect = async (item) => { //点击选择项
 	console.log('选中的购物车items', selectItems.value)
 
 }
-const totalPrice = computed(() => {
-	return selectItems.value.reduce((sum, item) => sum + item.total, 0);
-});
+// const totalPrice = computed(() => {
+// 	return selectItems.value.reduce((sum, item) => sum + item.total, 0);
+// });
 const changeQuantity = (e, item) => {
 	console.log('购物车卡片的数量发生变化', e, item)
+	item.cart_quantity = e.value
 }
 const handleAction = async (item) => { //删除购物车
 	try {
 		uni.showLoading({
 			title: '加载中'
 		});
-		let result = await deleteCart(item.cart_id)
+		let result = await deleteCart({ cart_id: item.cart_id })
 		uni.hideLoading()
 		uni.showToast({
 			title: result.msg,

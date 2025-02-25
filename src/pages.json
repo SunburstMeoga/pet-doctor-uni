@@ -54,7 +54,8 @@
       "path": "pages/cart/index",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "购物车"
+        "navigationBarTitleText": "购物车",
+        "navigationStyle": "custom"
       }
     },
     {
