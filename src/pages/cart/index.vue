@@ -195,11 +195,11 @@ const handleCheckout = async () => { //点击结算按钮
 					let payResult = await pay({ order_id: orderRes.data.order_ids.join(',') })
 					console.log('支付结果', payResult)
 					uni.requestPayment({
-						"timeStamp": payResult.data.timeStamp,
-						"nonceStr": payResult.data.nonceStr,
-						"package": payResult.data.package,
-						"signType": payResult.data.signType,
-						"paySign": payResult.data.paySign,
+						"timeStamp": payResult.data.payResult.timeStamp,
+						"nonceStr": payResult.data.payResult.nonceStr,
+						"package": payResult.data.payResult.package,
+						"signType": payResult.data.payResult.signType,
+						"paySign": payResult.data.payResult.paySign,
 						"success": function (res) {
 							uni.navigateTo({
 								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
