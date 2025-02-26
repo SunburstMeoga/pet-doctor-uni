@@ -106,8 +106,8 @@ export const checkoutOrder = (data) => {
 }
 
 //订单详情
-export const orderDetails = (orderSN) => {
-  return http.get('/order/' + orderSN)
+export const orderDetails = (data) => {
+  return http.get('/front/trade/order/detail', data)
 }
 
 //订单状态

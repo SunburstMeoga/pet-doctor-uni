@@ -58,6 +58,7 @@
         <div class="w-686rpx bg-white rounded-24rpx overflow-hidden flex flex-col justify-start items-center mb-28rpx">
             <div class="w-630rpx" v-for="(item, index) in orderDetailsInfo.items" :key="index">
                 <OrderDetailsCard :productInfo="item" />
+
             </div>
             <!-- <div class="flex justify-center items-center text-zinc4 mb-24rpx">
                 <div class="text-24rpx">展开全部(20)</div>
@@ -68,7 +69,7 @@
         <div class="w-686rpx py-28rpx rounded-24rpx overflow-hidden flex flex-col justify-start items-center bg-white">
             <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx">
                 <div class="text-zinc">下单时间</div>
-                <div class="text-slate9">{{ formatTimestamp(orderDetailsInfo.created_at) }}</div>
+                <div class="text-slate9">{{ orderDetailsInfo.payment_time }}</div>
             </div>
             <div class="flex justify-between items-center w-630rpx text-28rpx">
                 <div class="text-zinc">订单编号</div>
@@ -82,7 +83,7 @@
                 <div class="w-686rpx flex justify-between items-center">
                     <div class="flex justify-start items-center text-orange4">
                         <div class="text-28rpx font-medium">待支付:</div>
-                        <div class="text-40rpx font-bold">¥{{ orderDetailsInfo.amount * 0.01 }}</div>
+                        <div class="text-40rpx font-bold">¥{{ orderDetailsInfo.order_payment_amount }}</div>
 
                     </div>
                     <div class="flex justify-end items-center">
@@ -183,9 +184,10 @@ const getOrderDetails = async () => { //获取订单详情
             title: '加载中'
         })
         // let result = await orderDetails("P202412011732995647")
-        let result = await orderDetails(orderSN.value)
+        let result = await orderDetails({ order_id: orderSN.value })
         console.log('订单详情', result)
         orderDetailsInfo.value = result.data
+        console.log('订单详情值', orderDetailsInfo.value.items[0])
         uni.hideLoading()
     } catch (err) {
         uni.hideLoading();

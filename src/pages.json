@@ -51,10 +51,13 @@
   },
   "pages": [
     {
-      "path": "pages/personal/orders",
+      "path": "pages/home/index",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "全部订单"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -85,16 +88,6 @@
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/home/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
       }
     },
     {
@@ -181,6 +174,13 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/personal/orders",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "全部订单"
       }
     },
     {

@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '全部订单',
@@ -42,7 +42,7 @@ let selectType = ref(0)
 const toDetails = (item) => {
 	console.log(item, `${item.id}`)
 	uni.navigateTo({
-		url: `/pages/home/order_details?orderSN=${item.order_sn}`
+		url: `/pages/home/order_details?orderSN=${item.order_id}`
 	});
 }
 const getPickUpMethod = (deliveryMethod) => {
