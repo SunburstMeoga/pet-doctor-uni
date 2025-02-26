@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '全部订单',
@@ -15,14 +15,15 @@
 				{{ item.title }}
 			</div>
 		</div>
-		<view class="content flex justify-start items-center" v-if="ordersLis.length !== 0">
-			<view class="content-item" v-for="(item, index) in ordersLis" :key="index" @click="toDetails(item)">
-				<order-card :created_at="item.created_at" :orderNumber="item.order_sn" :price="item.amount * 0.01"
-					:product_picture="item.items[0].product_picture" :status="getOrderStatus(item.status)"
-					:count="item.items[0].quantity" :pickUpMethod="getPickUpMethod(item.dispatch_mode)" />
+		<view class="content flex justify-start items-center" v-if="ordersList.length !== 0">
+			<view class="content-item" v-for="(item, index) in ordersList" :key="index" @click="toDetails(item)">
+				<order-card :created_at="item.order_time" :orderNumber="item.order_id"
+					:price="item.order_payment_amount" :product_picture="item.items[0].order_item_image"
+					:status="getOrderStatus(item.order_state_id)" :count="item.items[0].order_item_quantity"
+					:pickUpMethod="getPickUpMethod(0)" />
 			</view>
 		</view>
-		<view class="empty flex justify-center items-center" v-if="ordersLis.length === 0">
+		<view class="empty flex justify-center items-center" v-if="ordersList.length === 0">
 			暂无内容
 		</view>
 	</view>
@@ -31,7 +32,7 @@
 <script setup>
 import OrderCard from '../../components/orderCard.vue'
 import { orders } from '@/service/index'
-let ordersLis = ref([])
+let ordersList = ref([])
 let selectType = ref(0)
 // 0=待付款
 // 1=已付款待发货
@@ -69,19 +70,19 @@ const getOrderStatus = (orderStatus) => {
 	let description;
 
 	switch (orderStatus) {
-		case 0:
+		case 2010:
 			description = '待付款';
 			break;
-		case 1:
+		case 2040:
 			description = '已付款待发货';
 			break;
-		case 2:
+		case 2040:
 			description = '已发货待收货';
 			break;
-		case 3:
+		case 2060:
 			description = '已收货完成订单';
 			break;
-		case 4:
+		case 2050:
 			description = '已取消';
 			break;
 		default:
@@ -98,7 +99,6 @@ let orderTypes = ref([
 	{ title: '已取消', status: 2050 },
 	{ title: '待收货', status: 2040 },
 	{ title: '已完成', status: 2060 },
-
 ])
 const handleType = async (item) => {
 	selectType.value = item.status
@@ -111,7 +111,7 @@ let getOrders = async (orderStatus) => { //订单列表
 		console.log('查询的订单状态', orderStatus)
 		let res = await orders({ order_state_id: orderStatus })
 		console.log('订单列表', res)
-		ordersLis.value = res.data.items
+		ordersList.value = res.data.items
 		uni.hideLoading()
 	} catch (err) {
 		console.log(err)

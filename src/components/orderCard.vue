@@ -13,13 +13,13 @@
 					<image :src="product_picture" mode="aspectFit"></image>
 				</view>
 				<view class="details-right flex justify-between items-end">
-					<view class="right-price">￥{{ price.toFixed(2) }}</view>
+					<view class="right-price">￥{{ price }}</view>
 					<view class="right-count">共 {{ count }} 件</view>
 				</view>
 			</view>
 			<view class="info-type flex justify-between items-center text-24rpx">
 				<div>{{ pickUpMethod }}</div>
-				<div>下单时间:{{ formatTimestamp(created_at) }}</div>
+				<div>下单时间:{{ created_at }}</div>
 			</view>
 		</view>
 	</view>
@@ -74,8 +74,8 @@ const formatTimestamp = (timestamp) => { //格式化时间内
 <style lang="scss" scoped>
 .content {
 	width: 100%;
-	background-color: #fff;
 	padding: 28rpx 0;
+	background-color: #fff;
 
 	.content-info {
 		width: 630rpx;
@@ -90,8 +90,8 @@ const formatTimestamp = (timestamp) => { //格式化时间内
 				}
 
 				.order-content {
-					color: #8c8c8c;
 					margin-left: 10rpx;
+					color: #8c8c8c;
 				}
 			}
 
@@ -107,23 +107,23 @@ const formatTimestamp = (timestamp) => { //格式化时间内
 			.details-left {
 				width: 100rpx;
 				height: 100rpx;
+				overflow: hidden;
 				// border: 1px solid red;
 				border-radius: 10rpx;
-				overflow: hidden;
 			}
 
 			.details-right {
-				height: 100rpx;
 				flex-direction: column;
+				height: 100rpx;
 
 				.right-price {
-					color: #222;
 					font-size: 32rpx;
+					color: #222;
 				}
 
 				.right-count {
-					color: #595959;
 					font-size: 24rpx;
+					color: #595959;
 				}
 			}
 		}
