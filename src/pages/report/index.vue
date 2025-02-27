@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -130,7 +130,6 @@ let reportList = ref([])
 let isLoading = ref(false)
 let recentReviews = ref({})
 let bindClick = async (item) => {
-
 	try {
 		uni.showLoading({
 			title: '加载中'
@@ -169,16 +168,13 @@ let swipeChange = async (e) => {
 	if (isLoading.value) return
 	currentCardId.value = cardList.value[e.detail.current].id
 	currentPetType.value = cardList.value[e.detail.current].type.id
-
 	console.log(currentCardId.value, '-----', cardList.value[e.detail.current].type.id, '-----', currentPetType.value)
 	try {
 		isLoading.value = true
 		uni.showLoading({
 			title: "正在加载...",
 		})
-
 		let resReport = await reports({ pet_card_id: currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value })
-
 		recentReviews.value = resReport.data[0]
 		reportList.value = resReport.data.reverse();
 		console.log('报告', resReport)
@@ -207,17 +203,20 @@ onShow(async () => {
 			title: "正在加载...",
 		})
 		let petCardsList = await petCards()
+		console.log('object', petCardsList)
 		console.log(petCardsList)
-		if (petCardsList.data.length !== 0) {
-			let resReport = await reports({ pet_card_id: petCardsList.data[0].id })
-			reportList.value = resReport.data.reverse();
+		if (petCardsList.length !== 0) {
+			let resReport = await reports({ pet_card_id: petCardsList[0].id })
 			console.log('报告', resReport)
+			if (resReport.length !== 0) {
+				reportList.value = resReport.data.reverse();
+			}
 			uni.hideLoading()
 		}
-		cardList.value = petCardsList.data
-		currentPetType.value = petCardsList.data[0].type.id
+		cardList.value = petCardsList
+		currentPetType.value = petCardsList[0].type.id
 		uni.hideLoading()
-		console.log(cardList.value)
+		console.log('宠物卡片', cardList.value)
 	} catch (err) {
 		console.log(err)
 	}

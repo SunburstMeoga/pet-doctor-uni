@@ -3,7 +3,7 @@ import { http } from '@/utils/http'
 
 // 问卷列表
 export const assessmentDetails = (id) => {
-  return http.get('/report/assessment/' + id)
+  return http.get('/api//report/assessment/' + id)
 }
 
 // 登录
@@ -13,27 +13,27 @@ export const login = (params) => {
 
 // 宠物身份证列表
 export const petCards = () => {
-  return http.get('/pet/cards')
+  return http.get('/api/pet/cards')
 }
 
 // 添加宠物身份证
 export const storePetCard = (data) => {
-  return http.post('/pet/card', data)
+  return http.post('/api/pet/card', data)
 }
 
 // 获取宠物品种
 export const petBreeds = (typeId) => {
-  return http.get('/pet/breeds/' + typeId)
+  return http.get('/api/pet/breeds/' + typeId)
 }
 
 // 完成问题并创建报告
 export const createReport = (data) => {
-  return http.post('/report', data)
+  return http.post('/api/report', data)
 }
 
 // 获取报告详情
 export const reportDetails = (id) => {
-  return http.get('/report/' + id)
+  return http.get('/api/report/' + id)
 }
 
 // 获取商品列表
@@ -62,17 +62,17 @@ export const orders = (params) => {
 export const reports = (params) => {
   // 如果http.get不支持直接传递params作为查询参数，你可能需要手动构建查询字符串
   // 例如：return http.get('/reports?' + new URLSearchParams(params).toString());
-  return http.get('/reports', params) // 假设http.get的第二个参数可以接收一个包含params的对象
+  return http.get('/api/reports', params) // 假设http.get的第二个参数可以接收一个包含params的对象
 }
 
 // 获取用户手机号（假设这是你的原意，因为原文件中没有这个函数，但你的示例中提到了）
 export const userPhone = (data) => {
-  return http.post('/user/phone', data)
+  return http.post('/api/user/phone', data)
 }
 
 // 删除宠物身份证
 export const deletePet = (cardId) => {
-  return http.delete('/pet/card/' + cardId) // 假设http模块有delete方法
+  return http.delete('/api/pet/card/' + cardId) // 假设http模块有delete方法
 }
 
 // 获取个人信息
@@ -82,7 +82,7 @@ export const userInfo = () => {
 
 // 查看宠物信息
 export const petInfo = (petId) => {
-  return http.get('/pet/card/' + petId)
+  return http.get('/api/pet/card/' + petId)
 }
 
 //商品详情
@@ -117,22 +117,22 @@ export const orderStatus = (data) => {
 
 //地址列表
 export const addresses = () => {
-  return http.get('/addresses')
+  return http.get('/api/addresses')
 }
 
 //新增收货地址
 export const storeAddress = (data) => {
-  return http.post('/address', data)
+  return http.post('/api/address', data)
 }
 
 //删除地址信息
 export const deleteAddress = (addressId) => {
-  return http.delete('/address/' + addressId)
+  return http.delete('/api/address/' + addressId)
 }
 
 //设置默认地址
 export const setDefaultAddress = (addressId) => {
-  return http.post(`/address/${addressId}/default`)
+  return http.post(`/api/address/${addressId}/default`)
 }
 
 //获取后台系统设置
@@ -152,7 +152,7 @@ export const deleteCart = (data) => {
 
 //删除宠物报告
 export const deleteReport = (id) => {
-  return http.delete('report/' + id)
+  return http.delete('/api/report/' + id)
 }
 
 //商品组
@@ -164,5 +164,5 @@ export const productGroup = () => {
 
 //绑定关系
 export const bindUser = (data) => {
-  return http.post('/promotion/user/bind', data)
+  return http.post('/front/promotion/user/bind', data)
 }

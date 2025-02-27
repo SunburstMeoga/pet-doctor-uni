@@ -51,13 +51,11 @@
   },
   "pages": [
     {
-      "path": "pages/home/index",
+      "path": "pages/report/index",
       "type": "home",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
+        "navigationBarTitleText": "报告"
       }
     },
     {
@@ -88,6 +86,16 @@
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/home/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -188,14 +196,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "宠物身份证"
-      }
-    },
-    {
-      "path": "pages/report/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "报告"
       }
     },
     {
