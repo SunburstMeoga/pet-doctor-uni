@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -198,11 +198,11 @@ let handleSave = async () => {
 		// return
 		let result = await storePetCard({ name: petName.value, sex: sex.value, breed_id: breedId.value, birth_at: brithDay.value })
 		console.log(result)
-		console.log(result.data.id)
+		console.log(result.id)
 
 		uni.hideLoading()
 		uni.navigateTo({
-			url: `/pages/home/star_answer?cardId=${result.data.id}&assessmentId=${assessmentId.value}`
+			url: `/pages/home/star_answer?cardId=${result.id}&assessmentId=${assessmentId.value}`
 		})
 	} catch (err) {
 		console.log(err)
@@ -257,9 +257,10 @@ let getPetBreeds = async (typeId) => {
 	})
 	try {
 		let result = await petBreeds(typeId)
+		console.log('宠物种类列表', result)
 		petTypeRange.value = []
 		petTypeText.value = []
-		result.data.map(item => {
+		result.map(item => {
 			let obj = {}
 			obj.value = item.name
 			obj.id = item.id
@@ -299,19 +300,19 @@ onMounted(() => {
 }
 
 .container {
+	flex-direction: column;
 	width: 100%;
 	min-height: 100vh;
-	flex-direction: column;
 	background-color: #f0f0f0;
 
 	.content {
-		width: 100%;
-		height: 1200rpx;
 
 		flex-direction: column;
+		width: 100%;
+		height: 1200rpx;
 		background-color: #fff;
-		border-top-right-radius: 32rpx;
 		border-top-left-radius: 32rpx;
+		border-top-right-radius: 32rpx;
 	}
 
 	.content-title {
@@ -319,57 +320,57 @@ onMounted(() => {
 		margin-top: 30rpx;
 
 		&-right {
-			height: 64rpx;
 			width: 64rpx;
-			background-color: #595959;
-			color: #000;
+			height: 64rpx;
 			margin-top: 20rpx;
-			border-radius: 50%;
 			font-size: 20rpx;
+			color: #000;
+			background-color: #595959;
+			border-radius: 50%;
 		}
 	}
 
 	.swiper-box {
 		width: 100%;
-		margin-top: 96rpx;
 		height: 800rpx;
+		margin-top: 96rpx;
 		// border: 1px solid red;
 	}
 
 	.info-one,
 	.info-two {
+		flex-direction: column;
 		width: 670rpx;
 		// border: 1px solid blue;
 		margin: 0 auto;
-		flex-direction: column;
 
 		&-name {
 			width: 100%;
 			margin-bottom: 31rpx;
-			color: #8c8c8c;
 			font-size: 32rpx;
+			color: #8c8c8c;
 		}
 
 		&-input {
 			width: 100%;
 			height: 98rpx;
+			overflow: hidden;
 			background-color: #f5f5f5;
 			border-radius: 24rpx;
-			overflow: hidden;
 
 			// border: 1px solid red;
 			input {
-				background-color: transparent;
 				width: 606rpx;
 				height: 100%;
 				// text-indent: 32rpx;
 				color: #000;
+				background-color: transparent;
 			}
 
 			.icon-a-duobianxing1 {
-				transform: rotate(90deg);
-				color: #8c8c8c;
 				margin-right: 32rpx;
+				color: #8c8c8c;
+				transform: rotate(90deg);
 				// border: 1px solid blue;
 			}
 		}
@@ -380,15 +381,15 @@ onMounted(() => {
 			&-select {
 				width: 160rpx;
 				height: 98rpx;
-				border-radius: 24rpx;
-				background-color: #f5f5f5;
-				color: #262626;
 				font-size: 36rpx;
+				color: #262626;
+				background-color: #f5f5f5;
+				border-radius: 24rpx;
 			}
 
 			&-word {
-				color: #595959;
 				font-size: 32rpx;
+				color: #595959;
 			}
 		}
 
@@ -397,18 +398,18 @@ onMounted(() => {
 			margin-bottom: 64rpx;
 
 			&-item {
+				position: relative;
+				flex-direction: column;
 				width: 312rpx;
 				height: 120rpx;
-				flex-direction: column;
-				position: relative;
-				border-radius: 24rpx;
 				overflow: hidden;
+				border-radius: 24rpx;
 
 				// border: 1px solid red;
 				&-left {
 					position: absolute;
-					left: 0;
 					bottom: 0;
+					left: 0;
 					width: 120rpx;
 					height: 120rpx;
 					border-radius: 50%;
@@ -430,13 +431,13 @@ onMounted(() => {
 				}
 
 				&-right {
-					color: #8c8c8c;
 					width: 234rpx;
 					height: 98rpx;
+					padding-right: 32rpx;
+					line-height: 98rpx;
+					color: #8c8c8c;
 					// border: 1px solid blue;
 					text-align: right;
-					line-height: 98rpx;
-					padding-right: 32rpx;
 					border-radius: 24rpx;
 				}
 
@@ -453,9 +454,9 @@ onMounted(() => {
 		}
 
 		&-gender {
-			color: #8c8c8c;
-			font-size: 32rpx;
 			margin-bottom: 30rpx;
+			font-size: 32rpx;
+			color: #8c8c8c;
 		}
 
 		.gender-type {
@@ -480,16 +481,16 @@ onMounted(() => {
 			}
 
 			.gender-unselect {
+				color: #8c8c8c;
 				background-color: #f5f5f5;
 				border: 1rpx solid #f5f5f5;
-				color: #8c8c8c;
 
 			}
 
 			.gender-select {
+				color: #222;
 				background-color: rgba(252, 224, 104, 0.1);
 				border: 1rpx solid #FCE068;
-				color: #222;
 			}
 		}
 
@@ -502,39 +503,39 @@ onMounted(() => {
 		width: 100%;
 
 		&-one-button {
-			background-color: #222;
 			width: 486rpx;
 			height: 92rpx;
-			border-radius: 24rpx;
-			color: #fcf068;
 			font-size: 32rpx;
-			text-align: center;
 			line-height: 92rpx;
+			color: #fcf068;
+			text-align: center;
+			background-color: #222;
+			border-radius: 24rpx;
 		}
 
 		&-one-button-group {
 			width: 670rpx;
 
 			.pre {
-				background-color: #f0f0f0;
 				width: 200rpx;
 				height: 92rpx;
-				border-radius: 24rpx;
-				color: #222;
 				font-size: 32rpx;
-				text-align: center;
 				line-height: 92rpx;
+				color: #222;
+				text-align: center;
+				background-color: #f0f0f0;
+				border-radius: 24rpx;
 			}
 
 			.save {
-				background-color: #222;
 				width: 462rpx;
 				height: 92rpx;
-				border-radius: 24rpx;
-				color: #fcf068;
 				font-size: 32rpx;
-				text-align: center;
 				line-height: 92rpx;
+				color: #fcf068;
+				text-align: center;
+				background-color: #222;
+				border-radius: 24rpx;
 			}
 		}
 	}

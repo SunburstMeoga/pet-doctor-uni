@@ -3,7 +3,7 @@ import { http } from '@/utils/http'
 
 // 问卷列表
 export const assessmentDetails = (id) => {
-  return http.get('/api//report/assessment/' + id)
+  return http.get('/api/report/assessment/' + id)
 }
 
 // 登录

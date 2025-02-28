@@ -59,7 +59,7 @@
 				style="border-top:1px solid #f3f4f6;">
 				<div class="w-686rpx flex justify-between items-center">
 					<div @click="toAddCard"
-						class=" text-orange-4 bg-slate9 flex justify-center items-center rounded-16rpx w-full h-88rpx">
+						class=" text-#FCE068 bg-#222 flex justify-center items-center rounded-16rpx w-full h-88rpx">
 						新增宠物身份证</div>
 				</div>
 			</div>
@@ -97,11 +97,7 @@ let options1 = ref([{
 let assessmentId = ref('')
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
-	if (options.assessmentId) {
-		assessmentId.value = options.assessmentId
-		console.log(assessmentId.value)
-	}
-
+	options.assessmentId ? assessmentId.value = options.assessmentId : assessmentId.value = 2
 
 })
 const handleAction = (type) => { //点击删除身份证
@@ -119,9 +115,6 @@ let handleCard = (item) => {
 	})
 }
 let bindClick = async (e) => {
-
-
-
 	uni.showLoading({
 		title: '正在删除...'
 	})
@@ -154,36 +147,36 @@ onMounted(async () => {
 	})
 	let petCardsList = await petCards()
 	uni.hideLoading()
-	console.log(petCardsList.data.length, petCardsList)
-	cardList.value = petCardsList.data
+	console.log(petCardsList)
+	cardList.value = petCardsList
 	console.log('宠物身份证', cardList.value)
 })
 </script>
 
 <style lang="scss" scoped>
 .empty {
-	color: #FCE068;
-	font-size: 32rpx;
-	background-color: #222;
 	width: 324rpx;
 	height: 92rpx;
-	border-radius: 24rpx;
 	margin: 0 auto;
+	font-size: 32rpx;
+	color: #FCE068;
+	background-color: #222;
+	border-radius: 24rpx;
 }
 
 .container {
+	flex-direction: column;
 	min-height: 100vh;
 	background-color: #f0f0f0;
-	flex-direction: column;
 
 	.content {
-		width: 100%;
-		height: 1200rpx;
 
 		flex-direction: column;
+		width: 100%;
+		height: 1200rpx;
 		background-color: #fff;
-		border-top-right-radius: 32rpx;
 		border-top-left-radius: 32rpx;
+		border-top-right-radius: 32rpx;
 
 		&-title {
 			width: 686rpx;
@@ -194,16 +187,16 @@ onMounted(async () => {
 				&-return {
 					width: 48rpx;
 					height: 48rpx;
-					border-radius: 50%;
-					background-color: #e8edf0;
-					color: #5f6a7a;
 					font-size: 24rpx;
+					color: #5f6a7a;
+					background-color: #e8edf0;
+					border-radius: 50%;
 				}
 
 				&-word {
-					color: #222;
-					font-size: 32rpx;
 					margin-left: 24rpx;
+					font-size: 32rpx;
+					color: #222;
 				}
 			}
 
@@ -212,8 +205,8 @@ onMounted(async () => {
 
 				&-operating {
 					&-icon {
-						font-size: 28rpx;
 						margin-right: 6rpx;
+						font-size: 28rpx;
 					}
 
 					&-word {
@@ -231,8 +224,8 @@ onMounted(async () => {
 			&-item {
 				width: 686rpx;
 				margin-bottom: 32rpx;
-				border-radius: 16rpx;
 				overflow: hidden;
+				border-radius: 16rpx;
 			}
 		}
 
@@ -241,9 +234,9 @@ onMounted(async () => {
 			margin-top: 200rpx;
 
 			&-word {
-				color: #8c8c8c;
-				font-size: 32rpx;
 				margin-bottom: 39rpx;
+				font-size: 32rpx;
+				color: #8c8c8c;
 			}
 
 			&-button {
@@ -266,8 +259,8 @@ onMounted(async () => {
 
 		&-item {
 			width: 686rpx;
-			border-radius: 24rpx;
 			overflow: hidden;
+			border-radius: 24rpx;
 			// border: 1px solid red;
 		}
 	}

@@ -51,11 +51,11 @@
   },
   "pages": [
     {
-      "path": "pages/report/index",
+      "path": "pages/personal/identityInfo",
       "type": "home",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTitleText": "报告"
+        "navigationBarTitleText": "身份证"
       }
     },
     {
@@ -169,14 +169,6 @@
       }
     },
     {
-      "path": "pages/personal/identityInfo",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "身份证"
-      }
-    },
-    {
       "path": "pages/personal/index",
       "type": "page",
       "style": {
@@ -196,6 +188,14 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "宠物身份证"
+      }
+    },
+    {
+      "path": "pages/report/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "报告"
       }
     },
     {

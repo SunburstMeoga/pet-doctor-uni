@@ -97,9 +97,9 @@ let handleOptions = async (_item, item, index) => {
 		console.log({ assessment_id: assessmentId.value, answer_ids: selectedIds.value.sort((a, b) => a - b), pet_card_id: cardId.value })
 		let result = await createReport({ assessment_id: assessmentId.value, answer_ids: selectedIds.value.sort((a, b) => a - b), pet_card_id: cardId.value })
 		console.log('报告结果', result)
-		if (result.data.id) {
+		if (result.id) {
 			uni.redirectTo({
-				url: `/pages/report/report-result?reportId=${result.data.id}&cardId=${cardId.value}`
+				url: `/pages/report/report-result?reportId=${result.id}&cardId=${cardId.value}`
 			})
 		}
 
@@ -115,7 +115,8 @@ let updateSelectedIds = () => {
 let getAssessmentDetails = async (assessmentType) => {
 	try {
 		const result = await assessmentDetails(assessmentType);
-		questionItems.value = result.data.questions
+		console.log(result)
+		questionItems.value = result.questions
 		// questionItems.value.map(item => {
 		// 	item.selectid = null
 		// })
@@ -130,8 +131,8 @@ onMounted(() => {
 })
 onLoad((options) => {
 	if (options.cardId || options.assessmentId) {
-		cardId.value = options.cardId
-		assessmentId.value = options.assessmentId
+		cardId.value = options.cardId || 2159
+		assessmentId.value = options.assessmentId || 1
 		console.log('assessmentId=======', assessmentId.value)
 		if (assessmentId.value === '3' || assessmentId.value === 3) {
 			uni.setNavigationBarTitle({
@@ -149,19 +150,19 @@ onLoad((options) => {
 
 <style lang="scss" scoped>
 .container {
+	flex-direction: column;
 	width: 100%;
 	color: #222;
-	flex-direction: column;
 
 	.swiper-box {
+		flex-direction: column;
 		width: 100%;
 		height: 800rpx;
-		flex-direction: column;
 	}
 
 	.content {
-		padding-top: 200rpx;
 		width: 622rpx;
+		padding-top: 200rpx;
 		margin: 0 auto;
 
 		&-theme {
@@ -169,14 +170,14 @@ onLoad((options) => {
 			margin-bottom: 160rpx;
 
 			&-number {
-				border: 1rpx solid #222;
-				border-radius: 49%;
 				width: 268rpx;
 				height: 106rpx;
+				border: 1rpx solid #222;
+				border-radius: 49%;
 
 				&-current {
-					font-weight: bold;
 					font-size: 72rpx;
+					font-weight: bold;
 				}
 
 				&-total {
@@ -195,9 +196,9 @@ onLoad((options) => {
 			width: 622rpx;
 
 			&-title {
-				font-size: 48rpx;
-				margin-bottom: 96rpx;
 				width: 480rpx;
+				margin-bottom: 96rpx;
+				font-size: 48rpx;
 			}
 
 			&-options {
@@ -205,15 +206,15 @@ onLoad((options) => {
 
 				&-item {
 					width: 100%;
-					border-radius: 24rpx;
-
-					text-align: center;
 					padding: 24rpx 0;
 					margin-bottom: 64rpx;
 
+					text-align: center;
+					border-radius: 24rpx;
+
 					&-title {
-						font-size: 36rpx;
 						margin-bottom: 8rpx;
+						font-size: 36rpx;
 						font-weight: medium;
 					}
 
@@ -227,54 +228,54 @@ onLoad((options) => {
 
 	.go-back {
 		position: fixed;
-		left: 0;
 		bottom: 88rpx;
+		left: 0;
 		width: 100%;
 
 		&-button {
 			width: 486rpx;
 			height: 92rpx;
-			background-color: #222;
-			color: #fce068;
 			font-size: 32rpx;
-			text-align: center;
 			line-height: 92rpx;
+			color: #fce068;
+			text-align: center;
+			background-color: #222;
 			border-radius: 24rpx;
 		}
 
 		&-check {
 			width: 200rpx;
 			height: 92rpx;
-			background-color: #f0f0f0;
-			color: #222;
 			font-size: 32rpx;
-			text-align: center;
 			line-height: 92rpx;
+			color: #222;
+			text-align: center;
+			background-color: #f0f0f0;
 			border-radius: 24rpx;
 		}
 
 		&-result {
 			width: 462rpx;
 			height: 92rpx;
-			background-color: #222;
-			color: #fce068;
 			font-size: 32rpx;
-			text-align: center;
 			line-height: 92rpx;
+			color: #fce068;
+			text-align: center;
+			background-color: #222;
 			border-radius: 24rpx;
 		}
 	}
 }
 
 .content-question-options-item-active {
+	color: #222;
 	background-color: rgba(252, 224, 104, .1);
 	border: 1rpx solid #FCE068;
-	color: #222;
 }
 
 .content-question-options-item-unactive {
+	color: #8c8c8c;
 	background-color: #f5f5f5;
 	border: 1rpx solid #f5f5f5;
-	color: #8c8c8c;
 }
 </style>

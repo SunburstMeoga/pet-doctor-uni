@@ -150,7 +150,7 @@ let getPetInfoDetails = async (petId) => {
 	})
 	let res = await petInfo(petId)
 	console.log('宠物信息', res)
-	petInfoObj.value = res.data
+	petInfoObj.value = res
 	console.log('获取到的宠物信息', petInfoObj.value)
 	uni.hideLoading()
 }
@@ -161,10 +161,10 @@ let getReportDeatils = async (reportId) => {
 	let result = await reportDetails(reportId)
 	uni.hideLoading()
 	console.log("报告详情", result)
-	dimensionsItems.value = result.data.dimensions
-	reportTitle.value = result.data.assessment.title
-	mbtiImg.value = result.data.image
-	productList.value = result.data.products
+	dimensionsItems.value = result.dimensions
+	reportTitle.value = result.assessment.title
+	mbtiImg.value = result.image
+	productList.value = result.products
 	console.log(productList.value[0].pictures[0])
 }
 let productList = ref([])
@@ -178,13 +178,13 @@ let buyNow = async (item) => {
 	// 	title: "创建订单..."
 	// })
 	// let res = await createOrder({ item_id: item.id, quantity: 1 })
-	// let payResult = await pay({ order_sn: res.data.order_sn })
+	// let payResult = await pay({ order_sn: res.order_sn })
 	// uni.requestPayment({
-	// 	"timeStamp": payresult.data.timeStamp,
-	// 	"nonceStr": payresult.data.nonceStr,
-	// 	"package": payresult.data.package,
-	// 	"signType": payresult.data.signType,
-	// 	"paySign": payresult.data.paySign,
+	// 	"timeStamp": payresult.timeStamp,
+	// 	"nonceStr": payresult.nonceStr,
+	// 	"package": payresult.package,
+	// 	"signType": payresult.signType,
+	// 	"paySign": payresult.paySign,
 	// 	"success": function (res) {
 	// 		console.log('success', res);
 	// 		uni.hideLoading()
@@ -217,8 +217,8 @@ onLoad((options) => {
 <style lang="scss" scoped>
 .share {
 	position: fixed;
-	left: 0;
 	bottom: 60rpx;
+	left: 0;
 	width: 100%;
 	height: 92rpx;
 
@@ -227,45 +227,45 @@ onLoad((options) => {
 .share-button {
 	width: 486rpx;
 	height: 92rpx;
-	background-color: #222;
 	color: #faad14;
+	background-color: #222;
 	border-radius: 24rpx;
 }
 
 .container {
 	min-height: 100vh;
-	background-color: #F5F5F5;
 	padding-bottom: 140rpx;
+	background-color: #F5F5F5;
 
 	.content {
+		flex-direction: column;
 		width: 1005;
 		min-height: 100vh;
-		flex-direction: column;
 
 		.module {
-			overflow: hidden;
-			border-radius: 24rpx;
-			background-color: #fff;
-			padding: 28rpx;
 			width: 630rpx;
+			padding: 28rpx;
 			margin-bottom: 28rpx;
+			overflow: hidden;
+			background-color: #fff;
+			border-radius: 24rpx;
 		}
 
 		.pet-info {
-			margin-top: 32rpx;
 			width: 622rpx;
 			height: 220prx;
+			margin-top: 32rpx;
 		}
 
 		.report-result {
-			margin-top: -20rpx;
 			width: 686rpx;
 			height: 805rpx;
+			padding: 0;
+			margin-top: -20rpx;
 			// border: 1px solid red;
 			// background-color: #fff;
 			margin-bottom: 52rpx;
 			overflow: hidden;
-			padding: 0;
 			background-color: transparent !important;
 
 		}
@@ -274,9 +274,9 @@ onLoad((options) => {
 
 			// width: 686rpx;
 			.details-title {
+				margin-bottom: 20rpx;
 				font-size: 36rpx;
 				color: #222;
-				margin-bottom: 20rpx;
 
 			}
 
@@ -286,9 +286,9 @@ onLoad((options) => {
 				border-radius: 24rpx;
 
 				.content-mbti {
+					margin-bottom: 32rpx;
 					font-size: 40rpx;
 					color: #222;
-					margin-bottom: 32rpx;
 				}
 			}
 
@@ -302,9 +302,9 @@ onLoad((options) => {
 
 					// border: 1px solid red;
 					&-title {
+						margin-right: 40rpx;
 						// color: #8c8c8c;
 						font-size: 24rpx;
-						margin-right: 40rpx;
 					}
 
 					.report-list-item-right-property-content {
@@ -320,9 +320,9 @@ onLoad((options) => {
 						&-middle {
 							width: 420rpx;
 							height: 20rpx;
-							border-radius: 4rpx;
-							background-color: #e5e5e5;
 							margin: 0 8rpx;
+							background-color: #e5e5e5;
+							border-radius: 4rpx;
 
 							// border: 1px solid red;
 							&-step {
@@ -346,8 +346,8 @@ onLoad((options) => {
 		.result-item {
 			.item-title {
 				margin-bottom: 24rpx;
-				color: #222;
 				font-size: 36rpx;
+				color: #222;
 
 				.title-right {
 					// color: #FAAD14;
@@ -356,14 +356,14 @@ onLoad((options) => {
 
 			.item-details {
 				margin-bottom: 40rpx;
-				color: #595959;
 				font-size: 32rpx;
+				color: #595959;
 			}
 
 			.item-sug {
 				margin-bottom: 24rpx;
-				color: #222;
 				font-size: 36rpx;
+				color: #222;
 			}
 
 			.sug-content {
@@ -376,18 +376,18 @@ onLoad((options) => {
 			// padding-top: 68rpx;
 			// position: relative;
 			.program-bg {
+				z-index: 100;
 				// position: absolute;
 				// left:0;
 				// margin-top: -100rpx;
 				width: 200rpx;
 				height: 76rpx;
-				z-index: 100;
 			}
 
 			.program-title {
-				color: #222;
-				font-size: 32rpx;
 				margin-bottom: 28rpx;
+				font-size: 32rpx;
+				color: #222;
 			}
 
 			.program-list {
@@ -396,52 +396,52 @@ onLoad((options) => {
 
 			.program-item {
 				width: 303rpx;
-				border-radius: 24rpx;
+				margin-bottom: 24rpx;
 				overflow: hidden;
 				background-color: #F5F5F5;
-				margin-bottom: 24rpx;
+				border-radius: 24rpx;
 			}
 		}
 	}
 
 	.service-qrcode {
-		background-color: #fff;
-		border-radius: 24rpx;
-		border: 1rpx solid #222;
-		padding: 24rpx;
 		width: 210rpx;
 		height: 210rpx;
-		margin-top: 60rpx;
+		padding: 24rpx;
 		margin: 0 auto;
+		margin-top: 60rpx;
+		background-color: #fff;
+		border: 1rpx solid #222;
+		border-radius: 24rpx;
 	}
 
 	.service-word {
 		margin: 0 auto;
 		margin-top: 34rpx;
 		margin-bottom: 34rpx;
-		text-align: center;
 		color: #222;
+		text-align: center;
 	}
 }
 
 .color-0 {
-	background-color: #faad14;
 	color: #faad14;
+	background-color: #faad14;
 }
 
 .color-1 {
-	background-color: #3B8AFA;
 	color: #3B8AFA;
+	background-color: #3B8AFA;
 }
 
 .color-2 {
-	background-color: #F15912;
 	color: #F15912;
+	background-color: #F15912;
 }
 
 .color-3 {
-	background-color: #AA60FA;
 	color: #AA60FA;
+	background-color: #AA60FA;
 }
 
 .color-text-0 {

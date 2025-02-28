@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -204,7 +204,6 @@ onShow(async () => {
 		})
 		let petCardsList = await petCards()
 		console.log('object', petCardsList)
-		console.log(petCardsList)
 		if (petCardsList.length !== 0) {
 			let resReport = await reports({ pet_card_id: petCardsList[0].id })
 			console.log('报告', resReport)
