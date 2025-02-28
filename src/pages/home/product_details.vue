@@ -311,19 +311,19 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击收银台�
                             "paySign": payResult.data.paySign,
                             "success": function (res) {
                                 uni.navigateTo({
-                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
                                 })
                                 uni.hideLoading()
                             },
                             "fail": function (res) {
                                 uni.navigateTo({
-                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
                                 })
                                 uni.hideLoading()
                             },
                             "complete": function (res) {
                                 uni.navigateTo({
-                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_sn}`
+                                    url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
                                 })
                                 uni.hideLoading()
                             }
