@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-176rpx flex justify-between items-center">
-        {{ productInfo }}
+        <!-- {{ productInfo }} -->
         <div class="flex justify-start items-center">
             <div class="flex justify-center items-center w-120rpx h-120rpx rounded-14rpx overflow-hidden">
                 <img :src="productInfo.order_item_image" alt="">

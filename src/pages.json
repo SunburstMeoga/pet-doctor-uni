@@ -51,11 +51,13 @@
   },
   "pages": [
     {
-      "path": "pages/personal/identityInfo",
+      "path": "pages/home/index",
       "type": "home",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTitleText": "身份证"
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -86,16 +88,6 @@
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/home/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
       }
     },
     {
@@ -166,6 +158,14 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/personal/identityInfo",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "身份证"
       }
     },
     {

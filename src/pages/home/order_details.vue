@@ -18,13 +18,14 @@
                     <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241129/RDlydh6CSGVJPtfqFCblF77rDudtZnk26XbCdtVF.png"
                         alt="">
                 </div>
-                <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
-                    v-if="orderDetailsInfo.dispatch_mode === 0">
+                <!-- <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
+                    v-if="orderDetailsInfo.dispatch_mode === 0"> -->
+                <div class="w-630rpx h-152rpx flex flex-col items-start justify-center">
                     <div class="text-zinc4 text-28rpx mb-10rpx ">
                         自提地址：
                     </div>
                     <div class="text-slate-9 text-32rpx font-medium">
-                        {{ pickUpSite }}
+                        深圳市龙华区龙光玖钻4C1326
                     </div>
                 </div>
                 <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
@@ -58,7 +59,6 @@
         <div class="w-686rpx bg-white rounded-24rpx overflow-hidden flex flex-col justify-start items-center mb-28rpx">
             <div class="w-630rpx" v-for="(item, index) in orderDetailsInfo.items" :key="index">
                 <OrderDetailsCard :productInfo="item" />
-
             </div>
             <!-- <div class="flex justify-center items-center text-zinc4 mb-24rpx">
                 <div class="text-24rpx">展开全部(20)</div>
@@ -69,7 +69,7 @@
         <div class="w-686rpx py-28rpx rounded-24rpx overflow-hidden flex flex-col justify-start items-center bg-white">
             <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx">
                 <div class="text-zinc">下单时间</div>
-                <div class="text-slate9">{{ orderDetailsInfo.payment_time }}</div>
+                <div class="text-slate9">{{ orderDetailsInfo.order_time }}</div>
             </div>
             <div class="flex justify-between items-center w-630rpx text-28rpx">
                 <div class="text-zinc">订单编号</div>
@@ -187,7 +187,7 @@ const getOrderDetails = async () => { //获取订单详情
         let result = await orderDetails({ order_id: orderSN.value })
         console.log('订单详情', result)
         orderDetailsInfo.value = result.data
-        console.log('订单详情值', orderDetailsInfo.value.items[0])
+        console.log('订单详情值', orderDetailsInfo.value)
         uni.hideLoading()
     } catch (err) {
         uni.hideLoading();
