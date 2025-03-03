@@ -42,12 +42,12 @@ const handleAddress = (item) => {
     }
 
 }
-const handleDelete = async ({ id }) => { //点击删除地址
+const handleDelete = async ({ ud_id }) => { //点击删除地址
     try {
         uni.showLoading({
             title: '加载中'
         })
-        let res = await deleteAddress(id)
+        let res = await deleteAddress({ ud_id: ud_id })
         if (res.code !== 0) {
             uni.showToast({
                 title: res.message,
@@ -62,23 +62,24 @@ const handleDelete = async ({ id }) => { //点击删除地址
     }
 }
 const handleSetDefault = async ({ id }) => { //点击设置默认
-    try {
-        uni.showLoading({
-            title: '加载中'
-        })
-        let res = await setDefaultAddress(id)
-        if (res.code !== 0) {
-            uni.showToast({
-                title: res.message,
-                icon: 'none'
-            });
-            return
-        }
-        getAddressItems()
-    } catch (err) {
-        console.log(err)
-        uni.hideLoading()
-    }
+
+    // try {
+    //     uni.showLoading({
+    //         title: '加载中'
+    //     })
+    //     let res = await setDefaultAddress(id)
+    //     if (res.code !== 0) {
+    //         uni.showToast({
+    //             title: res.message,
+    //             icon: 'none'
+    //         });
+    //         return
+    //     }
+    //     getAddressItems()
+    // } catch (err) {
+    //     console.log(err)
+    //     uni.hideLoading()
+    // }
 }
 const getAddressItems = async () => { //获取地址列表
     try {
@@ -86,7 +87,7 @@ const getAddressItems = async () => { //获取地址列表
             title: '加载中'
         });
         let result = await addresses()
-        addressItems.value = result.data
+        addressItems.value = result.data.items
         console.log(result)
         uni.hideLoading()
     } catch (err) {

@@ -117,17 +117,17 @@ export const orderStatus = (data) => {
 
 //地址列表
 export const addresses = () => {
-  return http.get('/api/addresses')
+  return http.get('/front/account/userDeliveryAddress/list')
 }
 
 //新增收货地址
 export const storeAddress = (data) => {
-  return http.post('/api/address', data)
+  return http.post('/front/account/userDeliveryAddress/add', data)
 }
 
 //删除地址信息
-export const deleteAddress = (addressId) => {
-  return http.delete('/api/address/' + addressId)
+export const deleteAddress = (data) => {
+  return http.post('/front/account/userDeliveryAddress/remove', data)
 }
 
 //设置默认地址

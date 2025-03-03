@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '购物车',
@@ -78,13 +78,15 @@ import CartCard from '@/components/cartCard'
 import CustomHeader from '@/components/customHeader'
 import CheckoutCounter from '@/components/checkoutCounter'
 
-import { cart, createOrder, pay, deleteCart, checkoutOrder } from '@/service/index'
+import { cart, createOrder, pay, deleteCart, checkoutOrder, addresses } from '@/service/index'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
 let totalPrice = ref(0.00) //总计
 let showCheckoutCounter = ref(false) //收银台弹窗
 let selectPickMethod = ref(5) //配送方式
+let addressItems = ref([]) //收货地址列表
+let addressInfo = ref({})
 const handleSelect = async (item) => { //点击选择项
 	totalPrice.value = 0.00
 	item.isSelect = !item.isSelect
@@ -108,7 +110,6 @@ const handleSelect = async (item) => { //点击选择项
 			title: '加载中'
 		})
 		let checkoutRes = await checkoutOrder({ cart_id: cart_id }) //收银台
-
 		console.log('收银台', checkoutRes)
 		if (checkoutRes.code === 200) {
 			totalPrice.value = checkoutRes.data.order_money_amount
@@ -119,7 +120,6 @@ const handleSelect = async (item) => { //点击选择项
 			})
 		}
 		uni.hideLoading()
-
 	} catch (err) {
 		uni.hideLoading()
 		item.selectItems = false
@@ -128,9 +128,29 @@ const handleSelect = async (item) => { //点击选择项
 	console.log('选中的购物车items', selectItems.value)
 
 }
-// const totalPrice = computed(() => {
-// 	return selectItems.value.reduce((sum, item) => sum + item.total, 0);
-// });
+const getAddressList = async () => { //获取地址信息
+	try {
+		uni.showLoading({
+			title: '加载中'
+		});
+		let result = await addresses()
+		addressItems.value = result.data.items
+		console.log('地址列表', result)
+		let arr = addressItems.value.filter(item => item.ud_is_default)
+		if (uni.getStorageSync('createOrderAddress')) {
+			addressInfo.value = uni.getStorageSync('createOrderAddress')
+		} else {
+			addressInfo.value = arr[0] || addressItems.value[0]
+		}
+
+		console.log('默认地址', addressInfo.value)
+		uni.hideLoading()
+	} catch (err) {
+		console.log(err)
+		uni.hideLoading();
+
+	}
+}
 const changeQuantity = (e, item) => {
 	console.log('购物车卡片的数量发生变化', e, item)
 	item.cart_quantity = e.value
@@ -159,10 +179,11 @@ const handleAction = async (item) => { //删除购物车
 	}
 
 }
-const handleConfirmOrder = async (selectPickMethodChild) => {
-
+const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确认按钮
 	selectPickMethod.value = selectPickMethodChild
 	console.log('selectPickMethod.value', selectPickMethod.value)
+
+
 	showCheckoutCounter.value = false
 	try {
 		uni.showLoading({
@@ -171,7 +192,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => {
 		showCheckoutCounter.value = true
 		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
 			.join(',');
-		console.log(cart_id)
+		console.log('addressInfo',addressInfo.value)
 		let orderRes = await createOrder({
 			cart_id: cart_id,
 			dispatch_mode: selectPickMethod.value,
@@ -186,7 +207,8 @@ const handleConfirmOrder = async (selectPickMethodChild) => {
 			user_invoice_id: '',
 			user_nickname: '',
 			currency_id: '',
-			delivery_type_id: selectPickMethod.value
+			delivery_type_id: selectPickMethod.value,
+			ud_id: addressInfo.value.ud_id
 		})
 		console.log(orderRes, '创建订单闲情')
 		if (orderRes.code === 200) {
@@ -240,7 +262,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => {
 	}
 
 }
-const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选择地址
+const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选择配送方式
 	selectPickMethod.value = selectPickMethodChild
 	console.log('取货方式', selectPickMethod.value)
 	if (selectPickMethod.value === 0) return
@@ -261,6 +283,15 @@ const handleCheckout = async () => { //点击结算按钮
 		})
 		return
 	}
+	// let addressList = await getAddressList()
+	// addressItems.value = addressList.data.items
+	// let arr = addressItems.value.filter(item => item.is_default)
+	// if (uni.getStorageSync('createOrderAddress')) {
+	// 	addressInfo.value = uni.getStorageSync('createOrderAddress')
+	// } else {
+	// 	addressInfo.value = arr[0] || addressItems.value[0]
+	// }
+	// console.log(addressList)
 	showCheckoutCounter.value = true
 }
 const getCart = async () => { //获取购物车列表
@@ -284,6 +315,7 @@ const getCart = async () => { //获取购物车列表
 onShow(() => {
 	console.log('购物车onshow开始')
 	getCart()
+	getAddressList()
 	console.log('购物车onshow结束')
 
 })
@@ -297,6 +329,4 @@ onShow(() => {
 .action {
 	height: 100%;
 }
-
-.button {}
 </style>

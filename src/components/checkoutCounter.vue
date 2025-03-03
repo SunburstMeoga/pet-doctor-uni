@@ -20,19 +20,19 @@
                             <div class="icon iconfont icon-addresss text-32rpx"></div>
                             <div class="flex justify-start items-center ml-4rpx">{{ pickUpSite }}</div>
                         </div>
-                        <div class v-if="selectPickMethod === 10 && !addressInfo.name">
+                        <div class v-if="selectPickMethod === 10 && !addressInfo.ud_name">
                             请添加收货地址
                         </div>
                         <div class="flex justify-start items-center"
-                            v-show="selectPickMethod === 10 && addressInfo.name">
+                            v-show="selectPickMethod === 10 && addressInfo.ud_name">
                             <div class="icon iconfont icon-Personal text-32rpx"></div>
-                            <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.name }}
-                                {{ addressInfo.phone }}</div>
+                            <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.ud_name }}
+                                {{ addressInfo.ud_mobile }}</div>
                         </div>
                         <div class="flex justify-start items-center"
-                            v-show="selectPickMethod === 10 && addressInfo.name">
+                            v-show="selectPickMethod === 10 && addressInfo.ud_name">
                             <div class="icon iconfont icon-addresss text-28rpx"></div>
-                            <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.detail }}</div>
+                            <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.ud_address }}</div>
                         </div>
                     </div>
                     <div class="mr-20rpx" v-show="selectPickMethod === 1">

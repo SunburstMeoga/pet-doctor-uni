@@ -75,6 +75,10 @@ const { colPickerData, findChildrenByCode } = useColPickerData()
 let isDefault = ref(false)
 let name = ref('')
 let phone = ref('')
+let ud_province_id = ref(0)
+let ud_city_id = ref(0)
+let ud_county_id = ref(0)
+
 let operating = ref('') //点击当前地址项时要进行的操作，操作类型从上一页面传递过来，可能为null，null则点击地址项时不进行任何操作
 
 let selectArea = ref([{ label: '省、', value: '' }, { label: '市、', value: '' }, { label: '区', value: '' }])
@@ -117,9 +121,22 @@ const handleSetDefault = () => {
 const handleConfirmArea = ({ selectedItems }) => {
     console.log('selectedItems', selectedItems)
     selectArea.value = selectedItems
+    ud_province_id.value = selectedItems[0].value
+    ud_city_id.value = selectedItems[1].value
+    ud_county_id.value = selectedItems[2].value
 }
 const handleConfirm = async () => { //点击确认添加地址按钮
-    let params = { name: name.value, phone: phone.value, area: selectArea.value, detail: detail.value, is_default: isDefault.value }
+    let params = {
+        ud_name: name.value,
+        ud_mobile: phone.value,
+        ud_province_id: ud_province_id.value,
+        ud_city_id: ud_province_id.value,
+        ud_county_id: ud_province_id.value,
+
+        ud_address: detail.value,
+        ud_is_default: isDefault.value,
+
+    }
     console.log(params)
     // return
     try {
@@ -149,7 +166,7 @@ const handleConfirm = async () => { //点击确认添加地址按钮
 }
 onLoad((options) => {
     if (options && options.operating) {
-        operating.value = options.operating
+        operating.value = options.operating || 'select'
     }
 })
 
