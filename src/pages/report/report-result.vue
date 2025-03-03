@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
 	{
 	  style: {
 		navigationBarTitleText: '报告',
@@ -84,17 +84,23 @@
 				</view>
 			</view>
 
-			<view class="module program">
-				<view class="program-bg flex justify-center items-center image-bg"
-					style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/WK1GvrB7jcsnJf8NbCH7jAUhWREp4CmnXl5ARW7P.png');">
-				</view>
-				<view class="program-title">根据 <span style="font-weight: bold;">{{ petInfoObj.name }}</span>
+			<view class="w-686rpx relative bg-white rounded-24rpx mt-68rpx">
+				<div class="absolute w-full h-76rpx left-0 -top-38rpx">
+					<div class="w-200rpx h-76rpx">
+						<image
+							src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250301/DDO8HJgUMXHFUb1JempX3hbapd6r7uDei7KtMzIa.png"
+							mode="scaleToFill" />
+					</div>
+				</div>
+				<view class="mt-68rpx mb-28rpx w-630rpx mx-auto text-#222222 text-32rpx">根据 <span class="font-medium">{{
+					petInfoObj.name
+				}}</span>
 					的测评结果推荐以下商品
 				</view>
-				<view class="program-list flex justify-between items-center">
-					<view class="program-item" v-for="(item, index) in productList" :key="index">
-						<product-card @handleBuyNow="buyNow(item)" :title="item.title" :intro="item.intro"
-							:pictures="item.pictures[0]" :price="item.price * 0.01"></product-card>
+				<view class=" flex justify-between items-center flex-wrap w-630rpx mx-auto">
+					<view class="w-303rpx" v-for="(item, index) in productList" :key="index">
+						<product-card @handleBuyNow="buyNow(item)" :title="item.product_name" :intro="item.intro"
+							:pictures="item.product_image" :price="item.product_unit_price_min"></product-card>
 					</view>
 				</view>
 			</view>
@@ -120,6 +126,7 @@
 import petCard from '../../components/petCard.vue';
 import productCard from '../../components/productCard.vue';
 import { allProduct, createOrder, pay, reportDetails, petInfo } from '@/service/index'
+
 let reportId = ref('')
 let dimensionsItems = ref([])
 let reportTitle = ref('')
@@ -161,46 +168,22 @@ let getReportDeatils = async (reportId) => {
 	let result = await reportDetails(reportId)
 	uni.hideLoading()
 	console.log("报告详情", result)
+	const products = await allProduct({
+		product_ids: result.product_ids
+	});
+	console.log('推荐商品', products)
 	dimensionsItems.value = result.dimensions
 	reportTitle.value = result.assessment.title
 	mbtiImg.value = result.image
-	productList.value = result.products
-	console.log(productList.value[0].pictures[0])
+	productList.value = products.data.items
+	console.log(productList.value[0])
 }
 let productList = ref([])
 let buyNow = async (item) => {
 	console.log(item, `${item.id}`)
 	uni.navigateTo({
-		url: `/pages/home/product_details?productId=${item.id}`
+		url: `/pages/home/product_details?productId=${item.item_id}`
 	});
-	// console.log("点解购买按钮", item)
-	// uni.showLoading({
-	// 	title: "创建订单..."
-	// })
-	// let res = await createOrder({ item_id: item.id, quantity: 1 })
-	// let payResult = await pay({ order_sn: res.order_sn })
-	// uni.requestPayment({
-	// 	"timeStamp": payresult.timeStamp,
-	// 	"nonceStr": payresult.nonceStr,
-	// 	"package": payresult.package,
-	// 	"signType": payresult.signType,
-	// 	"paySign": payresult.paySign,
-	// 	"success": function (res) {
-	// 		console.log('success', res);
-	// 		uni.hideLoading()
-	// 	},
-	// 	"fail": function (res) {
-	// 		console.log('fail', res);
-	// 		uni.hideLoading()
-	// 	},
-	// 	"complete": function (res) {
-	// 		console.log('complete', res);
-	// 		uni.hideLoading()
-	// 	}
-	// });
-
-	// console.log(payRes, '支付')
-	// console.log('创建订单', res)
 }
 onMounted(() => {
 	getReportDeatils(reportId.value)
@@ -208,8 +191,8 @@ onMounted(() => {
 })
 onLoad((options) => {
 	console.log(options); // { id: '123', name: '张三' }
-	reportId.value = options.reportId || 2079
-	cardId.value = options.cardId || 2139
+	reportId.value = options.reportId || 2093
+	cardId.value = options.cardId || 2138
 	console.log('options.cardId', options.cardId)
 })
 </script>
