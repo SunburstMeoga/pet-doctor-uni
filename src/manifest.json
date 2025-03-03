@@ -88,7 +88,8 @@
       "urlCheck": false
     },
     "usingComponents": true,
-    "styleIsolation": "shared"
+    "styleIsolation": "shared",
+    "requiredPrivateInfos": ["contact"]
   },
   "mp-alipay": {
     "usingComponents": true,
