@@ -51,18 +51,8 @@
   },
   "pages": [
     {
-      "path": "pages/home/index",
-      "type": "home",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
-      }
-    },
-    {
       "path": "pages/cart/index",
-      "type": "page",
+      "type": "home",
       "style": {
         "navigationBarTitleText": "购物车",
         "navigationStyle": "custom"
@@ -88,6 +78,16 @@
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/home/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {

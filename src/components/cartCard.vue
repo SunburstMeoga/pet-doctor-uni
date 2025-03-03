@@ -1,6 +1,6 @@
 <template>
-    <div class="w-640rpx h-220rpx flex justify-start items-center pr-10rpx">
-        <div class="w-40rpx h-40rpx rounded-full flex justify-center items-center" @click="handleSelect"
+    <div class="w-640rpx h-220rpx flex justify-start items-center pr-10rpx" @click="handleSelect">
+        <div class="w-40rpx h-40rpx rounded-full flex justify-center items-center"
             :class="isSelect ? 'bg-#FCE16A' : 'bg-zinc-3'">
             <div class="icon iconfont icon-right text-30rpx"
                 :class="isSelect ? 'text-#222222 font-bold' : 'text-zinc-5'"></div>

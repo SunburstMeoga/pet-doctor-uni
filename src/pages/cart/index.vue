@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '购物车',
@@ -262,85 +262,6 @@ const handleCheckout = async () => { //点击结算按钮
 		return
 	}
 	showCheckoutCounter.value = true
-	try {
-		// uni.showLoading({
-		// 	title: '创建订单...'
-		// })
-		showCheckoutCounter.value = true
-		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
-			.join(',');
-		console.log(cart_id)
-		// let orderRes = await createOrder({
-		// 	cart_id: cart_id,
-		// 	dispatch_mode: 0,
-		// 	chain_id: '',
-		// 	user_voucher_ids: '',
-		// 	payment_type_id: 1302,
-		// 	redemption_ids: '',
-		// 	order_message: '',
-		// 	virtual_service_date: '',
-		// 	virtual_service_time: '',
-		// 	salesperson_id: '',
-		// 	user_invoice_id: '',
-		// 	user_nickname: '',
-		// 	currency_id: ''，
-		//delivery_type_id: ''
-		// })
-		// console.log(orderRes, '创建订单闲情')
-		// if (orderRes.code === 200) {
-		// 	setTimeout(async () => {
-		// 		try {
-		// 			uni.showLoading({
-		// 				title: '加载中'
-		// 			})
-		// 			let payResult = await pay({ order_id: orderRes.data.order_ids.join(',') })
-		// 			console.log('支付结果', payResult)
-		// 			uni.requestPayment({
-		// 				"timeStamp": payResult.data.payResult.timeStamp,
-		// 				"nonceStr": payResult.data.payResult.nonceStr,
-		// 				"package": payResult.data.payResult.package,
-		// 				"signType": payResult.data.payResult.signType,
-		// 				"paySign": payResult.data.payResult.paySign,
-		// 				"success": function (res) {
-		// 					uni.navigateTo({
-		// 						url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
-		// 					})
-		// 					uni.hideLoading()
-		// 				},
-		// 				"fail": function (res) {
-		// 					uni.navigateTo({
-		// 						url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
-		// 					})
-		// 					uni.hideLoading()
-		// 				},
-		// 				"complete": function (res) {
-		// 					uni.navigateTo({
-		// 						url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
-		// 					})
-		// 					uni.hideLoading()
-		// 				}
-		// 			});
-		// 			uni.hideLoading()
-		// 		} catch (error) {
-		// 			console.log(error)
-		// 			uni.hideLoading()
-		// 		}
-		// 	}, 7000);
-		// } else {
-		// 	showToast({
-		// 		title: orderRes.message,
-		// 		icon: 'none'
-		// 	})
-		// }
-	} catch (err) {
-		console.log(err)
-		uni.hideLoading()
-	}
-	// let arr = JSON.stringify(cartIds.value);
-
-	// uni.navigateTo({
-	// 	url: `/pages/home/order_checkout?cartIds=${encodeURIComponent(arr)}`
-	// })
 }
 const getCart = async () => { //获取购物车列表
 	try {
