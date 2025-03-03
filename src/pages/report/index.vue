@@ -189,8 +189,8 @@ let swipeChange = async (e) => {
 			title: "正在加载...",
 		})
 		let resReport = await reports({ pet_card_id: currentCardId.value === 0 ? cardList.value[0].id : currentCardId.value })
-		recentReviews.value = resReport.data[0]
-		reportList.value = resReport.data.reverse();
+		recentReviews.value = resReport
+		reportList.value = resReport.reverse();
 		console.log('报告', resReport)
 		uni.hideLoading()
 		isLoading.value = false
@@ -222,7 +222,7 @@ onShow(async () => {
 			let resReport = await reports({ pet_card_id: petCardsList[0].id })
 			console.log('报告', resReport)
 			if (resReport.length !== 0) {
-				reportList.value = resReport.data.reverse();
+				reportList.value = resReport.reverse();
 				uni.hideLoading()
 			}
 			uni.hideLoading()
