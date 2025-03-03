@@ -37,13 +37,14 @@
                     <div class="flex justify-start items-center text-zinc5 text-26rpx">
                         <div class="icon iconfont icon-Personal "></div>
                         <div class="flex justify-start items-center ml-4rpx">
-                            {{ orderDetailsInfo.address.name || '快递收货人姓名' }} {{ orderDetailsInfo.address.phone ||
+                            {{ orderDetailsInfo.delivery.da_name || '快递收货人姓名' }} {{ orderDetailsInfo.delivery.da_mobile
+                        ||
                         '联系人电话' }}
                         </div>
                     </div>
                     <div class="flex justify-start items-center text-zinc5 text-26rpx">
                         <div class="icon iconfont icon-addresss "></div>
-                        <div class="flex justify-start items-center ml-4rpx">{{ orderDetailsInfo.address.detail ||
+                        <div class="flex justify-start items-center ml-4rpx">{{ orderDetailsInfo.delivery.da_address ||
                         '联系人地址' }}
                         </div>
                     </div>
@@ -199,7 +200,7 @@ onLoad((options) => {
     orderSN.value = options.orderSN
     // orderSN.value = 'P202412011733055424'
     getOrderDetails()
-    getSystemConfig()
+    // getSystemConfig()
 })
 const getSystemConfig = async () => { //获取后台系统配置 自提地点
     try {
