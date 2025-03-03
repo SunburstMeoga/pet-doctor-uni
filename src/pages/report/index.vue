@@ -158,9 +158,23 @@ const toReportDetails = (item) => {
 	})
 }
 const addCustom = () => { //添加专属客服
-	uni.previewImage({
-		current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
-		urls: imageList.value // 需要预览的图片http链接列表
+	// uni.previewImage({
+	// 	current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
+	// 	urls: imageList.value // 需要预览的图片http链接列表
+	// });
+	// 判断是否为微信环境
+	if (uni.getSystemInfoSync().platform === 'devtools') {
+		uni.showToast({ title: '请在真机调试' });
+		return;
+	}
+	// 调用客服 API
+	uni.openCustomerServiceConversation({
+		success: (res) => {
+			console.log('客服会话已打开', res);
+		},
+		fail: (err) => {
+			console.error('打开失败', err);
+		}
 	});
 }
 let swipeChange = async (e) => {
@@ -218,6 +232,7 @@ onShow(async () => {
 		console.log('宠物卡片', cardList.value)
 	} catch (err) {
 		console.log(err)
+		uni.hideLoading()
 	}
 })
 </script>

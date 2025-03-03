@@ -105,14 +105,14 @@
 				</view>
 			</view>
 		</view>
-		<view class="service-qrcode" @click="addCustom">
+		<view class="w-686rpx h-100rpx mx-auto mt-20rpx" @click="addCustom">
 			<image
-				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.png"
+				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250303/0VUrZuynQcEQlyVfjFrVVX7szfibUcG6co11VkuR.png"
 				mode=""></image>
 		</view>
-		<view class="service-word">
+		<!-- <view class="service-word">
 			添加专属客服，获取正确的医疗指导
-		</view>
+		</view> -->
 		<!-- <view class="share flex justify-center items-center">
 			<view class="share-button flex justify-center items-center" @click="handleShare()">
 				转发到朋友圈
@@ -146,9 +146,23 @@ const onShareTimeline = () => {
 	};
 }
 const addCustom = () => { //添加专属客服
-	uni.previewImage({
-		current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
-		urls: imageList.value // 需要预览的图片http链接列表
+	// uni.previewImage({
+	// 	current: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/rsXfy7Sd1VSRaURGGtHlFuxsZAuYIl8Ju465ejuS.pngr', // 当前显示图片的http链接
+	// 	urls: imageList.value // 需要预览的图片http链接列表
+	// });
+	// 判断是否为微信环境
+	if (uni.getSystemInfoSync().platform === 'devtools') {
+		uni.showToast({ title: '请在真机调试' });
+		return;
+	}
+	// 调用客服 API
+	uni.openCustomerServiceConversation({
+		success: (res) => {
+			console.log('客服会话已打开', res);
+		},
+		fail: (err) => {
+			console.error('打开失败', err);
+		}
 	});
 }
 let getPetInfoDetails = async (petId) => {
