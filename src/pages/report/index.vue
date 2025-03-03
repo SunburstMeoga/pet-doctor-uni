@@ -223,6 +223,7 @@ onShow(async () => {
 			console.log('报告', resReport)
 			if (resReport.length !== 0) {
 				reportList.value = resReport.data.reverse();
+				uni.hideLoading()
 			}
 			uni.hideLoading()
 		}

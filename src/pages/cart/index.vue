@@ -227,7 +227,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => {
 					console.log(error)
 					uni.hideLoading()
 				}
-			}, 7000);
+			}, 3000);
 		} else {
 			showToast({
 				title: orderRes.message,
