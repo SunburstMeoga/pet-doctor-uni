@@ -19,8 +19,9 @@
                         alt="">
                 </div>
                 <!-- <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
-                    v-if="orderDetailsInfo.dispatch_mode === 0"> -->
-                <div class="w-630rpx h-152rpx flex flex-col items-start justify-center">
+                    v-if="orderDetailsInfo.delivery_type_id === 0"> -->
+                <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
+                    v-if="orderDetailsInfo.delivery_type_id === 5">
                     <div class="text-zinc4 text-28rpx mb-10rpx ">
                         自提地址：
                     </div>
@@ -29,7 +30,7 @@
                     </div>
                 </div>
                 <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
-                    v-if="orderDetailsInfo.dispatch_mode === 1">
+                    v-if="orderDetailsInfo.delivery_type_id === 1">
                     <div class="text-zinc4 text-28rpx mb-10rpx ">
                         收货地址：
                     </div>

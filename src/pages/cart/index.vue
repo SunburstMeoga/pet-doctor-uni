@@ -160,12 +160,14 @@ const handleAction = async (item) => { //删除购物车
 
 }
 const handleConfirmOrder = async (selectPickMethodChild) => {
+
 	selectPickMethod.value = selectPickMethodChild
 	console.log('selectPickMethod.value', selectPickMethod.value)
+	showCheckoutCounter.value = false
 	try {
-		// uni.showLoading({
-		// 	title: '创建订单...'
-		// })
+		uni.showLoading({
+			title: '创建订单...'
+		})
 		showCheckoutCounter.value = true
 		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
 			.join(',');
