@@ -51,22 +51,11 @@
   },
   "pages": [
     {
-      "path": "pages/report/report-result",
+      "path": "pages/home/group_buying",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "报告",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
-      }
-    },
-    {
-      "path": "pages/home/index",
-      "type": "home",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -88,15 +77,22 @@
       "path": "pages/home/event_egistration",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "活动报名"
+        "navigationBarTitleText": "活动报名",
+        "safearea": {
+          "bottom": {
+            "offset": "auto"
+          }
+        }
       }
     },
     {
-      "path": "pages/home/group_buying",
+      "path": "pages/home/index",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -205,6 +201,15 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "报告"
+      }
+    },
+    {
+      "path": "pages/report/report-result",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "报告",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     }
   ],

@@ -64,6 +64,20 @@
                 </div>
             </div>
         </div>
+        <div class="absolute bottom-0 w-full flex justify-center items-center bg-white"
+            style="padding-top: 20rpx;padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); ">
+            <div class="w-686rpx flex justify-between items-center">
+                <div class="text-#F15912 flex justify-start items-center">
+                    <div class="text-28rpx font-medium">待支付:</div>
+                    <div class="text-40rpx font-bold ml-8rpx">¥4567</div>
+                </div>
+                <div
+                    class="w-198rpx h-88rpx text-28rpx font-medium rounded-16rpx flex justify-center items-center bg-gradient-to-tr text-white to-#FCE16AF2  from-#F15912">
+                    支付
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 <script setup>

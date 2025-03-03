@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '',
@@ -39,12 +39,12 @@
 				</view>
 			</view>
 			<view class=" flex flex-col justify-start items-center w-full" v-if="currentActivityType === 1">
-				<view class="w-686rpx h-341rpx  rounded-24rpx overflow-hidden mb-28rpx"
+				<!-- <view class="w-686rpx h-341rpx  rounded-24rpx overflow-hidden mb-28rpx"
 					v-for="(item, index) in productList" :key="index" @click="buyNow(item)">
 					<group-buy-card :time="formatTimestamp(item.group_end_at)" :detail_pictures="item.pictures[0]"
 						:title="item.title" :intro="item.intro" :tagsItems="item.tags"
 						:price="item.price * 0.01"></group-buy-card>
-				</view>
+				</view> -->
 			</view>
 			<view class=" flex flex-col justify-start items-center w-full h-full text-#000 font-medium"
 				v-if="currentActivityType === 2">
@@ -74,6 +74,7 @@ let productList = ref([])
 let currentActivityType = ref(1)
 const handleActivityItem = (item) => {
 	currentActivityType.value = item.id
+	console.log(currentActivityType.value, item.id)
 }
 const handleOfflineActivities = (item) => {  //点击前往线下活动
 	uni.navigateTo({
