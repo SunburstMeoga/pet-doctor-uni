@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
-                    v-if="orderDetailsInfo.delivery_type_id === 1">
+                    v-if="orderDetailsInfo.delivery_type_id === 10">
                     <div class="text-zinc4 text-28rpx mb-10rpx ">
                         收货地址：
                     </div>
