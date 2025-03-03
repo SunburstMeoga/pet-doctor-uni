@@ -21,11 +21,11 @@
 
 			</CustomHeader>
 		</div>
-		<div class="w-full fixed  h-full z-80">
+		<div class="w-full fixed  h-full">
 			<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/lAn879X4T0boACUqQLeRaARui2ISUKOeaYEQLsRQ.png"
 				alt="" mode="aspectFit">
 		</div>
-		<div class="w-full pt-200rpx flex flex-col justify-start items-center relative z-90">
+		<div class="w-full pt-200rpx flex flex-col justify-start items-center relative z-1">
 			<div class="w-686rpx py-28rpx flex justify-center items-center bg-white rounded-24rpx overflow-hidden mb-28rpx"
 				v-for="(item, index) in cartList" :key="index">
 				<wd-swipe-action>
@@ -45,7 +45,7 @@
 				</wd-swipe-action>
 			</div>
 		</div>
-		<div class="fixed bottom-0 left-0 z-100  w-full flex flex-col items-center justify-center bg-white h-128rpx pb-30rpx"
+		<div class="fixed bottom-0 left-0 z-2  w-full flex flex-col items-center justify-center bg-white h-128rpx pb-30rpx"
 			style="border-top:1px solid #f3f4f6;">
 			<div class="w-686rpx flex justify-between items-center">
 				<div class="flex justify-start items-center text-zinc">
@@ -66,21 +66,25 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
+		<CheckoutCounter :showCheckoutCounter="showCheckoutCounter" :productQuantity="productQuantity"
+			:productInfo="productDetailsInfo" pickUpSite="深圳市龙华区龙光玖钻4C1326" :addressInfo="addressInfo"
+			@handleClose="handleClose" @selectAddress="handleSelectAddress" @confirmOrder="handleConfirmOrder" />
 	</div>
 </template>
 
 <script setup>
 import CartCard from '@/components/cartCard'
 import CustomHeader from '@/components/customHeader'
+import CheckoutCounter from '@/components/checkoutCounter'
 
 import { cart, createOrder, pay, deleteCart, checkoutOrder } from '@/service/index'
 let cartList = ref([]) //购物车列表
 let selectItems = ref([]) //选中的购物车项目
 let cartIds = ref([]) // 选中的购物车项id
 let totalPrice = ref(0.00) //总计
+let showCheckoutCounter = ref(false) //收银台弹窗
+let selectPickMethod = ref(5) //配送方式
 const handleSelect = async (item) => { //点击选择项
 	totalPrice.value = 0.00
 	item.isSelect = !item.isSelect
@@ -132,6 +136,7 @@ const changeQuantity = (e, item) => {
 	item.cart_quantity = e.value
 }
 const handleAction = async (item) => { //删除购物车
+	console.log('点击删除购物车')
 	try {
 		uni.showLoading({
 			title: '加载中'
@@ -154,25 +159,20 @@ const handleAction = async (item) => { //删除购物车
 	}
 
 }
-const handleCheckout = async () => { //点击结算按钮
-	console.log('点击了结算按钮')
-	if (selectItems.value.length === 0) {
-		uni.showToast({
-			title: '请先选择至少一个结算项',
-			icon: 'none'
-		})
-		return
-	}
+const handleConfirmOrder = async (selectPickMethodChild) => {
+	selectPickMethod.value = selectPickMethodChild
+	console.log('selectPickMethod.value', selectPickMethod.value)
 	try {
-		uni.showLoading({
-			title: '创建订单...'
-		})
+		// uni.showLoading({
+		// 	title: '创建订单...'
+		// })
+		showCheckoutCounter.value = true
 		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
 			.join(',');
 		console.log(cart_id)
 		let orderRes = await createOrder({
 			cart_id: cart_id,
-			dispatch_mode: 0,
+			dispatch_mode: selectPickMethod.value,
 			chain_id: '',
 			user_voucher_ids: '',
 			payment_type_id: 1302,
@@ -183,7 +183,8 @@ const handleCheckout = async () => { //点击结算按钮
 			salesperson_id: '',
 			user_invoice_id: '',
 			user_nickname: '',
-			currency_id: ''
+			currency_id: '',
+			delivery_type_id: selectPickMethod.value
 		})
 		console.log(orderRes, '创建订单闲情')
 		if (orderRes.code === 200) {
@@ -202,19 +203,19 @@ const handleCheckout = async () => { //点击结算按钮
 						"paySign": payResult.data.payResult.paySign,
 						"success": function (res) {
 							uni.navigateTo({
-								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
+								url: `/pages/home/order_details?orderSN=${payResult.data.order_id}`
 							})
 							uni.hideLoading()
 						},
 						"fail": function (res) {
 							uni.navigateTo({
-								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
+								url: `/pages/home/order_details?orderSN=${payResult.data.order_id}`
 							})
 							uni.hideLoading()
 						},
 						"complete": function (res) {
 							uni.navigateTo({
-								url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
+								url: `/pages/home/order_details?orderSN=${payResult.data.order_id}`
 							})
 							uni.hideLoading()
 						}
@@ -231,6 +232,104 @@ const handleCheckout = async () => { //点击结算按钮
 				icon: 'none'
 			})
 		}
+	} catch (err) {
+		console.log(err)
+		uni.hideLoading()
+	}
+
+}
+const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选择地址
+	selectPickMethod.value = selectPickMethodChild
+	console.log('取货方式', selectPickMethod.value)
+	if (selectPickMethod.value === 0) return
+	uni.navigateTo({
+		url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
+	})
+}
+const handleClose = () => { //关闭弹窗
+	showCheckoutCounter.value = false
+	console.log(showCheckoutCounter.value)
+}
+const handleCheckout = async () => { //点击结算按钮
+	console.log('点击了结算按钮')
+	if (selectItems.value.length === 0) {
+		uni.showToast({
+			title: '请先选择至少一个结算项',
+			icon: 'none'
+		})
+		return
+	}
+	showCheckoutCounter.value = true
+	try {
+		// uni.showLoading({
+		// 	title: '创建订单...'
+		// })
+		showCheckoutCounter.value = true
+		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
+			.join(',');
+		console.log(cart_id)
+		// let orderRes = await createOrder({
+		// 	cart_id: cart_id,
+		// 	dispatch_mode: 0,
+		// 	chain_id: '',
+		// 	user_voucher_ids: '',
+		// 	payment_type_id: 1302,
+		// 	redemption_ids: '',
+		// 	order_message: '',
+		// 	virtual_service_date: '',
+		// 	virtual_service_time: '',
+		// 	salesperson_id: '',
+		// 	user_invoice_id: '',
+		// 	user_nickname: '',
+		// 	currency_id: ''，
+		//delivery_type_id: ''
+		// })
+		// console.log(orderRes, '创建订单闲情')
+		// if (orderRes.code === 200) {
+		// 	setTimeout(async () => {
+		// 		try {
+		// 			uni.showLoading({
+		// 				title: '加载中'
+		// 			})
+		// 			let payResult = await pay({ order_id: orderRes.data.order_ids.join(',') })
+		// 			console.log('支付结果', payResult)
+		// 			uni.requestPayment({
+		// 				"timeStamp": payResult.data.payResult.timeStamp,
+		// 				"nonceStr": payResult.data.payResult.nonceStr,
+		// 				"package": payResult.data.payResult.package,
+		// 				"signType": payResult.data.payResult.signType,
+		// 				"paySign": payResult.data.payResult.paySign,
+		// 				"success": function (res) {
+		// 					uni.navigateTo({
+		// 						url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
+		// 					})
+		// 					uni.hideLoading()
+		// 				},
+		// 				"fail": function (res) {
+		// 					uni.navigateTo({
+		// 						url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
+		// 					})
+		// 					uni.hideLoading()
+		// 				},
+		// 				"complete": function (res) {
+		// 					uni.navigateTo({
+		// 						url: `/pages/home/order_details?orderSN=${orderRes.data.order_id}`
+		// 					})
+		// 					uni.hideLoading()
+		// 				}
+		// 			});
+		// 			uni.hideLoading()
+		// 		} catch (error) {
+		// 			console.log(error)
+		// 			uni.hideLoading()
+		// 		}
+		// 	}, 7000);
+		// } else {
+		// 	showToast({
+		// 		title: orderRes.message,
+		// 		icon: 'none'
+		// 	})
+		// }
 	} catch (err) {
 		console.log(err)
 		uni.hideLoading()

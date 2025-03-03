@@ -16,21 +16,21 @@
                 <div class="w-686rpx flex justify-between items-center py-14rpx rounded-16rpx mb-48rpx text-#222"
                     style="border: 1px solid #e4e4e7;" @click="handleSelectAddress">
                     <div class="ml-20rpx">
-                        <div class="flex justify-start items-center" v-show="selectPickMethod === 0">
+                        <div class="flex justify-start items-center" v-show="selectPickMethod === 5">
                             <div class="icon iconfont icon-addresss text-32rpx"></div>
                             <div class="flex justify-start items-center ml-4rpx">{{ pickUpSite }}</div>
                         </div>
-                        <div class v-if="selectPickMethod === 1 && !addressInfo.name">
+                        <div class v-if="selectPickMethod === 10 && !addressInfo.name">
                             请添加收货地址
                         </div>
                         <div class="flex justify-start items-center"
-                            v-show="selectPickMethod === 1 && addressInfo.name">
+                            v-show="selectPickMethod === 10 && addressInfo.name">
                             <div class="icon iconfont icon-Personal text-32rpx"></div>
                             <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.name }}
                                 {{ addressInfo.phone }}</div>
                         </div>
                         <div class="flex justify-start items-center"
-                            v-show="selectPickMethod === 1 && addressInfo.name">
+                            v-show="selectPickMethod === 10 && addressInfo.name">
                             <div class="icon iconfont icon-addresss text-28rpx"></div>
                             <div class="flex justify-start items-center ml-4rpx">{{ addressInfo.detail }}</div>
                         </div>
@@ -39,7 +39,7 @@
                         <div class="icon iconfont icon-right_9  text-20rpx"></div>
                     </div>
                 </div>
-                <div class="w-686rpx flex justify-between items-start">
+                <!-- <div class="w-686rpx flex justify-between items-start">
                     <div class="w-240rpx h-240rpx rounded-24rpx overflow-hidden">
                         <img :src="productInfo.pictures[0]" alt="">
                     </div>
@@ -50,8 +50,8 @@
                         </div>
                         <div class="flex text-#222 text-28rpx  ">X{{ productQuantity }}</div>
                     </div>
-                </div>
-                <div class="w-686rpx pt-28rpx">
+                </div> -->
+                <!-- <div class="w-686rpx pt-28rpx">
                     <div class="text-#222 text-28rpx font-medium mb-16rpx">规格</div>
                 </div>
                 <div class="w-full flex justify-start items-center">
@@ -60,20 +60,16 @@
                         :class="selectSKU === item.id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959'">
                         {{ item.sku_title }}
                     </div>
-                </div>
+                </div> -->
                 <div class="w-full flex flex-col items-center justify-start bg-white"
                     style="border-top:1px solid #f3f4f6;">
-                    <div class="w-full flex justify-center items-center h-96rpx">
+                    <!-- <div class="w-full flex justify-center items-center h-96rpx">
                         <div class="w-686rpx flex justify-between items-center">
                             <div class="text-48rpx text-#222 font-bold">￥{{ (productInfo.price * productQuantity *
             0.01).toFixed(2) }}</div>
-                            <!-- <div>
-                                <wd-input-number @change="updateProductQuantity" :modelValue="productQuantity" :min="1"
-                                    :max="productInfo.stock" />
-                            </div> -->
                         </div>
 
-                    </div>
+                    </div> -->
                     <div class="w-full flex justify-center items-center pt-20rpx "
                         style="border-top:1px solid #f3f4f6;">
                         <div class="w-686rpx flex justify-between items-center">
@@ -118,7 +114,7 @@ let selectSKU = computed(() => {
 
 }) //选择的sku
 // let productQuantity = ref(1) //要购买的商品数量
-let selectPickMethod = ref(0)
+let selectPickMethod = ref(5)
 const skuItems = ref([
     { title: 'XS', id: 1 },
     { title: 'S', id: 2 },
@@ -131,8 +127,8 @@ const handleSKUItem = (item) => {
     selectSKU.value = item.id
 }
 const pickMethodItems = ref([
-    { title: '自提', id: 0 },
-    { title: '快递', id: 1 }
+    { title: '自提', id: 5 },
+    { title: '快递', id: 10 }
 ])
 
 const handleMethodItem = (item) => {
