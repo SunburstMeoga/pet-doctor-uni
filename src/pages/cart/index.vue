@@ -212,6 +212,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确�
 		})
 		console.log(orderRes, '创建订单闲情')
 		if (orderRes.code === 200) {
+			uni.removeStorageSync('cartList')
 			setTimeout(async () => {
 				try {
 					uni.showLoading({
