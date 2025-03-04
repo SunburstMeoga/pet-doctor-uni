@@ -9,6 +9,7 @@
     }
     </route>
 <template>
+
     <div class="flex flex-col justify-start items-center">
         <div>
             <CustomHeader :showButton="true" color="#fff"></CustomHeader>
@@ -85,7 +86,9 @@
                     <image :src="item" mode="widthFix" class="w-full" />
                 </view>
             </view> -->
-            <div class="w-full pb-300rpx" v-html="productDetailsInfo.product_detail" />
+            <div class="w-full pb-300rpx">
+                <rich-text :nodes="processedProductDetail" class="rich-text-container" />
+            </div>
         </div>
         <div @click="handleCart"
             class="fixed z-100 bottom-516rpx right-0 flex justify-center items-center rounded-l-full w-112rpx h-64rpx bg-#F159121A transition-transform duration-300"
@@ -169,6 +172,29 @@ function debounce(func, delay) {
         }, delay);
     };
 }
+//动态计算产品详情html结构样式
+let processedProductDetail = computed(() => {
+    let html = productDetailsInfo.value.product_detail;
+
+    // 处理纯文字段落（不包含 img 的 p 标签）
+    html = html.replace(
+        /<p>((?!<img).)*?<\/p>/gis,
+        (match) => {
+            const content = match.replace(/<\/?p>/g, ''); // 移除原 <p> 标签
+            return `
+        <div style="width:686rpx; margin:20rpx auto; min-height:40rpx; padding-left:20px;">${content}</div>
+      `;
+        }
+    );
+
+    // 处理图片段落
+    html = html.replace(
+        /<img/gi,
+        '<img style="width:100%!important; height:auto!important; display:block!important; margin:20rpx 0!important;"'
+    );
+
+    return html;
+});
 //点击购物车
 const handleCart = () => {
     uni.navigateTo({
@@ -517,5 +543,10 @@ img {
     max-width: 100% !important;
     object-fit: contain !important;
     border: 1px solid red;
+}
+
+img {
+    max-width: 100% !important;
+    object-fit: contain !important;
 }
 </style>
