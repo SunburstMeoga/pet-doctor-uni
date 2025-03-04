@@ -460,8 +460,13 @@ const handleChange = ({ value }) => { //步进器
     console.log(value)
 }
 const handleSKUItem = (item) => {
+    console.log(productDetailsInfo.value)
     productDetailsInfo.value['product_unit_price_min'] = item.price
     selectSKU.value = item.id
+    console.log(selectSKU.value)
+    productId.value = item.id
+    getProductDetails()
+
 }
 const getProductDetails = async () => { //商品详情
     try {
@@ -472,24 +477,25 @@ const getProductDetails = async () => { //商品详情
 
         console.log('商品详情', result)
         productDetailsInfo.value = result.data
-        //处理商品轮播图数组
-        const sanitizedString = result.data.product_spec
-            .replace(/^"(.*)"$/, '$1')  // 移除首尾双引号
-            .replace(/\\"/g, '"');      // 处理转义双引号（如果有）
-
-        // 2️⃣ 解析为数组
+        //处理商品sku
         try {
-            const specArray = JSON.parse(sanitizedString);
+            // 1. 去除外层双引号（如果存在）
+            let product_spec = result.data.product_spec
+            const jsonString = product_spec.startsWith('"') && product_spec.endsWith('"')
+                ? product_spec.slice(1, -1)
+                : product_spec;
 
-            // ✅ 验证结果
-            console.log(Array.isArray(specArray)); // true
-            console.log(specArray[0].item);
+            // 2. 解析为JSON数组
+            const specArray = JSON.parse(jsonString);
+
+            console.log('解析结果:', specArray);
             productDetailsInfo.value.items = specArray[0].item
-            console.log(productDetailsInfo.value.items)
-            selectSKU.value = specArray[0].item[0].id
-        } catch (e) {
-            console.error("解析失败:", e);
+            console.log('sku', productDetailsInfo.value)
+            selectSKU.value = productDetailsInfo.value.items[0].id
+        } catch (error) {
+            console.error('解析失败:', error);
         }
+        //处理商品轮播图数组
         const imageArray = result.data.image.item_image_other
             ? result.data.image.item_image_other
                 .split(',')                // 按逗号分割
