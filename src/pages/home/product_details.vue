@@ -56,17 +56,21 @@
                 </swiper>
             </div>
             <div class="w-686rpx text-36rpx font-medium  mb-28rpx">
-                {{ productDetailsInfo.title }}
+                {{ productDetailsInfo.product_name }}
             </div>
             <div class="w-686rpx flex justify-start items-center mb-24rpx" v-if="productDetailsInfo.tags.length !== 0">
                 <div v-for="(item, index) in productDetailsInfo.tags"
-                    :class="`text-24rpx rounded-4rpx px-8rpx ${index !== 0 ? 'ml-8rpx' : ''} ${item.tagStyle}`"
-                    :key="index">
-                    {{ item.title }}
+                    class="text-20rpx w-56rpx h-28rpx flex justify-center items-center rounded-4rpx" :class="{
+                'bg-#F15912 text-#FFFFFF': index === 0,
+                'bg-#FAAD1426 text-#FAAD14': index === 1,
+                'bg-#3B8AFA26 text-#3B8AFA': index === 2,
+                'ml-8rpx': index !== 0,
+            }" :key="index">
+                    {{ item }}
                 </div>
             </div>
             <div class="w-686rpx text-#595959 text-28rpx mb-24rpx">
-                {{ productDetailsInfo.intro }}
+                {{ productDetailsInfo.product_tips }}
             </div>
             <div class="w-686rpx">
                 <div class="w-686rpx pt-28rpx">
