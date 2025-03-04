@@ -44,7 +44,10 @@
                     </div>
                     <div class="flex justify-start items-center text-zinc5 text-26rpx">
                         <div class="icon iconfont icon-addresss "></div>
-                        <div class="flex justify-start items-center ml-4rpx">{{ orderDetailsInfo.delivery.da_address ||
+                        <div class="flex justify-start items-center ml-4rpx">{{
+                        `${orderDetailsInfo.delivery.ud_province}
+                            ${orderDetailsInfo.delivery.ud_city}
+                            ${orderDetailsInfo.delivery.ud_county}` }}{{ orderDetailsInfo.delivery.da_address ||
                         '联系人地址' }}
                         </div>
                     </div>

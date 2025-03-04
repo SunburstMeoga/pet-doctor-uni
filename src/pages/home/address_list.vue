@@ -48,7 +48,7 @@ const handleDelete = async ({ ud_id }) => { //点击删除地址
             title: '加载中'
         })
         let res = await deleteAddress({ ud_id: ud_id })
-        if (res.code !== 0) {
+        if (res.code !== 200) {
             uni.showToast({
                 title: res.message,
                 icon: 'none'

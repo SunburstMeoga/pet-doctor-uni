@@ -192,7 +192,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确�
 		showCheckoutCounter.value = true
 		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
 			.join(',');
-		console.log('addressInfo',addressInfo.value)
+		console.log('addressInfo', addressInfo.value)
 		let orderRes = await createOrder({
 			cart_id: cart_id,
 			dispatch_mode: selectPickMethod.value,
@@ -265,7 +265,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确�
 const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选择配送方式
 	selectPickMethod.value = selectPickMethodChild
 	console.log('取货方式', selectPickMethod.value)
-	if (selectPickMethod.value === 0) return
+	if (selectPickMethod.value === 5) return
 	uni.navigateTo({
 		url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
 	})
@@ -295,7 +295,47 @@ const handleCheckout = async () => { //点击结算按钮
 	showCheckoutCounter.value = true
 }
 const getCart = async () => { //获取购物车列表
+	console.log('加载购物车', uni.getStorageSync('cartList'))
+	console.log(uni.getStorageSync('cartList'))
+	if (uni.getStorageSync('cartList')) {
+		cartList.value = uni.getStorageSync('cartList')
+		selectItems.value = cartList.value.filter(item => item.isSelect) //筛选选中项
+		selectItems.value.map(async (item, index) => { //
+			console.log(item.cart_quantity, item.item_market_price)
+			totalPrice.value = 0.00
+			item.total = item.cart_quantity * item.item_market_price //计算单个商品总价
+			totalPrice.value = (item.cart_quantity * item.item_market_price) //计算选中的项总价
+
+			// console.log('总价', totalPrice.value)
+		})
+		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
+			.join(',');
+		console.log(cart_id)
+		try {
+			uni.showLoading({
+				title: '加载中'
+			})
+			let checkoutRes = await checkoutOrder({ cart_id: cart_id }) //收银台
+			console.log('收银台', checkoutRes)
+			if (checkoutRes.code === 200) {
+				totalPrice.value = checkoutRes.data.order_money_amount
+			} else {
+				uni.showToast({
+					title: checkoutRes.message,
+					icon: 'none'
+				})
+			}
+			uni.hideLoading()
+		} catch (err) {
+			uni.hideLoading()
+			item.selectItems = false
+			console.log(err)
+		}
+		console.log('选中的购物车items', selectItems.value)
+		return
+	}
 	try {
+		console.log('加载购物车==-===-', uni.getStorageSync('cartList'))
 		uni.showLoading({
 			title: '加载中'
 		});
@@ -313,11 +353,16 @@ const getCart = async () => { //获取购物车列表
 	}
 }
 onShow(() => {
-	console.log('购物车onshow开始')
+	// console.log('购物车onshow开始')
 	getCart()
 	getAddressList()
-	console.log('购物车onshow结束')
-
+	// console.log('购物车onshow结束')
+	// console.log('进入购物车页面时获取保存的购物车列表', uni.getStorageSync('cartList'))
+})
+// 购物车页面
+onHide(() => {
+	uni.setStorageSync('cartList', cartList.value);
+	console.log('离开购物车页面时保存的购物车列表', uni.getStorageSync('cartList'))
 })
 // onMounted(() => {
 // 	getCart()

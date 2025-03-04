@@ -121,21 +121,24 @@ const handleSetDefault = () => {
 const handleConfirmArea = ({ selectedItems }) => {
     console.log('selectedItems', selectedItems)
     selectArea.value = selectedItems
-    ud_province_id.value = selectedItems[0].value
-    ud_city_id.value = selectedItems[1].value
-    ud_county_id.value = selectedItems[2].value
+    ud_province_id.value = selectArea.value[0].value
+    ud_city_id.value = selectArea.value[1].value
+    ud_county_id.value = selectArea.value[2].value
+    console.log(selectArea.value[0].label, selectArea.value[1].label, selectArea.value[2].label,)
 }
 const handleConfirm = async () => { //点击确认添加地址按钮
     let params = {
+        ud_id: 0,
         ud_name: name.value,
         ud_mobile: phone.value,
         ud_province_id: ud_province_id.value,
-        ud_city_id: ud_province_id.value,
-        ud_county_id: ud_province_id.value,
-
+        ud_city_id: ud_city_id.value,
+        ud_county_id: ud_county_id.value,
         ud_address: detail.value,
         ud_is_default: isDefault.value,
-
+        ud_province: selectArea.value[0].label,
+        ud_city: selectArea.value[1].label,
+        ud_county: selectArea.value[2].label,
     }
     console.log(params)
     // return

@@ -5,7 +5,8 @@
             <div v-show="addressInfo.ud_is_default" class="rounded-4rpx text-24rpx px-2rpx text-sky-4 ml-16rpx"
                 style="border: 1px solid #38bdf8;"> 默认 </div>
         </div>
-        <div class="text-28rpx text-zinc-5 mb-15rpx">{{ addressInfo.ud_address }}</div>
+        <div class="text-28rpx text-zinc-5 mb-15rpx">{{ `${addressInfo.ud_province} ${addressInfo.ud_city}
+            ${addressInfo.ud_county}` }} {{ addressInfo.ud_address }}</div>
         <div class="flex justify-between items-center">
             <div class="flex justify-start items-center" @tap.stop="handleSetDefault">
                 <!-- <div class="w-28rpx h-28rpx rounded-4rpx flex justify-center items-center "

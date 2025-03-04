@@ -4,10 +4,10 @@
             <img :src="img" alt="" mode="aspectFit">
         </div>
         <div class="flex flex-col w-289rpx h-220rpx items-start justify-start ml-24rpx relative">
-            <div class="text-#222 text-26rpx w-full line-clamp-2 overflow-hidden text-ellipsis break-words">
+            <div class="text-#222 text-26rpx w-full line-clamp-2 overflow-hidden text-ellipsis break-words mb-4rpx">
                 {{ title }}
             </div>
-            <div class="text-#595959 w-full text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words">
+            <div class="text-gray w-full text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words mb-4rpx">
                 {{ details }}
             </div>
             <div class="flex justify-start  items-center w-full" v-if="tags.length !== 0">
