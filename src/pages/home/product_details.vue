@@ -43,7 +43,7 @@
                     alt="">
             </div>
         </div>
-        <div class="w-full flex flex-col items-center -mt-60rpx relative z-1 h-auto">
+        <div class="w-full flex flex-col items-center -mt-60rpx relative z-1 h-auto pb-40rpx">
             <div class="w-686rpx  h-686rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
                 <swiper class="w-686rpx  h-686rpx" :indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.5)"
                     indicator-active-color="#ffffff">
@@ -105,9 +105,9 @@
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white">
             <div class="w-full flex justify-center items-center bg-gradient-to-r to-#FEE8C3  from-#FED9C3 text-#F54940 text-24rpx h-57rpx"
-                v-if="productDetailsInfo.group_end_at && productDetailsInfo.is_group">
+                v-if="productDetailsInfo.product_remove_time">
                 <div class="w-686rpx ">
-                    截至 {{ formatTimestamp(productDetailsInfo.group_end_at) }}
+                    截至 {{ formatTimestamp(productDetailsInfo.product_remove_time) }}
                 </div>
             </div>
             <div class="w-full flex justify-center items-center h-96rpx">
@@ -384,7 +384,7 @@ const handleClose = () => { //关闭弹窗
     console.log(showCheckoutCounter.value)
 }
 const formatTimestamp = (timestamp) => { //格式化时间内
-    const date = new Date(timestamp * 1000);
+    const date = new Date(timestamp);
     // 获取月份，日期，小时，分钟和秒
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');

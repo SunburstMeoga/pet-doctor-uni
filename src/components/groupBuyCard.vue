@@ -39,19 +39,11 @@
 						<div class="flex justify-between items-center w-full h-57rpx">
 							<div class="h-37rpx flex justify-start items-start">
 								<div class="font-medium text-24rpx transform translate-y-2rpx">￥</div>
-								<div class="font-bold text-32rpx ml-4rpx">{{ price.toFixed(2) }}</div>
+								<div class="font-bold text-32rpx ml-4rpx">{{ price }}</div>
 							</div>
 							<div class="bg-#F36D1F rounded-full w-64rpx h-42rpx flex justify-center items-center">
 								<wd-icon name="add" size="24rpx" color="#fff"></wd-icon>
 							</div>
-							<!-- <div class="flex rounded-12rpx overflow-hidden">
-								<div class="bg-#F7A040  flex justify-center items-center w-88rpx h-57rpx">
-									<wd-icon name="cart" size="40rpx" color="#fff"></wd-icon>
-								</div>
-								<div
-									class="font-medium w-144rpx text-24rpx text-#fff  flex justify-center items-center bg-gradient-to-r to-#FCE16A  from-#F15912 h-57rpx">
-									立即购买</div>
-							</div> -->
 						</div>
 					</div>
 
@@ -59,30 +51,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- <view class="content">
-		<view class="content-time">
-			截止 {{ time }}
-		</view>
-		<view class="content-info flex justify-center items-center">
-			<view class="content-details flex justify-start items-start">
-				<view class="details-left">
-					<image :src="detail_pictures" mode=""></image>
-				</view>
-				<view class="details-right">
-					<view class="right-title">{{ title }}</view>
-					<view class="right-details">{{ intro }}</view>
-					<view class="right-tags flex justify-start items-center">
-						<view class="tags-item" v-for="(item, index) in tagsItems" :key="index">{{ item }}</view>
-					</view>
-
-					<view class="buy  flex justify-between items-center">
-						<view class="right-price">￥{{ price.toFixed(2) }}</view>
-						<view class="buy-button" @click="buyNow()">立即购买</view>
-					</view>
-				</view>
-			</view>
-		</view>
-	</view> -->
 </template>
 
 <script setup>
@@ -105,8 +73,8 @@ const props = defineProps({
 		default: () => []
 	},
 	price: {
-		type: Number,
-		default: 0
+		type: String,
+		default: ''
 	},
 	detail_pictures: {
 		type: String,
