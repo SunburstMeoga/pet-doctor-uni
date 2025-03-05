@@ -36,7 +36,7 @@
 					<!-- <wd-cell title="标题文字" value="内容"/> -->
 					<CartCard @handleSelect="handleSelect(item)" :isSelect="item.isSelect" :title="item.product_name"
 						:productQuantity="item.cart_quantity" :items="item.item_name" :picture="item.product_image"
-						:price="item.item_market_price * item.cart_quantity || 0"
+						:price="(item.item_market_price * item.cart_quantity).toFixed(2) || 0"
 						@changeQuantity="(e) => changeQuantity(e, item)" />
 					<template #right>
 						<view class="h-full">

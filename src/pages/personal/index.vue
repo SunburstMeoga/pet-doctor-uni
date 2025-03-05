@@ -132,65 +132,68 @@ let toPetList = () => {
 	})
 }
 let toLogin = async () => {
-	uni.showLoading({
-		title: '正在登录...',
-		mask: true // 是否显示透明蒙层，防止触摸穿透  
-	});
-	let code, encryptedData, iv
-	// 仅在用户点击按钮或其他交互操作时调用此方法  
-	uni.getUserProfile({
-		desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中  
-		success: (res) => {
-			console.log(res)
-			if (res.platform === 'devtools') {
-				uni.setEnableDebug({
-					enableDebug: true
-				});
-			}
-			encryptedData = res.encryptedData
-			iv = res.iv
-			console.log(encryptedData, iv)
-			uni.login({
-				provider: 'weixin',
-				success: async (loginRes) => {
-					console.log('登录成功', loginRes);
-					console.log(loginRes.code)
-					code = loginRes.code
-					try {
-						console.log(encryptedData, iv, code)
-						const result = await login({
-							code: code,
-							iv: iv,
-							encrypted_data: encryptedData
-						})
-						console.log(result)
-						uni.setStorageSync('token',
-							`Bearer ${result.data.api_token}`)
-						console.log(result.data.api_token)
-						console.log(uni.getStorageSync('token'))
-						if (uni.getStorageSync('promotion_id')) {
-							let result = await bindUser({ promotion_id: uni.getStorageSync('promotion_id') })
-							console.log('绑定', result)
-							uni.removeStorageSync('promotion_id')
-						}
-						isLogged.value = true
-						uni.hideLoading()
-					} catch (err) {
-						console.log(err)
-						uni.hideLoading();
-					}
-				},
-				fail: (error) => {
-					console.error('登录失败', error);
-					uni.hideLoading();
-				}
-			});
-		},
-		fail: (err) => {
-			console.error('获取用户信息失败', err);
-			uni.hideLoading();
-		}
-	});
+	uni.navigateTo({
+		url: '/pages/login/index',
+	})
+	// uni.showLoading({
+	// 	title: '正在登录...',
+	// 	mask: true // 是否显示透明蒙层，防止触摸穿透  
+	// });
+	// let code, encryptedData, iv
+	// // 仅在用户点击按钮或其他交互操作时调用此方法  
+	// uni.getUserProfile({
+	// 	desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中  
+	// 	success: (res) => {
+	// 		console.log(res)
+	// 		if (res.platform === 'devtools') {
+	// 			uni.setEnableDebug({
+	// 				enableDebug: true
+	// 			});
+	// 		}
+	// 		encryptedData = res.encryptedData
+	// 		iv = res.iv
+	// 		console.log(encryptedData, iv)
+	// 		uni.login({
+	// 			provider: 'weixin',
+	// 			success: async (loginRes) => {
+	// 				console.log('登录成功', loginRes);
+	// 				console.log(loginRes.code)
+	// 				code = loginRes.code
+	// 				try {
+	// 					console.log(encryptedData, iv, code)
+	// 					const result = await login({
+	// 						code: code,
+	// 						iv: iv,
+	// 						encrypted_data: encryptedData
+	// 					})
+	// 					console.log(result)
+	// 					uni.setStorageSync('token',
+	// 						`Bearer ${result.data.api_token}`)
+	// 					console.log(result.data.api_token)
+	// 					console.log(uni.getStorageSync('token'))
+	// 					if (uni.getStorageSync('promotion_id')) {
+	// 						let result = await bindUser({ promotion_id: uni.getStorageSync('promotion_id') })
+	// 						console.log('绑定', result)
+	// 						uni.removeStorageSync('promotion_id')
+	// 					}
+	// 					isLogged.value = true
+	// 					uni.hideLoading()
+	// 				} catch (err) {
+	// 					console.log(err)
+	// 					uni.hideLoading();
+	// 				}
+	// 			},
+	// 			fail: (error) => {
+	// 				console.error('登录失败', error);
+	// 				uni.hideLoading();
+	// 			}
+	// 		});
+	// 	},
+	// 	fail: (err) => {
+	// 		console.error('获取用户信息失败', err);
+	// 		uni.hideLoading();
+	// 	}
+	// });
 }
 </script>
 

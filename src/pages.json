@@ -61,6 +61,14 @@
       }
     },
     {
+      "path": "pages/home/group_buying",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/cart/index",
       "type": "page",
       "style": {
@@ -80,14 +88,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "活动报名"
-      }
-    },
-    {
-      "path": "pages/home/group_buying",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
       }
     },
     {

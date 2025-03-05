@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '',
@@ -10,11 +10,11 @@
 	<view class="container">
 		<div>
 			<CustomHeader :showButton="true">
-				<template #left>
+				<!-- <template #left>
 					<view class="text-32rpx font-medium pl-28rpx w-102rpx text-right">
 						活动
 					</view>
-				</template>
+				</template> -->
 
 			</CustomHeader>
 		</div>

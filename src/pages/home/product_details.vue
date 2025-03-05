@@ -507,7 +507,7 @@ const getProductDetails = async () => { //商品详情
                 .filter(url => url !== '') // 过滤空字符串
             : [];                          // 空值保护
         productImages.value = [result.data.image.item_image_default]
-        selectSKU.value = productDetailsInfo.value.items[0].item_id
+        selectSKU.value = result.data.item_id
         console.log(productImages.value)
         uni.hideLoading();
     } catch (err) {
