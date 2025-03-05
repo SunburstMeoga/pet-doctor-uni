@@ -185,8 +185,15 @@ const handleAction = async (item) => { //删除购物车
 }
 const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确认按钮
 	selectPickMethod.value = selectPickMethodChild
-	console.log('selectPickMethod.value', selectPickMethod.value)
-
+	console.log('selectPickMethod.value', selectPickMethod.value, addressInfo.value == undefined)
+	if (selectPickMethod.value === 10 && addressInfo.value == undefined) {
+		console.log('无收货地址')
+		uni.showToast({
+			title: '请先选择收货地址',
+			icon: 'none'
+		})
+		return
+	}
 
 	showCheckoutCounter.value = false
 	try {

@@ -62,6 +62,7 @@ import { allProduct, productGroup } from '@/service/index'
 import CustomHeader from '@/components/customHeader'
 onShow(() => {
     uni.removeStorageSync('cartList')
+    uni.removeStorageSync('createOrderAddress')
 })
 onMounted(async () => {
     await nextTick(); // 确保 DOM 渲染完成

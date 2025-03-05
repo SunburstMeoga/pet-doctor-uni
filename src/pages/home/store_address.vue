@@ -156,9 +156,9 @@ const handleConfirm = async () => { //点击确认添加地址按钮
         if (result.code !== 200) {
             return
         }
-        if (operating.value === 'select') {
-            uni.setStorageSync('createOrderAddress', result.data)
-        }
+        // if (operating.value === 'select') {
+        //     uni.setStorageSync('createOrderAddress', result.data)
+        // }
         uni.navigateBack({
             delta: 1
         });
