@@ -200,7 +200,7 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确�
 		uni.showLoading({
 			title: '创建订单...'
 		})
-		showCheckoutCounter.value = true
+		// showCheckoutCounter.value = true
 		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
 			.join(',');
 		console.log('addressInfo', addressInfo.value)
@@ -259,21 +259,27 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确�
 						"signType": payResult.data.payResult.signType,
 						"paySign": payResult.data.payResult.paySign,
 						"success": function (res) {
+							showCheckoutCounter.value = false
 							uni.navigateTo({
 								url: `/pages/home/order_details?orderSN=${payResult.data.order_id}`
 							})
+
 							uni.hideLoading()
 						},
 						"fail": function (res) {
+							showCheckoutCounter.value = false
 							uni.navigateTo({
 								url: `/pages/home/order_details?orderSN=${payResult.data.order_id}`
 							})
+
 							uni.hideLoading()
 						},
 						"complete": function (res) {
+							showCheckoutCounter.value = false
 							uni.navigateTo({
 								url: `/pages/home/order_details?orderSN=${payResult.data.order_id}`
 							})
+
 							uni.hideLoading()
 						}
 					});
