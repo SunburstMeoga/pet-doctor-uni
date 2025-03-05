@@ -204,9 +204,16 @@ let swipeChange = async (e) => {
 	// console.log('切换轮播图之后的报告', currentReport.value)
 }
 let toAddCard = () => {
-	uni.navigateTo({
-		url: '/pages/personal/identityInfo'
-	})
+	if (uni.getStorageSync('token')) {
+		uni.navigateTo({
+			url: '/pages/personal/identityInfo'
+		})
+	} else {
+		uni.navigateTo({
+			url: '/pages/login/index'
+		})
+	}
+
 }
 onShow(async () => {
 	reportList.value = []
