@@ -9,8 +9,9 @@
     </route>
 <template>
 	<div class="w-full h-screen bg-zinc-1 flex flex-col justify-start items-center pb-200rpx">
+
 		<div>
-			<CustomHeader :showButton="true">
+			<CustomHeader showButton>
 				<template #left>
 					<view class="custom-left w-120rpx h-44rpx">
 						<image
@@ -26,6 +27,9 @@
 				alt="" mode="aspectFit">
 		</div>
 		<div class="w-full pt-200rpx flex flex-col justify-start items-center relative z-1">
+			<div v-if="cartList.length === 0" class="flex justify-center items-center w-full h-600rpx  text-#222">
+				暂无数据~
+			</div>
 			<div class="w-686rpx py-28rpx flex justify-center items-center bg-white rounded-24rpx overflow-hidden mb-28rpx"
 				v-for="(item, index) in cartList" :key="index">
 				<wd-swipe-action>
@@ -341,12 +345,16 @@ const getCart = async () => { //获取购物车列表
 			title: '加载中'
 		});
 		let result = await cart()
-		console.log('购物车列表', result.data.items[0].items)
-		cartList.value = result.data.items[0].items
-		console.log(cartList.value)
-		cartList.value.map(item => {
-			item.isSelect = false
-		})
+		if (result.data.items.length !== 0) {
+			console.log('购物车列表', result.data.items[0].items)
+			cartList.value = result.data.items[0].items
+			console.log(cartList.value)
+			cartList.value.map(item => {
+				item.isSelect = false
+			})
+		} else {
+			cartList.value = []
+		}
 		uni.hideLoading()
 	} catch (err) {
 		console.log(err)
