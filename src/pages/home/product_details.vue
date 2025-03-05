@@ -79,9 +79,9 @@
                 <div class="w-full flex justify-start items-center">
                     <div class="flex justify-center items-center min-w-92rpx min-h-58rpx px-10rpx rounded-16rpx text-24rpx font-medium flex-wrap mb-28rpx"
                         @click="handleSKUItem(item)" v-for="(item, index) in productDetailsInfo.items" :key="index"
-                        :class="[selectSKU == item.id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959',
+                        :class="[selectSKU == item.item_id ? 'bg-#FCE16A text-#222' : 'bg-#F7F7F7 text-#595959',
             { 'ml-24rpx': index !== 0 }]">
-                        {{ item.name }}
+                        {{ item.item_name }}
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@ import CustomHeader from '@/components/customHeader'
 import { ref, onMounted, onUnmounted } from 'vue';
 let productId = ref(0)
 let productDetailsInfo = ref({})
-let selectSKU = ref() //选择的sku
+let selectSKU = ref(0) //选择的sku
 let productQuantity = ref(1) //要购买的商品数量
 let pollingTimer = null; //订单轮询定时器
 let showCheckoutCounter = ref(false) //显示隐藏收银台
@@ -465,10 +465,10 @@ const handleChange = ({ value }) => { //步进器
 }
 const handleSKUItem = (item) => {
     console.log(productDetailsInfo.value)
-    productDetailsInfo.value['product_unit_price_min'] = item.price
-    selectSKU.value = item.id
+    productDetailsInfo.value['product_unit_price_min'] = item.item_unit_price
+    selectSKU.value = item.item_id
     console.log(selectSKU.value)
-    productId.value = item.id
+    productId.value = item.item_id
     getProductDetails()
 
 }
@@ -482,23 +482,23 @@ const getProductDetails = async () => { //商品详情
         console.log('商品详情', result)
         productDetailsInfo.value = result.data
         //处理商品sku
-        try {
-            // 1. 去除外层双引号（如果存在）
-            let product_spec = result.data.product_spec
-            const jsonString = product_spec.startsWith('"') && product_spec.endsWith('"')
-                ? product_spec.slice(1, -1)
-                : product_spec;
+        // try {
+        //     // 1. 去除外层双引号（如果存在）
+        //     let product_spec = result.data.product_spec
+        //     const jsonString = product_spec.startsWith('"') && product_spec.endsWith('"')
+        //         ? product_spec.slice(1, -1)
+        //         : product_spec;
 
-            // 2. 解析为JSON数组
-            const specArray = JSON.parse(jsonString);
+        //     // 2. 解析为JSON数组
+        //     const specArray = JSON.parse(jsonString);
 
-            console.log('解析结果:', specArray);
-            productDetailsInfo.value.items = specArray[0].item
-            console.log('sku', productDetailsInfo.value)
-            selectSKU.value = productDetailsInfo.value.items[0].id
-        } catch (error) {
-            console.error('解析失败:', error);
-        }
+        //     console.log('解析结果:', specArray);
+        //     productDetailsInfo.value.items = specArray[0].item
+        //     console.log('sku', productDetailsInfo.value)
+        //     selectSKU.value = productDetailsInfo.value.items[0].id
+        // } catch (error) {
+        //     console.error('解析失败:', error);
+        // }
         //处理商品轮播图数组
         const imageArray = result.data.image.item_image_other
             ? result.data.image.item_image_other
@@ -507,6 +507,7 @@ const getProductDetails = async () => { //商品详情
                 .filter(url => url !== '') // 过滤空字符串
             : [];                          // 空值保护
         productImages.value = imageArray
+        selectSKU.value = productDetailsInfo.value.items[0].item_id
         console.log(productImages.value)
         uni.hideLoading();
     } catch (err) {

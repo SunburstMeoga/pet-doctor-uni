@@ -2,7 +2,7 @@
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 import { bindUser } from '@/service/index'
 
-onLaunch((options) => {
+onLaunch(async (options) => {
   console.log('App Launch')
   console.log('小程序加载')
   console.log(options)
@@ -11,7 +11,11 @@ onLaunch((options) => {
   if (options && (options.scene === 1047 || options.scene === 1048)) {
 
     if (uni.getStorageSync('token')) {
+      //绑定
+      let result = await bindUser({ promotion_id: options.promotion_id })
 
+    } else {
+      uni.setStorageSync('promotion_id', options.promotion_id)
     }
   }
 })

@@ -56,7 +56,7 @@ word-break:break-all;">encryptedData: {{encryptedData}}</view> -->
 </template>
 
 <script setup>
-import { login, petCards, userPhone } from '@/service/index'
+import { login, petCards, userPhone, bindUser } from '@/service/index'
 const testCode = ref('')
 let show = ref(false)
 const loading = ref(false)
@@ -99,6 +99,7 @@ const onGetPhoneNumber = async (e) => {
         code: loginCode.value,
         iv: iv.value,
         encrypted_data: encryptedData.value,
+
       })
       console.log('登录信息 ', result)
       if (result.code !== 200) {
@@ -109,7 +110,11 @@ const onGetPhoneNumber = async (e) => {
       } else {
         uni.setStorageSync('token', `Bearer ${result.data.token}`)
         uni.setStorageSync('hasPhone', result.data.has_phone)
-
+        if (uni.getStorageSync('promotion_id')) {
+          let result = await bindUser({ promotion_id: uni.getStorageSync('promotion_id') })
+          console.log('绑定', result)
+          uni.removeStorageSync('promotion_id')
+        }
         console.log('用户token', uni.getStorageSync('token'))
         console.log('是否有手机号', uni.getStorageSync('hasPhone'))
 

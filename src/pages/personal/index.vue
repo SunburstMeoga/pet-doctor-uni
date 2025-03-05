@@ -81,7 +81,7 @@
 
 <script setup>
 import {
-	login, userInfo
+	login, userInfo, bindUser
 } from '@/service/index'
 onShow(() => {
 	console.log('token', uni.getStorageSync('token'))
@@ -168,6 +168,11 @@ let toLogin = async () => {
 							`Bearer ${result.data.api_token}`)
 						console.log(result.data.api_token)
 						console.log(uni.getStorageSync('token'))
+						if (uni.getStorageSync('promotion_id')) {
+							let result = await bindUser({ promotion_id: uni.getStorageSync('promotion_id') })
+							console.log('绑定', result)
+							uni.removeStorageSync('promotion_id')
+						}
 						isLogged.value = true
 						uni.hideLoading()
 					} catch (err) {
