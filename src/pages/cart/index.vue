@@ -10,7 +10,7 @@
 <template>
 	<div class="w-full h-screen bg-zinc-1 flex flex-col justify-start items-center pb-200rpx">
 		<div>
-			<CustomHeader>
+			<CustomHeader :showButton="true">
 				<template #left>
 					<view class="custom-left w-120rpx h-44rpx">
 						<image

@@ -9,9 +9,12 @@
 				<view class="title-right">{{ status }}</view>
 			</view>
 			<view class="info-details flex justify-between items-center">
-				<view class="details-left">
-					<image :src="product_picture" mode="aspectFit"></image>
-				</view>
+				<div class="flex justify-start items-center">
+					<view class="details-left" v-for="(item, index) in product_picture" :key="index"
+						:class="{ 'ml-4rpx': index !== 0 }">
+						<image :src="item.order_item_image" mode="aspectFit"></image>
+					</view>
+				</div>
 				<view class="details-right flex justify-between items-end">
 					<view class="right-price">￥{{ price }}</view>
 					<view class="right-count">共 {{ count }} 件</view>
@@ -45,8 +48,8 @@ const props = defineProps({
 		default: ''
 	},
 	product_picture: {
-		type: String,
-		default: ''
+		type: Array,
+		default: () => []
 	},
 	pickUpMethod: {
 		type: String,

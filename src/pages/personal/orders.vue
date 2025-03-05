@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '全部订单',
@@ -18,9 +18,9 @@
 		<view class="content flex justify-start items-center" v-if="ordersList.length !== 0">
 			<view class="content-item" v-for="(item, index) in ordersList" :key="index" @click="toDetails(item)">
 				<order-card :created_at="item.order_time" :orderNumber="item.order_id"
-					:price="item.order_payment_amount" :product_picture="item.items[0].order_item_image"
-					:status="getOrderStatus(item.order_state_id)" :count="item.items[0].order_item_quantity"
-					:pickUpMethod="getPickUpMethod(0)" />
+					:price="item.order_payment_amount" :product_picture="item.items"
+					:status="getOrderStatus(item.order_state_id)" :count="calculateProductTotal(item.items)"
+					:pickUpMethod="getPickUpMethod(item.delivery_type_id)" />
 			</view>
 		</view>
 		<view class="empty flex justify-center items-center" v-if="ordersList.length === 0">
@@ -39,6 +39,10 @@ let selectType = ref(0)
 // 2=已发货带收货
 // 3=已收货完成订单
 // 4=已取消
+const calculateProductTotal = (items) => {
+	const total = items.reduce((sum, item) => sum + item.order_item_quantity, 0);
+	return total
+}
 const toDetails = (item) => {
 	console.log(item, `${item.id}`)
 	uni.navigateTo({
@@ -49,10 +53,10 @@ const getPickUpMethod = (deliveryMethod) => {
 	let description;
 
 	switch (deliveryMethod) {
-		case 0:
+		case 5:
 			description = '自提';
 			break;
-		case 1:
+		case 10:
 			description = '物流';
 			break;
 		case 2:

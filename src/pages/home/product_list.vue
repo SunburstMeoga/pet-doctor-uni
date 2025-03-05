@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="home">
     {
       style: {
         navigationBarTitleText: '商品',
@@ -60,6 +60,9 @@ import { getRect, isArray } from 'wot-design-uni/components/common/util'
 import { ProductItem } from '../../components/productItem.vue'
 import { allProduct, productGroup } from '@/service/index'
 import CustomHeader from '@/components/customHeader'
+onShow(() => {
+    uni.removeStorageSync('cartList')
+})
 onMounted(async () => {
     await nextTick(); // 确保 DOM 渲染完成
     try {
