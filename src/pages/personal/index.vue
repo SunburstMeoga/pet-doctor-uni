@@ -34,9 +34,9 @@
 						<view class="infor-details-right-items-icon icon iconfont icon-icon-test"></view>
 						<view class="infor-details-right-items-word">个人资料</view>
 					</view> -->
-					<!-- <button v-if="!isLogged" class="login flex justify-center items-center" @click="toLogin()">
+					<button v-if="!isLogged" class="login flex justify-center items-center" @click="toLogin()">
 						登录账号
-					</button> -->
+					</button>
 				</view>
 			</view>
 		</view>

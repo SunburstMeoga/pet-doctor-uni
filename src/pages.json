@@ -51,14 +51,6 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_list",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "商品",
-        "navigationStyle": "custom"
-      }
-    },
-    {
       "path": "pages/home/index",
       "type": "home",
       "style": {
@@ -135,6 +127,14 @@
         "navigationStyle": "custom",
         "enableShareAppMessage": true,
         "enableShareTimeline": true
+      }
+    },
+    {
+      "path": "pages/home/product_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品",
+        "navigationStyle": "custom"
       }
     },
     {
