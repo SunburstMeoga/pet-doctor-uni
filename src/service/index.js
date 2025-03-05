@@ -91,8 +91,8 @@ export const productDetails = (data) => {
 }
 
 //购物车列表
-export const cart = (data) => {
-  return http.get('/front/trade/cart/list', data)
+export const cart = () => {
+  return http.get('/front/trade/cart/list')
 }
 
 //添加购物车

@@ -506,7 +506,7 @@ const getProductDetails = async () => { //商品详情
                 .map(url => url.trim())     // 去除每个元素两端的空格
                 .filter(url => url !== '') // 过滤空字符串
             : [];                          // 空值保护
-        productImages.value = imageArray
+        productImages.value = [result.data.image.item_image_default]
         selectSKU.value = productDetailsInfo.value.items[0].item_id
         console.log(productImages.value)
         uni.hideLoading();

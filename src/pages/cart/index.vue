@@ -204,23 +204,44 @@ const handleConfirmOrder = async (selectPickMethodChild) => { //点击弹窗确�
 		const cart_id = selectItems.value.map(item => `${item.item_id}|${item.cart_quantity}|${item.cart_id}`)
 			.join(',');
 		console.log('addressInfo', addressInfo.value)
-		let orderRes = await createOrder({
-			cart_id: cart_id,
-			dispatch_mode: selectPickMethod.value,
-			chain_id: '',
-			user_voucher_ids: '',
-			payment_type_id: 1302,
-			redemption_ids: '',
-			order_message: '',
-			virtual_service_date: '',
-			virtual_service_time: '',
-			salesperson_id: '',
-			user_invoice_id: '',
-			user_nickname: '',
-			currency_id: '',
-			delivery_type_id: selectPickMethod.value,
-			ud_id: addressInfo.value.ud_id
-		})
+		let params = {}
+		if (selectPickMethod.value === 10) {
+			params = {
+				cart_id: cart_id,
+				dispatch_mode: selectPickMethod.value,
+				chain_id: '',
+				user_voucher_ids: '',
+				payment_type_id: 1302,
+				redemption_ids: '',
+				order_message: '',
+				virtual_service_date: '',
+				virtual_service_time: '',
+				salesperson_id: '',
+				user_invoice_id: '',
+				user_nickname: '',
+				currency_id: '',
+				delivery_type_id: selectPickMethod.value,
+				ud_id: addressInfo.value.ud_id
+			}
+		} else {
+			params = {
+				cart_id: cart_id,
+				dispatch_mode: selectPickMethod.value,
+				chain_id: '',
+				user_voucher_ids: '',
+				payment_type_id: 1302,
+				redemption_ids: '',
+				order_message: '',
+				virtual_service_date: '',
+				virtual_service_time: '',
+				salesperson_id: '',
+				user_invoice_id: '',
+				user_nickname: '',
+				currency_id: '',
+				delivery_type_id: selectPickMethod.value,
+			}
+		}
+		let orderRes = await createOrder(params)
 		console.log(orderRes, '创建订单闲情')
 		if (orderRes.code === 200) {
 			uni.removeStorageSync('cartList')
@@ -309,7 +330,7 @@ const handleCheckout = async () => { //点击结算按钮
 const getCart = async () => { //获取购物车列表
 	console.log('加载购物车', uni.getStorageSync('cartList'))
 	console.log(uni.getStorageSync('cartList'))
-	if (uni.getStorageSync('cartList')) {
+	if (uni.getStorageSync('cartList') && uni.getStorageSync('cartList').length !== 0) {
 		cartList.value = uni.getStorageSync('cartList')
 		selectItems.value = cartList.value.filter(item => item.isSelect) //筛选选中项
 		selectItems.value.map(async (item, index) => { //
@@ -352,6 +373,7 @@ const getCart = async () => { //获取购物车列表
 			title: '加载中'
 		});
 		let result = await cart()
+		console.log('接口 返回的购物车 列表', result)
 		if (result.data.items.length !== 0) {
 			console.log('购物车列表', result.data.items[0].items)
 			cartList.value = result.data.items[0].items
