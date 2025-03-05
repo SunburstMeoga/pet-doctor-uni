@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white"
-            v-if="orderDetailsInfo.status == 0">
+            v-if="orderDetailsInfo.order_state_id == 2010">
 
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
@@ -138,7 +138,7 @@ const handleCancelOrder = async () => { //点击取消订单
         uni.showLoading({
 
         })
-        let result = await cancelOrder(orderSN.value)
+        let result = await cancelOrder({ order_id: orderSN.value })
         uni.hideLoading()
         uni.showToast({
             title: result.msg,
@@ -157,14 +157,14 @@ const handlePay = async () => { //点击立即支付
         uni.showLoading({
             title: '加载中'
         })
-        let payResult = await pay({ order_sn: orderSN.value })
+        let payResult = await pay({ order_id: orderSN.value })
         console.log('支付结果', payResult)
         uni.requestPayment({
-            "timeStamp": payResult.data.timeStamp,
-            "nonceStr": payResult.data.nonceStr,
-            "package": payResult.data.package,
-            "signType": payResult.data.signType,
-            "paySign": payResult.data.paySign,
+            "timeStamp": payResult.data.payResult.timeStamp,
+            "nonceStr": payResult.data.payResult.nonceStr,
+            "package": payResult.data.payResult.package,
+            "signType": payResult.data.payResult.signType,
+            "paySign": payResult.data.payResult.paySign,
             "success": function (res) {
                 getOrderDetails()
             },

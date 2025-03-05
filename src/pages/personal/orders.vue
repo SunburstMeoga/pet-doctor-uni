@@ -1,4 +1,4 @@
-<route lang="json5" type="home">
+<route lang="json5">
     {
       style: {
         navigationBarTitleText: '全部订单',
@@ -86,7 +86,7 @@ const getOrderStatus = (orderStatus) => {
 		case 2060:
 			description = '已收货完成订单';
 			break;
-		case 2050:
+		case 2070:
 			description = '已取消';
 			break;
 		default:
@@ -100,7 +100,7 @@ const getOrderStatus = (orderStatus) => {
 let orderTypes = ref([
 	{ title: '全部', status: 0 },
 	{ title: '待付款', status: 2010 },
-	{ title: '已取消', status: 2050 },
+	{ title: '已取消', status: 2070 },
 	{ title: '待收货', status: 2040 },
 	{ title: '已完成', status: 2060 },
 ])

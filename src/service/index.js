@@ -141,8 +141,8 @@ export const systemConfig = (key) => {
 }
 
 //取消订单
-export const cancelOrder = (orderSN) => {
-  return http.post(`/order/${orderSN}/cancel`)
+export const cancelOrder = (data) => {
+  return http.post(`/front/trade/order/cancel`, data)
 }
 
 //删除购物车
