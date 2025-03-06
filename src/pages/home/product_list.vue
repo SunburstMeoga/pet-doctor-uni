@@ -96,7 +96,7 @@ const handleCart = () => {
 const getProductGroup = async () => {
     try {
         uni.showLoading({ title: '加载中' });
-        const result = await productGroup();
+        const result = await productGroup({ size: 1000 });
         categories.value = result.data.items.map((item) => ({
             label: item.category_name,
             title: item.category_name,

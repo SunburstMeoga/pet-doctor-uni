@@ -156,8 +156,8 @@ export const deleteReport = (id) => {
 }
 
 //商品组
-export const productGroup = () => {
-  return http.get('/front/pt/product/listCategory')
+export const productGroup = (data) => {
+  return http.get('/front/pt/product/listCategory', data)
 }
 
 //以下为分销系统功能api
