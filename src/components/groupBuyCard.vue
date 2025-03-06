@@ -7,12 +7,15 @@
 		<div class="w-full h-full relative z-1">
 			<div class="w-642rpx  mx-auto h-65rpx flex  justify-between items-center  ">
 				<div class="text-24rpx  text-#F54940 font-medium">截至{{ time }}</div>
-				<div class="flex justify-end items-center">
-					<div class="text-24rpx text-#FF8703">已参与58<span class="text-#595959">/100</span> </div>
+				<!-- <div class="flex justify-end items-center">
+					<div class="text-24rpx text-#FF8703">
+						已参与58
+						<span class="text-#595959">/100 </span>
+					</div>
 					<div class="ml-8rpx w-80rpx rounded-full h-16rpx bg-#FFBF79 flex justify-start items-center">
 						<div class="h-16rpx w-30% bg-#FF8703 rounded-full"></div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div
 				class="bg-gradient-to-b to-#FFFFFF  from-#FFF7EF h-278rpx w-686rpx rounded-24rpx flex justify-center items-center">

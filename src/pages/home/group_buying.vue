@@ -51,7 +51,9 @@
 				v-if="currentActivityType === 1205">
 				<view class="w-686rpx  rounded-24rpx overflow-hidden mb-28rpx bg-white"
 					v-for="(item, index) in productList" :key="index" @click="handleOfflineActivities(item)">
-					<offline-activities />
+					<offline-activities :endTime="formatTimestamp(item.offline_deadline)" :title="item.product_name"
+						:picture="item.product_image" :activeTime="formatTimestamp(item.offline_time)"
+						:activeAddress="item.offline_address" :price="item.product_unit_price_max" />
 				</view>
 
 			</view>
@@ -80,7 +82,7 @@ const handleActivityItem = (item) => {
 }
 const handleOfflineActivities = (item) => {  //点击前往线下活动
 	uni.navigateTo({
-		url: '/pages/home/event_egistration'
+		url: `/pages/home/event_egistration?productId=${item.item_id}`
 	})
 }
 let buyNow = async (item) => { //点击立即购买按钮

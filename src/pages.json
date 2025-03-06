@@ -51,11 +51,13 @@
   },
   "pages": [
     {
-      "path": "pages/home/product_list",
+      "path": "pages/home/index",
       "type": "home",
       "style": {
-        "navigationBarTitleText": "商品",
-        "navigationStyle": "custom"
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "首页",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -86,16 +88,6 @@
       "style": {
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/home/index",
-      "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页",
-        "enableShareAppMessage": true,
-        "enableShareTimeline": true
       }
     },
     {
@@ -135,6 +127,14 @@
         "navigationStyle": "custom",
         "enableShareAppMessage": true,
         "enableShareTimeline": true
+      }
+    },
+    {
+      "path": "pages/home/product_list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "商品",
+        "navigationStyle": "custom"
       }
     },
     {

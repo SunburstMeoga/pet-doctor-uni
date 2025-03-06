@@ -9,7 +9,7 @@ onLaunch(async (options) => {
   //   扫码进来判断有没有参数，然后判断有没有登录，如果有登陆，直接用promotionid请求绑定接口，结束
   // 如果没登录，则保存promotionid，然后请求登录接口，如果存在promotionid 就请求bind，bind成功之后删掉promotionid
   if (options && (options.scene === 1047 || options.scene === 1048)) {
-
+    console.log('options', options)
     if (uni.getStorageSync('token')) {
       //绑定
       let result = await bindUser({ promotion_id: options.promotion_id })
@@ -21,6 +21,7 @@ onLaunch(async (options) => {
 })
 onShow((options) => {
   console.log(uni.getStorageSync('token'))
+  console.log('options', options)
 
 })
 onHide(() => {
