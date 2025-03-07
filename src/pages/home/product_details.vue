@@ -14,8 +14,9 @@
         <div>
             <CustomHeader :showButton="true" color="#fff"></CustomHeader>
         </div>
-        <div class="w-full h-417rpx relative" v-show="productDetailsInfo.recommend_products.length !== 0">
-            <div class="w-full h-full relative z-1 flex justify-between items-end">
+        <div class="w-full h-417rpx relative">
+            <div class="w-full h-full relative z-1 flex justify-between items-end"
+                v-if="productDetailsInfo.recommend_products && productDetailsInfo.recommend_products.length !== 0">
                 <div class="w-686rpx flex justify-between items-center mb-88rpx mx-auto">
                     <div class="w-230rpx">
                         <image :src="productDetailsInfo.product_recommend_tag.product_recommend_tag_image"
@@ -43,7 +44,8 @@
                     alt="">
             </div>
         </div>
-        <div class="w-full flex flex-col items-center -mt-60rpx relative z-1 h-auto pb-40rpx">
+        <div class="w-full flex flex-col items-center relative z-1 h-auto pb-40rpx"
+            :class="productDetailsInfo.recommend_products && productDetailsInfo.recommend_products.length !== 0 ? '-mt-60rpx' : '-mt-200rpx'">
             <div class="w-686rpx  h-686rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
                 <swiper class="w-686rpx  h-686rpx" :indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.5)"
                     indicator-active-color="#ffffff">
