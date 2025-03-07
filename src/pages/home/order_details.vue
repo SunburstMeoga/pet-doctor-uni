@@ -231,6 +231,7 @@ onLoad((options) => {
     orderSN.value = options.orderSN
     // orderSN.value = 'P202412011733055424'
     getOrderDetails()
+    uni.removeStorageSync('cartList')
     // getSystemConfig()
 })
 const getSystemConfig = async () => { //获取后台系统配置 自提地点

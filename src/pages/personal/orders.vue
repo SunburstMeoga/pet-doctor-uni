@@ -78,8 +78,8 @@ const getOrderStatus = (orderStatus) => {
 		// case 2013: return '待财务审核';
 		case 2020: return '待发货';
 		case 2030: return '待发货';
-		case 2040: return '已发货（待收货）';
-		case 2060: return '已完成（已签收）';
+		case 2040: return '待收货';
+		case 2060: return '已完成';
 		case 2070: return '已取消/作废';
 		default: return '未知状态';
 	}

@@ -1,4 +1,4 @@
-<route lang="json5">
+<route lang="json5" type="">
 	{
 	  style: {
 		navigationStyle: 'custom',
@@ -15,8 +15,8 @@
 		</view>
 		<view class="content flex justify-start items-center image-bg"
 			style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/TomWHO3jqHYSMV4f0KosXrrxe1tKiVEIy7ODUQ8B.png');">
-			<view class="add-service flex justify-between items-center" @click="addCustom">
-				<view class="add-service-hi">
+			<view class="add-service bg-transparent w-full flex justify-center items-center">
+				<!-- <view class="add-service-hi">
 					<image
 						src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/76MPExVIGBYFHQe9Ecg1oEQi7wN1JgYziL0gjfCU.png"
 						mode="aspectFill"></image>
@@ -24,7 +24,15 @@
 				<view class="add-service-title">添加专属客服，获取正确的医疗指导</view>
 				<view class="add-service-right">
 					<view class="iconfont icon icon-a-duobianxing1"></view>
-				</view>
+				</view> -->
+				<button open-type='contact' session-from=''
+					class="w-full flex justify-center bg-transparent items-center h-96rpx  block mt-20rpx">
+					<div class="w-686rpx h-96rpx">
+						<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/OjTrhJAdrMLyrYxEvW60FiQBXIvzkWZ1g6qKb4Vj.png"
+							alt="">
+					</div>
+
+				</button>
 			</view>
 			<view class="report" v-if="cardList.length !== 0">
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
@@ -421,12 +429,10 @@ onShow(async () => {
 }
 
 .add-service {
-	width: 686rpx;
-	height: 88rpx;
+	height: 96rpx;
 	margin-top: 208rpx;
 	margin-bottom: 32rpx;
 	color: #222;
-	background-color: #fff;
 	border-radius: 24rpx;
 
 	&-hi {

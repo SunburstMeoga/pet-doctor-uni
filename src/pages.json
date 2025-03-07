@@ -192,7 +192,7 @@
     },
     {
       "path": "pages/report/index",
-      "type": "page",
+      "type": true,
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "报告"

@@ -68,10 +68,20 @@
 
 			</view>
 		</view>
-		<view class="service image-bg bg-cover bg-center" @click="addCustom"
+
+		<button open-type='contact' session-from=''
+			class="w-full flex justify-center items-center h-96rpx  block mt-32rpx">
+			<div class="w-686rpx h-96rpx  mx-auto">
+				<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/OjTrhJAdrMLyrYxEvW60FiQBXIvzkWZ1g6qKb4Vj.png"
+					alt="">
+			</div>
+
+		</button>
+
+		<!-- <view class="service image-bg bg-cover bg-center" @click="addCustom"
 			style="background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/OjTrhJAdrMLyrYxEvW60FiQBXIvzkWZ1g6qKb4Vj.png');">
 
-		</view>
+		</view> -->
 		<view class="other-info flex items-center">
 			<view class="other-info-items" style="border-bottom: 1rpx solid #E6E6E6" @click="toPetList">爱宠身份证</view>
 			<view @click="toPolicy()" class="other-info-items">喵汪博士隐私申明</view>

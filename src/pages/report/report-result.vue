@@ -105,11 +105,19 @@
 				</view>
 			</view>
 		</view>
-		<view class="w-686rpx h-100rpx mx-auto mt-20rpx" @click="addCustom">
+		<button open-type='contact' session-from=''
+			class="w-full flex justify-center items-center h-96rpx  block mt-20rpx">
+			<div class="w-686rpx h-96rpx  mx-auto">
+				<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241024/OjTrhJAdrMLyrYxEvW60FiQBXIvzkWZ1g6qKb4Vj.png"
+					alt="">
+			</div>
+
+		</button>
+		<!-- <view class="w-686rpx h-100rpx mx-auto mt-20rpx" @click="addCustom">
 			<image
 				src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250303/0VUrZuynQcEQlyVfjFrVVX7szfibUcG6co11VkuR.png"
 				mode=""></image>
-		</view>
+		</view> -->
 		<!-- <view class="service-word">
 			添加专属客服，获取正确的医疗指导
 		</view> -->
