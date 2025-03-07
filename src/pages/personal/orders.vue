@@ -59,7 +59,7 @@ const getPickUpMethod = (deliveryMethod) => {
 		case 10:
 			description = '物流';
 			break;
-		case 2:
+		case 0:
 			description = '线下活动';
 			break;
 		default:
