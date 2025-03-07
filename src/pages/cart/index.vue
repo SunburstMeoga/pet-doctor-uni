@@ -386,6 +386,7 @@ const getCart = async () => { //获取购物车列表
 			console.log(cartList.value)
 			cartList.value.map(item => {
 				item.isSelect = false
+				totalPrice.value = (item.cart_quantity * item.item_market_price)
 			})
 		} else {
 			cartList.value = []

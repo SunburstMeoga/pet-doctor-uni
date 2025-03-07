@@ -114,14 +114,15 @@
             </div>
             <div class="w-full flex justify-center items-center h-96rpx">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.product_unit_price_min }}
+                    <!-- 修改这一行：显示总价 -->
+                    <div class="text-48rpx text-slate-9 font-bold">
+                        ￥{{ totalPrice.toFixed(2) }}
                     </div>
-                    <!-- <div>
+                    <div>
                         <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
                             :max="productDetailsInfo.stock" />
-                    </div> -->
+                    </div>
                 </div>
-
             </div>
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
@@ -156,6 +157,7 @@ let pickUpSite = ref('')
 let addressItems = ref([])
 let addressInfo = ref({})
 let productImages = ref({}) //轮播图照片
+let totalPrice = ref(0)
 // 控制元素是否收起
 const isCollapsed = ref(false);
 
@@ -464,6 +466,20 @@ const handleBuyNow = () => { //点击立即购买
 }
 const handleChange = ({ value }) => { //步进器
     console.log(value)
+    try {
+        // 确保数量有效
+        const quantity = Math.max(1, Number(value) || 1)
+        productQuantity.value = quantity
+
+        // 获取原始单价（确保不变）
+        const unitPrice = Number(productDetailsInfo.value.product_unit_price_min) || 0
+
+        // 计算总价并保留两位小数
+        totalPrice.value = parseFloat((unitPrice * quantity).toFixed(2))
+    } catch (error) {
+        console.error('价格计算错误:', error)
+        totalPrice.value = 0.00
+    }
 }
 const handleSKUItem = (item) => {
     console.log(productDetailsInfo.value)
@@ -471,6 +487,9 @@ const handleSKUItem = (item) => {
     selectSKU.value = item.item_id
     console.log(selectSKU.value)
     productId.value = item.item_id
+    totalPrice.value = parseFloat(
+        (productDetailsInfo.value.product_unit_price_min * productQuantity.value).toFixed(2)
+    )
     // getProductDetails()
 
 }
@@ -510,7 +529,9 @@ const getProductDetails = async () => { //商品详情
             : [];                          // 空值保护
         productImages.value = [result.data.image.item_image_default]
         selectSKU.value = result.data.item_id
-        console.log(productImages.value)
+        const unitPrice = Number(productDetailsInfo.value.product_unit_price_min) || 0
+        totalPrice.value = parseFloat((unitPrice * productQuantity.value).toFixed(2))
+        console.log(totalPrice.value)
         uni.hideLoading();
     } catch (err) {
         console.log(err)

@@ -39,7 +39,7 @@
 				</div>
 			</div> -->
 			<div class=" w-full">
-				<swiper class="w-full  h-752rpx" :indicator-dots="false" indicator-type="expand"
+				<swiper class="w-full  h-752rpx" :indicator-dots="false" circular indicator-type="expand"
 					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff">
 					<swiper-item v-for="(item, index) in swiperItems" :key="index"
 						class="flex justify-center items-center relative">
