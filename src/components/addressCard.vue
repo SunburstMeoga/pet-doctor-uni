@@ -1,7 +1,7 @@
 <template>
     <div class="w-630rpx">
         <div class="text-slate9 font-medium text-32rpx flex justify-start items-center mb-15rpx">
-            <div class="">{{ addressInfo.ud_name }} {{ addressInfo.phone }}</div>
+            <div class="">{{ addressInfo.ud_name }} {{ addressInfo.ud_mobile }}</div>
             <div v-show="addressInfo.ud_is_default" class="rounded-4rpx text-24rpx px-2rpx text-sky-4 ml-16rpx"
                 style="border: 1px solid #38bdf8;"> 默认 </div>
         </div>

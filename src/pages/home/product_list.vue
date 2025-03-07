@@ -33,7 +33,7 @@
         }">
                 <wd-icon name="cart" size="22px" color="#F15912"></wd-icon>
             </div>
-            <wd-sidebar v-model="active" @change="handleChange" style="width:  189rpx;">
+            <wd-sidebar v-model="active" @change="handleChange" style="width:  189rpx; padding-bottom: 200rpx;">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
             <scroll-view class="flex-1 bg-transparent!" scroll-y scroll-with-animation :scroll-top="scrollTop"
