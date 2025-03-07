@@ -29,14 +29,14 @@
 						<div class="text-#595959 text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words">
 							{{ intro }}</div>
 						<div class="flex justify-start items-center">
-							<div v-for="(item, index) in 3" :key="index"
+							<div v-for="(item, index) in tagsItems" :key="index"
 								class="text-20rpx w-56rpx h-28rpx flex justify-center items-center rounded-4rpx" :class="{
 					'bg-#F15912 text-#FFFFFF': index === 0,
 					'bg-#FAAD1426 text-#FAAD14': index === 1,
 					'bg-#3B8AFA26 text-#3B8AFA': index === 2,
 					'ml-8rpx': index !== 0,
 				}">
-								上新
+								{{ item }}
 							</div>
 						</div>
 						<div class="flex justify-between items-center w-full h-57rpx">

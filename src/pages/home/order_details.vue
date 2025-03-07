@@ -30,6 +30,15 @@
                     </div>
                 </div>
                 <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
+                    v-if="orderDetailsInfo.delivery_type_id === 0">
+                    <div class="text-zinc4 text-28rpx mb-10rpx ">
+                        活动地址：
+                    </div>
+                    <div class="text-slate-9 text-32rpx font-medium">
+                        {{ orderDetailsInfo.offline_info.offline_address }}
+                    </div>
+                </div>
+                <div class="w-630rpx h-152rpx flex flex-col items-start justify-center"
                     v-if="orderDetailsInfo.delivery_type_id === 10">
                     <div class="text-zinc4 text-28rpx mb-10rpx ">
                         收货地址：
@@ -76,9 +85,19 @@
                 <div class="text-zinc">下单时间</div>
                 <div class="text-slate9">{{ orderDetailsInfo.order_time }}</div>
             </div>
-            <div class="flex justify-between items-center w-630rpx text-28rpx">
+            <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx">
                 <div class="text-zinc">订单编号</div>
                 <div class="text-slate9">{{ orderSN }}</div>
+            </div>
+            <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx"
+                v-if="orderDetailsInfo.delivery_type_id === 0">
+                <div class="text-zinc">报名人信息</div>
+                <div class="text-slate9">{{ orderDetailsInfo.offline_info.name }}</div>
+            </div>
+            <div class="flex justify-between items-center w-630rpx text-28rpx"
+                v-if="orderDetailsInfo.delivery_type_id === 0">
+                <div class="text-zinc">手机号</div>
+                <div class="text-slate9">{{ orderDetailsInfo.offline_info.mobile }}</div>
             </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white"
@@ -184,6 +203,7 @@ const handlePay = async () => { //点击立即支付
     }
 }
 const getOrderDetails = async () => { //获取订单详情
+    uni.removeStorageSync('cartList')
     try {
         uni.showLoading({
             title: '加载中'

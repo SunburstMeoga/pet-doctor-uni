@@ -14,7 +14,7 @@
         <div>
             <CustomHeader :showButton="true" color="#fff"></CustomHeader>
         </div>
-        <div class="w-full h-417rpx relative">
+        <div class="w-full h-417rpx relative" v-show="productDetailsInfo.recommend_products.length !== 0">
             <div class="w-full h-full relative z-1 flex justify-between items-end">
                 <div class="w-686rpx flex justify-between items-center mb-88rpx mx-auto">
                     <div class="w-230rpx">
@@ -123,7 +123,7 @@
             </div>
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class=" w-full bg-#222 text-#FCE068 operating-button" @click="handleAddCart">加入购物车</div>
+                    <div class=" w-full bg-#FD7420 text-#fff operating-button" @click="handleAddCart">加入购物车</div>
                     <!-- <div class=" bg-#FD7420 text-white operating-button" @click="handleBuyNow">
                         立即购买</div> -->
 
