@@ -36,7 +36,7 @@
             <wd-sidebar v-model="active" @change="handleChange" style="width:  189rpx; padding-bottom: 200rpx;">
                 <wd-sidebar-item v-for="(item, index) in categories" :key="index" :value="index" :label="item.label" />
             </wd-sidebar>
-            <scroll-view class="flex-1 bg-transparent!" scroll-y scroll-with-animation :scroll-top="scrollTop"
+            <scroll-view class="flex-1 bg-transparent!" scroll-y style="" scroll-with-animation :scroll-top="scrollTop"
                 :throttle="false" @scroll="onScroll">
                 <view v-for="(item, index) in categories" :key="index" class="category"
                     style="background: transparent !important;background-color: transparent !important;">

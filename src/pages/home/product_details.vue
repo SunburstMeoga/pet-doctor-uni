@@ -116,10 +116,10 @@
                 <div class="w-686rpx flex justify-between items-center">
                     <div class="text-48rpx text-slate-9 font-bold">￥{{ productDetailsInfo.product_unit_price_min }}
                     </div>
-                    <div>
+                    <!-- <div>
                         <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
                             :max="productDetailsInfo.stock" />
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -471,7 +471,7 @@ const handleSKUItem = (item) => {
     selectSKU.value = item.item_id
     console.log(selectSKU.value)
     productId.value = item.item_id
-    getProductDetails()
+    // getProductDetails()
 
 }
 const getProductDetails = async () => { //商品详情

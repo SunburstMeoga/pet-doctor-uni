@@ -107,18 +107,16 @@
             </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full flex flex-col items-center justify-start pb-92rpx z-2 bg-white"
-            v-if="[2010, 2011, 2013, 2020, 2030].includes(orderDetailsInfo.order_state_id)">
+            v-if="orderDetailsInfo.order_state_id == 2010">
 
             <div class="w-full flex justify-center items-center pt-20rpx " style="border-top:1px solid #f3f4f6;">
                 <div class="w-686rpx flex justify-between items-center">
-                    <div class="flex justify-start items-center text-orange4"
-                        v-if="orderDetailsInfo.order_state_id == 2010">
+                    <div class="flex justify-start items-center text-orange4">
                         <div class="text-28rpx font-medium">待支付:</div>
                         <div class="text-40rpx font-bold">¥{{ orderDetailsInfo.order_payment_amount }}</div>
 
                     </div>
-                    <div class="flex justify-end items-center"
-                        v-if="[2010, 2011, 2013, 2020, 2030].includes(orderDetailsInfo.order_state_id)">
+                    <div class="flex justify-end items-center">
                         <div class="operating-button text-gray5 " style="border: 1px solid #e5e7eb;"
                             @click="handleCancelOrder">取消订单</div>
                         <div class="operating-button bg-orange5 ml-20rpx text-white" @click="handlePay">立即支付</div>
