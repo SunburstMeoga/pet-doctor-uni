@@ -7,9 +7,9 @@
     </route>
 <template>
 	<view class="container">
-		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx static top-0"
+		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx static top-0 overflow-x-scroll"
 			style="background-color: rgb(245, 245, 245);">
-			<div class="rounded-8rpx px-16rpx py-8rpx text-28rpx" @click="handleType(item)"
+			<div class="rounded-8rpx px-8rpx py-4rpx text-28rpx min-w-88rpx text-center " @click="handleType(item)"
 				:class="selectType === item.status ? 'bg-#222222 text-#FCE068 font-medium' : 'bg-#EDEDED text-#000000A6'"
 				v-for="(item, index) in orderTypes" :key="index">
 				{{ item.title }}
@@ -70,40 +70,30 @@ const getPickUpMethod = (deliveryMethod) => {
 	// 返回配送方式描述
 	return description;
 }
+// 状态描述函数
 const getOrderStatus = (orderStatus) => {
-	let description;
-
 	switch (orderStatus) {
-		case 2010:
-			description = '待付款';
-			break;
-		case 2040:
-			description = '已付款待发货';
-			break;
-		case 2040:
-			description = '已发货待收货';
-			break;
-		case 2060:
-			description = '已收货完成订单';
-			break;
-		case 2070:
-			description = '已取消';
-			break;
-		default:
-			description = '未知状态';
-			break;
+		case 2010: return '待付款';
+		case 2011: return '待订单审核';
+		case 2013: return '待财务审核';
+		case 2020: return '待配货/出库';
+		case 2030: return '待发货';
+		case 2040: return '已发货（待收货）';
+		case 2060: return '已完成（已签收）';
+		case 2070: return '已取消/作废';
+		default: return '未知状态';
 	}
+};
 
-	// 这里可以返回描述，或者根据需求执行其他操作
-	return description;
-}
 let orderTypes = ref([
 	{ title: '全部', status: 0 },
-	{ title: '待付款', status: 2010 },
-	{ title: '已取消', status: 2070 },
+	{ title: '待审核', status: 2011 },     // 新增
+	{ title: '待配货', status: 2020 },     // 新增
+	{ title: '待发货', status: 2030 },     // 新增
 	{ title: '待收货', status: 2040 },
 	{ title: '已完成', status: 2060 },
-])
+	{ title: '已取消', status: 2070 }
+]);
 const handleType = async (item) => {
 	selectType.value = item.status
 	console.log(selectType.value)
@@ -113,7 +103,7 @@ let getOrders = async (orderStatus) => { //订单列表
 	try {
 		uni.showLoading()
 		console.log('查询的订单状态', orderStatus)
-		let res = await orders({ order_state_id: orderStatus })
+		let res = await orders({ order_state_id: orderStatus, size: 10000 })
 		console.log('订单列表', res)
 		ordersList.value = res.data.items
 		uni.hideLoading()
