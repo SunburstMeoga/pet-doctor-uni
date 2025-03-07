@@ -61,7 +61,7 @@
 				<div class="flex justify-center items-center h-128rpx">
 					<div class="flex justify-between items-center text-#F15912">
 						<div class="ml-10rpx">总计</div>
-						<div class="text-48rpx font-bold">￥{{ totalPrice || '0.00' }}</div>
+						<div class="text-48rpx font-bold">￥{{ totalPrice.toFixed(2) || '0.00' }}</div>
 					</div>
 					<div class="flex justify-between items-center ml-16rpx">
 						<div class=" bg-gradient-to-tr to-#FCE16A  from-#F15912 text-white flex justify-center items-center rounded-16rpx w-200rpx h-88rpx"

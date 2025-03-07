@@ -64,6 +64,7 @@
             </div>
         </div>
         <div class="absolute bottom-0 w-full flex justify-center items-center bg-white"
+            v-show="Date.now() < productDetailsInfo.offline_deadline"
             style="padding-top: 20rpx;padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); ">
             <div class="w-686rpx flex justify-between items-center">
                 <div class="text-#F15912 flex justify-start items-center">

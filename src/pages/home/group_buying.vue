@@ -52,8 +52,9 @@
 				<view class="w-686rpx  rounded-24rpx overflow-hidden mb-28rpx bg-white"
 					v-for="(item, index) in productList" :key="index" @click="handleOfflineActivities(item)">
 					<offline-activities :endTime="formatTimestamp(item.offline_deadline)" :title="item.product_name"
-						:picture="item.product_image" :activeTime="formatTimestamp(item.offline_time)"
-						:activeAddress="item.offline_address" :price="item.product_unit_price_max" />
+						:isRegistrationClosed="getIsExpired(item.offline_deadline)" :picture="item.product_image"
+						:activeTime="formatTimestamp(item.offline_time)" :activeAddress="item.offline_address"
+						:price="item.product_unit_price_max" />
 				</view>
 
 			</view>
@@ -92,7 +93,10 @@ let buyNow = async (item) => { //点击立即购买按钮
 	});
 
 }
-const formatTimestamp = (timestamp) => {
+const getIsExpired = (offline_deadline) => {
+	return Date.now() > offline_deadline;
+}
+const formatTimestamp = (timestamp) => { //格式化日期
 	const date = new Date(timestamp);
 	// 获取月份，日期，小时，分钟和秒
 	const year = date.getFullYear();

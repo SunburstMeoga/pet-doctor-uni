@@ -81,20 +81,26 @@
         </div>
 
         <div class="w-686rpx py-28rpx rounded-24rpx overflow-hidden flex flex-col justify-start items-center bg-white">
-            <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx">
+            <div class="flex justify-between items-center w-630rpx text-28rpx">
                 <div class="text-zinc">下单时间</div>
                 <div class="text-slate9">{{ orderDetailsInfo.order_time }}</div>
             </div>
-            <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx">
+            <div class="flex justify-between items-center w-630rpx text-28rpx mt-16rpx">
                 <div class="text-zinc">订单编号</div>
                 <div class="text-slate9">{{ orderSN }}</div>
             </div>
-            <div class="flex justify-between items-center w-630rpx text-28rpx mb-16rpx"
+            <div class="flex justify-between items-center w-630rpx text-28rpx mt-16rpx"
+                v-if="orderDetailsInfo.delivery_type_id === 10 && orderDetailsInfo.logistics.length !== 0">
+                <div class="text-zinc">物流信息</div>
+                <div class="text-slate9">{{ orderDetailsInfo.logistics[0].express_name + ' ' +
+                        orderDetailsInfo.logistics[0].order_tracking_number }}</div>
+            </div>
+            <div class="flex justify-between items-center w-630rpx text-28rpx mt-16rpx"
                 v-if="orderDetailsInfo.delivery_type_id === 0">
                 <div class="text-zinc">报名人信息</div>
                 <div class="text-slate9">{{ orderDetailsInfo.offline_info.name }}</div>
             </div>
-            <div class="flex justify-between items-center w-630rpx text-28rpx"
+            <div class="flex justify-between items-center w-630rpx text-28rpx mt-16rpx"
                 v-if="orderDetailsInfo.delivery_type_id === 0">
                 <div class="text-zinc">手机号</div>
                 <div class="text-slate9">{{ orderDetailsInfo.offline_info.mobile }}</div>

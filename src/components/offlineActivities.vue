@@ -35,7 +35,7 @@
                         <div class="font-medium text-24rpx transform translate-y-2rpx">￥</div>
                         <div class="font-bold text-32rpx ml-4rpx">{{ price }}</div>
                     </div>
-                    <div class="flex rounded-12rpx overflow-hidden">
+                    <div class="flex rounded-12rpx overflow-hidden" v-if="!isExpired">
                         <div
                             class="font-medium w-144rpx text-24rpx text-#fff  flex justify-center items-center bg-gradient-to-r to-#FCE16A  from-#F15912 h-57rpx">
                             立即报名</div>
@@ -73,7 +73,12 @@ const props = defineProps({
     price: {
         type: Number,
         default: 0
+    },
+    isExpired: {
+        type: Boolean,
+        default: true
     }
+
 })
 </script>
 
