@@ -7,9 +7,9 @@
     </route>
 <template>
 	<view class="container">
-		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx static top-0 overflow-x-scroll"
+		<div class="w-686rpx mx-auto flex justify-between items-center h-116rpx static top-0"
 			style="background-color: rgb(245, 245, 245);">
-			<div class="rounded-8rpx px-8rpx py-4rpx text-28rpx min-w-88rpx text-center " @click="handleType(item)"
+			<div class="rounded-8rpx px-16rpx py-8rpx text-28rpx min-w-88rpx text-center " @click="handleType(item)"
 				:class="selectType === item.status ? 'bg-#222222 text-#FCE068 font-medium' : 'bg-#EDEDED text-#000000A6'"
 				v-for="(item, index) in orderTypes" :key="index">
 				{{ item.title }}
