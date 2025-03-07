@@ -227,8 +227,8 @@ const onShareAppMessage = () => {
     return {
         title: "喵博士 X 汪博士",
         query: '/pages/home/product_details?productId=' + productId.value,
-        summary: `${productDetailsInfo.value.title}`,
-        imageUrl: `${productDetailsInfo.value.pictures[0]}`,
+        summary: `${productDetailsInfo.value.product_item_name}`,
+        imageUrl: `${productDetailsInfo.value.product_image}`,
         // imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
     };
 }
