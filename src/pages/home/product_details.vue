@@ -225,7 +225,7 @@ const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选
 }
 const onShareAppMessage = () => {
     return {
-        title: "喵博士 X 汪博士",
+        title: `${productDetailsInfo.value.product_item_name}`,
         query: '/pages/home/product_details?productId=' + productId.value,
         summary: `${productDetailsInfo.value.product_item_name}`,
         imageUrl: `${productDetailsInfo.value.product_image}`,

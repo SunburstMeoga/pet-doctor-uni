@@ -74,9 +74,9 @@ const getPickUpMethod = (deliveryMethod) => {
 const getOrderStatus = (orderStatus) => {
 	switch (orderStatus) {
 		case 2010: return '待付款';
-		case 2011: return '待订单审核';
-		case 2013: return '待财务审核';
-		case 2020: return '待配货/出库';
+		// case 2011: return '待订单审核';
+		// case 2013: return '待财务审核';
+		case 2020: return '待发货';
 		case 2030: return '待发货';
 		case 2040: return '已发货（待收货）';
 		case 2060: return '已完成（已签收）';
@@ -87,8 +87,8 @@ const getOrderStatus = (orderStatus) => {
 
 let orderTypes = ref([
 	{ title: '全部', status: 0 },
-	{ title: '待审核', status: 2011 },     // 新增
-	{ title: '待配货', status: 2020 },     // 新增
+	// { title: '待审核', status: 2011 },     // 新增
+	// { title: '待配货', status: 2020 },     // 新增
 	{ title: '待发货', status: 2030 },     // 新增
 	{ title: '待收货', status: 2040 },
 	{ title: '已完成', status: 2060 },
