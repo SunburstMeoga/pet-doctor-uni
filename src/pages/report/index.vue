@@ -65,6 +65,7 @@
 						<div class="ml-36rpx pl-16rpx flex flex-col justify-between items-center w-440rpx"
 							style="border-left: 1rpx solid rgba(0,0,0,.2);"
 							:class="item.dimensions.length <= 4 ? 'h-full' : 'h-full'">
+							<!-- {{ item.assessment.id }} {{ currentPetType }} -->
 							<div class="w-full flex justify-between items-center text-#8C8C8C my-6rpx"
 								v-for="(_item, _index) in  item.dimensions " :key="_index">
 								<div class="text-24rpx" :class="item.dimensions.length <= 4 ? 'w-120rpx' : 'w-100rpx'">
@@ -236,6 +237,7 @@ onShow(async () => {
 		}
 		cardList.value = petCardsList
 		currentPetType.value = petCardsList[0].type.id
+		console.log(currentPetType.value, 'currentPetType.value')
 		uni.hideLoading()
 		console.log('宠物卡片', cardList.value)
 	} catch (err) {
