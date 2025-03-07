@@ -10,12 +10,17 @@ onLaunch(async (options) => {
   // 如果没登录，则保存promotionid，然后请求登录接口，如果存在promotionid 就请求bind，bind成功之后删掉promotionid
   if (options && (options.scene === 1047 || options.scene === 1048)) {
     console.log('options', options)
+    const decoded = decodeURIComponent(options.query.scene);
+    const [key, value] = decoded.split("=");
+    console.log(decoded, key, value)
+    const promotionId = value;
     if (uni.getStorageSync('token')) {
       //绑定
-      let result = await bindUser({ promotion_id: options.promotion_id })
 
+      let result = await bindUser({ promotion_id: promotionId })
+      console.log('绑定', result)
     } else {
-      uni.setStorageSync('promotion_id', options.promotion_id)
+      uni.setStorageSync('promotion_id', promotionId)
     }
   }
 })
