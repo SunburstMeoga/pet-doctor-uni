@@ -135,15 +135,15 @@ export const getEvnBaseUrl = () => {
     switch (envVersion) {
       case 'develop':
         // baseUrl = 'https://api.drmeowwang001.com/api'
-        baseUrl = 'https://api-dev.drmeowwang001.com'
+        baseUrl = 'https://api-shop.drmeowwang001.com'
         break
       case 'trial':
         // baseUrl = 'https://api.drmeowwang001.com/api'
-        baseUrl = 'https://api-dev.drmeowwang001.com'
+        baseUrl = 'https://api-shop.drmeowwang001.com'
         break
       case 'release':
         // baseUrl = 'https://api.drmeowwang001.com/api'
-        baseUrl = 'https://api-dev.drmeowwang001.com'
+        baseUrl = 'https://api-shop.drmeowwang001.com'
         break
     }
   }
