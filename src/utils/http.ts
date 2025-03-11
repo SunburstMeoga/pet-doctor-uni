@@ -20,6 +20,7 @@ export const http = <T>(options: CustomRequestOptions) => {
         ) {
           // 401错误  -> 清理用户信息，跳转到登录页
           // userStore.clearUserInfo()
+          uni.removeStorageSync('token')
           uni.showModal({
             content: '身份认证过期',
             showCancel: true,
