@@ -65,15 +65,6 @@ const getPhone = ref(false)
 const loginCode = ref('')
 
 const iv = ref('')
-// onMounted(() => {
-// 	if(uni.getStorageSync('token') && uni.getStorageSync('token') !== undefined && uni.getStorageSync('token') !== 'undefined') {
-// 		console.log(uni.getStorageSync('token'))
-// 		uni.switchTab({
-// 			url: '/pages/home/index'
-// 		})
-// 	}
-// 	console.log('登录页的token',uni.getStorageSync('token'));
-// })
 const getPetCards = async () => {
   const reuslt = await petCards()
   console.log()
@@ -102,6 +93,11 @@ const onGetPhoneNumber = async (e) => {
 
       })
       console.log('登录信息 ', result)
+      if (result.status === 250) {
+        uni.showToast(res.msg)
+        show.value = false
+        return
+      }
       if (result.code !== 200) {
         uni.showToast({
           title: result.msg,
@@ -141,80 +137,8 @@ const toLogin = async () => {
   encryptedData.value = infoRes.encryptedData
   show.value = true
   loading.value = false
-  // uni.showLoading({
-  //   title: '正在登录...',
-  //   mask: true, // 是否显示透明蒙层，防止触摸穿透
-  // })
-
-  // 仅在用户点击按钮或其他交互操作时调用此方法
-  // uni.getUserProfile({
-  //   desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中
-  //   success: (res) => {
-  //     console.log(res)
-  //     if (res.platform === 'devtools') {
-  //       uni.setEnableDebug({
-  //         enableDebug: true,
-  //       })
-  //     }
-  //     encryptedData.value = res.encryptedData
-  //     iv.value = res.iv
-  //     console.log(encryptedData, iv)
-  //     show.value = true
-  //     loading.value = false
-  //     // uni.login({
-  //     //   provider: 'weixin',
-  //     //   success: async (loginRes) => {
-  //     //     console.log('登录成功', loginRes)
-  //     //     testCode.value = loginRes.code
-  //     //     console.log(loginRes.code)
-  //     //     code = loginRes.code
-  //     //     // try {
-  //     //     //   console.log(encryptedData, iv, code)
-  //     //     //   const result = await login({
-  //     //     //     code,
-  //     //     //     iv,
-  //     //     //     encrypted_data: encryptedData,
-  //     //     //   })
-  //     //     //   console.log(result)
-  //     //     //   uni.setStorageSync('token', `Bearer ${result.data.api_token}`)
-  //     //     //   uni.setStorageSync('hasPhone', result.data.has_phone)
-
-  //     //     //   console.log('用户token', uni.getStorageSync('token'))
-  //     //     //   console.log('是否有手机号', uni.getStorageSync('hasPhone'))
-
-  //     //     //   // getPhone.value = true
-  //     //     //   uni.hideLoading()
-  //     //     //   uni.switchTab({
-  //     //     //     url: '/pages/home/index',
-  //     //     //   })
-  //     //     // } catch (err) {
-  //     //     //   console.log(err)
-  //     //     //   uni.hideLoading()
-  //     //     // }
-  //     //   },
-  //     //   fail: (error) => {
-  //     //     console.error('登录失败', error)
-  //     //     uni.hideLoading()
-  //     //   },
-  //     // })
-  //   },
-  //   fail: (err) => {
-  //     console.error('获取用户信息失败', err)
-  //     uni.hideLoading()
-  //   },
-  // })
-  // async function onGetPhoneNumber(e) {
-
-  // }
 }
-onMounted(() => {
-  // console.log(uni.getStorageSync('token'))
-  // if (uni.getStorageSync('token')) {
-  //   uni.switchTab({
-  //     url: '/pages/home/index',
-  //   })
-  // }
-})
+onMounted(() => { })
 </script>
 
 <style lang="scss">

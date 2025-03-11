@@ -12,11 +12,11 @@ export const http = <T>(options: CustomRequestOptions) => {
       // 响应成功
       success(res) {
         // 状态码 2xx，参考 axios 的设计
-        // console.log('接口响应', res)
+        console.log('接口响应', res)
         if (
           res.statusCode === 401 ||
           res.statusCode === 403 ||
-          (res.data as IResData<T>)?.code === 400
+          (res.data as IResData<T>)?.status === 250
         ) {
           // 401错误  -> 清理用户信息，跳转到登录页
           // userStore.clearUserInfo()

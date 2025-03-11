@@ -6,6 +6,33 @@ onLaunch(async (options) => {
   console.log('App Launch')
   console.log('小程序加载')
   console.log(options)
+  // #ifdef MP-WEIXIN
+  if (uni.canIUse('getUpdateManager')) {
+    const updateManager = uni.getUpdateManager()
+
+    // 监听新版本下载完成
+    updateManager.onUpdateReady(() => {
+      uni.showModal({
+        title: '更新提示',
+        content: '有新版本，请重启小程序',
+        confirmText: '立即重启',
+        success: (res) => {
+          if (res.confirm) {
+            // 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+    })
+
+    // 监听更新下载失败
+    updateManager.onUpdateFailed(() => {
+      uni.showToast({
+        title: '更新失败，请检查网络',
+        icon: 'none'
+      })
+    })
+  }
   //   扫码进来判断有没有参数，然后判断有没有登录，如果有登陆，直接用promotionid请求绑定接口，结束
   // 如果没登录，则保存promotionid，然后请求登录接口，如果存在promotionid 就请求bind，bind成功之后删掉promotionid
   if (options && (options.scene === 1047 || options.scene === 1048)) {
