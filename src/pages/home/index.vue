@@ -67,7 +67,7 @@
 							</div>
 							<div class="home-button" @click="toAssessment('1')">
 								<div class="home-button-icon"
-									style="width:100%;height: 100%; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png'); background-repeat: no-repeat; background-size: cover;">
+									style="width:100%;height: 100%; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250312/pab9f5UvG367wcHQsoXSK3Y7rxWlX65LazSr2cAc.png'); background-repeat: no-repeat; background-size: cover;">
 								</div>
 							</div>
 						</div>
@@ -92,6 +92,14 @@
 					alt="" />
 			</div>
 		</div>
+		<!-- <button open-type='contact' session-from=''
+			class="fixed w-80rpx h-80rpx rounded-full  bottom-320rpx right-0rpx">
+			<div class="fixed bottom-340rpx right-0rpx w-80rpx h-80rpx rounded-full overflow-hidden block">
+				<img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241201/LAAxcoG2lhnjNiRaaTfXdWEGwGs5bAY0qB5wQJmU.png"
+					alt="">
+			</div>
+
+		</button> -->
 	</div>
 </template>
 
