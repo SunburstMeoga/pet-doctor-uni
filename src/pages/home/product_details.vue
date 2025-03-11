@@ -74,7 +74,7 @@
             <div class="w-686rpx text-#595959 text-28rpx mb-24rpx">
                 {{ productDetailsInfo.product_tips }}
             </div>
-            <div class="w-686rpx">
+            <div class="w-686rpx" v-if="productDetailsInfo.items && productDetailsInfo.items.length !== 0">
                 <div class="w-686rpx pt-28rpx">
                     <div class="text-slate-9 text-28rpx font-medium mb-16rpx">规格</div>
                 </div>
@@ -119,8 +119,8 @@
                         ￥{{ totalPrice.toFixed(2) }}
                     </div>
                     <div>
-                        <wd-input-number v-model="productQuantity" @change="handleChange"
-                            :min="productDetailsInfo.product_quantity" :max="productDetailsInfo.stock" />
+                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
+                            :max="currentQuantity" />
                     </div>
                 </div>
             </div>
@@ -158,6 +158,7 @@ let addressItems = ref([])
 let addressInfo = ref({})
 let productImages = ref({}) //轮播图照片
 let totalPrice = ref(0)
+let currentQuantity = ref(0)
 // 控制元素是否收起
 const isCollapsed = ref(false);
 
@@ -400,8 +401,8 @@ const formatTimestamp = (timestamp) => { //格式化时间内
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 const handleAddCart = async () => { //点击添加购物车
-    console.log(productDetailsInfo.value.product_quantity)
-    if (productDetailsInfo.value.product_quantity === 0) {
+    console.log(currentQuantity.value)
+    if (currentQuantity.value === 0) {
         uni.showToast({
             title: '已售罄，博士正在补货~',
             icon: 'none'
@@ -498,6 +499,7 @@ const handleSKUItem = (item) => {
     totalPrice.value = parseFloat(
         (productDetailsInfo.value.product_unit_price_min * productQuantity.value).toFixed(2)
     )
+    currentQuantity.value = item.item_quantity
     // getProductDetails()
 
 }
@@ -539,6 +541,7 @@ const getProductDetails = async () => { //商品详情
         selectSKU.value = result.data.item_id
         const unitPrice = Number(productDetailsInfo.value.product_unit_price_min) || 0
         totalPrice.value = parseFloat((unitPrice * productQuantity.value).toFixed(2))
+        currentQuantity.value = productDetailsInfo.value.items[0].item_quantity
         console.log(totalPrice.value)
         uni.hideLoading();
     } catch (err) {

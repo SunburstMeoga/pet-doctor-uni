@@ -90,7 +90,7 @@ const onGetPhoneNumber = async (e) => {
         code: loginCode.value,
         iv: iv.value,
         encrypted_data: encryptedData.value,
-
+        phone_code: e.code
       })
       console.log('登录信息 ', result)
       if (result.status === 250) {

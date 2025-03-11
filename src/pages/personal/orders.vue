@@ -55,7 +55,7 @@ const getKind = (kind) => {
 		case 1204: return '团购';
 		// case 2011: return '待订单审核';
 		// case 2013: return '待财务审核';
-		case 1205: return '线下 ';
+		case 1205: return '活动';
 		default: return '未知';
 	}
 }
