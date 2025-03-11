@@ -18,7 +18,7 @@
                 <div class="info-item text-zinc-4">
                     <div class="w-140rpx ml-32rpx">手机号</div>
                     <div class="flex-1">
-                        <input type="text" class="w-full h-40rpx text-slate9" v-model="phone" placeholder="请填写收货人手机号">
+                        <input type="number" class="w-full h-40rpx text-slate9" v-model="phone" placeholder="请填写收货人手机号">
                     </div>
                 </div>
             </div>

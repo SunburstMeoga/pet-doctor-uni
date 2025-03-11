@@ -21,7 +21,9 @@
 				</view>
 			</view>
 			<view class="info-type flex justify-between items-center text-24rpx">
-				<div>{{ pickUpMethod }}</div>
+				<div v-if="kindId === 1201">{{ pickUpMethod }}</div>
+				<div v-if="kindId === 1204 || kindId === 1205">{{ kind }}</div>
+
 				<div>下单时间:{{ created_at }}</div>
 			</view>
 		</view>
@@ -30,7 +32,16 @@
 
 <script setup>
 import { ref, defineProps } from 'vue'
+
 const props = defineProps({
+	kindId: {
+		type: Number,
+		default: 0
+	},
+	kind: {
+		type: String,
+		default: ''
+	},
 	orderNumber: {
 		type: String,
 		default: ''

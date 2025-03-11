@@ -20,7 +20,8 @@
 				<order-card :created_at="item.order_time" :orderNumber="item.order_id"
 					:price="item.order_payment_amount" :product_picture="item.items"
 					:status="getOrderStatus(item.order_state_id)" :count="calculateProductTotal(item.items)"
-					:pickUpMethod="getPickUpMethod(item.delivery_type_id)" />
+					:pickUpMethod="getPickUpMethod(item.delivery_type_id)" :kindId="item.kind_id"
+					:kind="getKind(item.kind_id)" />
 			</view>
 		</view>
 		<view class="empty flex justify-center items-center" v-if="ordersList.length === 0">
@@ -48,6 +49,15 @@ const toDetails = (item) => {
 	uni.navigateTo({
 		url: `/pages/home/order_details?orderSN=${item.order_id}`
 	});
+}
+const getKind = (kind) => {
+	switch (kind) {
+		case 1204: return '团购';
+		// case 2011: return '待订单审核';
+		// case 2013: return '待财务审核';
+		case 1205: return '线下 ';
+		default: return '未知';
+	}
 }
 const getPickUpMethod = (deliveryMethod) => {
 	let description;
