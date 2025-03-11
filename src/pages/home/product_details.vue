@@ -119,8 +119,8 @@
                         ￥{{ totalPrice.toFixed(2) }}
                     </div>
                     <div>
-                        <wd-input-number v-model="productQuantity" @change="handleChange" :min="1"
-                            :max="productDetailsInfo.stock" />
+                        <wd-input-number v-model="productQuantity" @change="handleChange"
+                            :min="productDetailsInfo.product_quantity" :max="productDetailsInfo.stock" />
                     </div>
                 </div>
             </div>
@@ -400,6 +400,14 @@ const formatTimestamp = (timestamp) => { //格式化时间内
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 const handleAddCart = async () => { //点击添加购物车
+    console.log(productDetailsInfo.value.product_quantity)
+    if (productDetailsInfo.value.product_quantity === 0) {
+        uni.showToast({
+            title: '已售罄，博士正在补货~',
+            icon: 'none'
+        })
+        return
+    }
     if (!uni.getStorageSync('token')) {
         uni.showModal({
             content: '登录才可进行添加购物车哦~',
