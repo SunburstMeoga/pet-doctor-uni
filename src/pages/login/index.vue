@@ -95,7 +95,7 @@ const onGetPhoneNumber = async (e) => {
       console.log('登录信息 ', result)
       if (result.status === 250) {
         uni.showToast({
-          title: res.msg,
+          title: result.msg,
           icon: 'none'
         })
         show.value = false
