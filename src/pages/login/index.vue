@@ -94,7 +94,10 @@ const onGetPhoneNumber = async (e) => {
       })
       console.log('登录信息 ', result)
       if (result.status === 250) {
-        uni.showToast(res.msg)
+        uni.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
         show.value = false
         return
       }
@@ -103,6 +106,7 @@ const onGetPhoneNumber = async (e) => {
           title: result.msg,
           icon: 'none'
         })
+        show.value = false
       } else {
         uni.setStorageSync('token', `Bearer ${result.data.token}`)
         uni.setStorageSync('hasPhone', result.data.has_phone)

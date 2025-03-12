@@ -6,12 +6,14 @@ onLaunch(async (options) => {
   console.log('App Launch')
   console.log('小程序加载')
   console.log(options)
-  // #ifdef MP-WEIXIN
-  if (uni.canIUse('getUpdateManager')) {
-    const updateManager = uni.getUpdateManager()
-
+  console.log("wx.canIUse('getUpdateManager')", wx.canIUse('getUpdateManager'))
+  console.log("wx.getUpdateManager()", wx.getUpdateManager())
+  if (wx.canIUse('getUpdateManager')) {
+    const updateManager = wx.getUpdateManager()
+    console.log(updateManager)
     // 监听新版本下载完成
     updateManager.onUpdateReady(() => {
+      console.log('下载')
       uni.showModal({
         title: '更新提示',
         content: '有新版本，请重启小程序',
