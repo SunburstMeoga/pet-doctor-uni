@@ -21,6 +21,7 @@
 
 		</CustomHeader>
 		<div class="w-full">
+
 			<!-- <div class="w-full relative">
 				<swiper class="w-full h-752rpx" :indicator-dots="false" indicator-type="expand"
 					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff"
@@ -39,6 +40,7 @@
 				</div>
 			</div> -->
 			<div class=" w-full">
+				阿斯顿发神鼎飞丹砂法师打发
 				<swiper class="w-full  h-752rpx" :indicator-dots="false" circular indicator-type="expand"
 					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff">
 					<swiper-item v-for="(item, index) in swiperItems" :key="index"
@@ -83,12 +85,12 @@
 		<div class="w-686rpx flex mx-auto items-center justify-between mt-32rpx">
 			<div class="w-238rpx h-232rpx" @click="handleShop">
 				<image mode="aspectFill"
-					:src="`http://47.238.229.145:8000/media/20241108/fqon6fCvn9uBCx7leDWaijzoe2j4llrscIrQ39FC.png`"
+					src="http://pet-mp-dev.oss-cn-shenzhen.aliyuncs.com/lumenshop/77b9929e-bf40-42d4-91e5-bd752aeb682c.png"
 					alt="" />
 			</div>
 			<div class="w-422rpx h-232rpx" @click="handleHotActive">
 				<image mode="aspectFill"
-					src="http://47.238.229.145:8000/media/20241108/OfBk7SgW5XFvapDKxPv8Abp2HE7xMJxe8KtGokXu.png"
+					src="http://pet-mp-dev.oss-cn-shenzhen.aliyuncs.com/lumenshop/bcfc8f7b-51ac-49c6-a69e-d8757b1e765a.png"
 					alt="" />
 			</div>
 		</div>
