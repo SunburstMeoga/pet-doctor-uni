@@ -40,7 +40,6 @@
 				</div>
 			</div> -->
 			<div class=" w-full">
-				阿斯顿发神鼎飞丹砂法师打发
 				<swiper class="w-full  h-752rpx" :indicator-dots="false" circular indicator-type="expand"
 					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff">
 					<swiper-item v-for="(item, index) in swiperItems" :key="index"
