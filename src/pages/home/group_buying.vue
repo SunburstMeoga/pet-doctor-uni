@@ -42,6 +42,7 @@
 				<view class="w-686rpx h-341rpx  rounded-24rpx overflow-hidden mb-28rpx"
 					v-for="(item, index) in productList" :key="index" @click="buyNow(item)">
 					<group-buy-card :time="formatTimestamp(item.product_remove_time)"
+						:itemQuantity="getItemQuantity(item.items)" :productSaleNum="item.product_sale_num"
 						:detail_pictures="item.product_image" :title="item.product_name" :intro="item.product_tips"
 						:tagsItems="item.tags" :price="item.product_unit_price_max"></group-buy-card>
 					<!-- {{ item }} -->
@@ -85,6 +86,12 @@ const handleOfflineActivities = (item) => {  //点击前往线下活动
 	uni.navigateTo({
 		url: `/pages/home/event_egistration?productId=${item.item_id}`
 	})
+}
+const getItemQuantity = (items) => {
+	console.log(items)
+	if (items.length === 0) return
+	const total = items.reduce((sum, item) => sum + item.item_quantity, 0);
+	return total
 }
 let buyNow = async (item) => { //点击立即购买按钮
 	console.log(item, `${item.item_id}`)

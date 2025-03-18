@@ -6,7 +6,7 @@
                 :class="isSelect ? 'text-#222222 font-bold' : 'text-zinc-5'"></div>
         </div>
         <div class="ml-10rpx w-240rpx h-240rpx rounded-16rpx overflow-hidden">
-            <img class="" :src="`${picture}`" alt="">
+            <img class="" :src="`${picture}`" alt="" mode="aspectFit">
         </div>
         <div
             class="flex justify-between text-#222 items-start flex-col w-322rpx ml-24rpx h-220rpx line-clamp-2 overflow-hidden text-ellipsis break-words">

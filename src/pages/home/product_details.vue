@@ -159,6 +159,7 @@ let addressInfo = ref({})
 let productImages = ref({}) //轮播图照片
 let totalPrice = ref(0)
 let currentQuantity = ref(0)
+let currentFrozen = ref(0)
 // 控制元素是否收起
 const isCollapsed = ref(false);
 
@@ -402,7 +403,7 @@ const formatTimestamp = (timestamp) => { //格式化时间内
 }
 const handleAddCart = async () => { //点击添加购物车
     console.log(currentQuantity.value)
-    if (currentQuantity.value === 0) {
+    if (currentFrozen.value >= currentQuantity.value) {
         uni.showToast({
             title: '已售罄，博士正在补货~',
             icon: 'none'
@@ -500,6 +501,8 @@ const handleSKUItem = (item) => {
         (productDetailsInfo.value.product_unit_price_min * productQuantity.value).toFixed(2)
     )
     currentQuantity.value = item.item_quantity
+    currentFrozen.value = item.item_quantity_frozen
+
     // getProductDetails()
 
 }
@@ -542,6 +545,7 @@ const getProductDetails = async () => { //商品详情
         const unitPrice = Number(productDetailsInfo.value.product_unit_price_min) || 0
         totalPrice.value = parseFloat((unitPrice * productQuantity.value).toFixed(2))
         currentQuantity.value = productDetailsInfo.value.items[0].item_quantity
+        currentFrozen.value = productDetailsInfo.value.items[0].item_quantity_frozen
         console.log(totalPrice.value)
         uni.hideLoading();
     } catch (err) {

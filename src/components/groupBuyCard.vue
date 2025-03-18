@@ -7,21 +7,24 @@
 		<div class="w-full h-full relative z-1">
 			<div class="w-642rpx  mx-auto h-65rpx flex  justify-between items-center  ">
 				<div class="text-24rpx  text-#F54940 font-medium">截至{{ time }}</div>
-				<!-- <div class="flex justify-end items-center">
+				<div class="flex justify-end items-center">
+					<!-- {{ `${Math.round(productSaleNum / itemQuantity) * 100}%` }} -->
 					<div class="text-24rpx text-#FF8703">
-						已参与58
-						<span class="text-#595959">/100 </span>
+						已参与{{ productSaleNum }}
+						<span class="text-#595959">/{{ itemQuantity }} </span>
 					</div>
 					<div class="ml-8rpx w-80rpx rounded-full h-16rpx bg-#FFBF79 flex justify-start items-center">
-						<div class="h-16rpx w-30% bg-#FF8703 rounded-full"></div>
+						<div class="h-16rpx bg-#FF8703 rounded-full"
+							:class="productSaleNum === 0 ? 'w-0' : `${Math.round(productSaleNum / itemQuantity) * 100}%`">
+						</div>
 					</div>
-				</div> -->
+				</div>
 			</div>
 			<div
 				class="bg-gradient-to-b to-#FFFFFF  from-#FFF7EF h-278rpx w-686rpx rounded-24rpx flex justify-center items-center">
 				<div class="w-642rpx h-228rpx flex justify-between items-center">
 					<div class="w-228rpx h-228rpx rounded-12rpx overflow-hidden">
-						<image :src="detail_pictures" mode=""></image>
+						<image :src="detail_pictures" mode="aspectFit"></image>
 					</div>
 					<div class="w-398rpx h-228rpx flex flex-col justify-between items-start">
 						<div class="text-#222  text-32rpx line-clamp-2 overflow-hidden text-ellipsis break-words">
@@ -62,7 +65,6 @@ import { ref, defineProps, defineEmits } from 'vue'
 // let tagsItems = [{title: '上新'} , {title: '猫猫'}, {title: '毛绒'}]
 
 const props = defineProps({
-
 	title: {
 		type: String,
 		default: ''
@@ -85,9 +87,18 @@ const props = defineProps({
 	},
 	time: {
 		type: String,
-		defualt: ''
+		default: ''
+	},
+	itemQuantity: {
+		type: Number,
+		default: 0
+	},
+	productSaleNum: {
+		type: Number,
+		default: 0
 	}
 })
+
 const emit = defineEmits(['handleBuyNow']);
 let buyNow = () => {
 	emit('handleBuyNow')
