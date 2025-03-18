@@ -73,11 +73,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="w-606rpx flex justify-center items-center mt-24rpx h-94rpx" @click="toAssessment('3')">
-						<img mode="aspectFill"
-							src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/a7UwvqjDHAFa4o63PCauBYxhsxnO2Vc2um5yxdi8.png"
-							alt="">
-					</div>
+					<!-- <button open-type='contact' class="custom-btn" @click="toAssessment('3')"> -->
+					<button open-type='contact' class="custom-btn">
+						<image mode="widthFix" class="btn-image"
+							src="http://pet-mp-dev.oss-cn-shenzhen.aliyuncs.com/lumenshop/811f5a14-ef1c-40da-9f6c-11adad2fd754.png"
+							alt="" />
+					</button>
 				</div>
 			</div>
 		</div>
@@ -215,5 +216,39 @@ onShow(async (options) => {
 <style>
 .transition-opacity {
 	transition: opacity 0.5s ease;
+}
+</style>
+<style scoped>
+/* 关键样式 */
+.custom-btn {
+	position: relative;
+	/* 定位基准 */
+	width: 606rpx;
+	height: 94rpx;
+	padding: 0 !important;
+	/* 清除默认内边距 */
+	margin: 24rpx auto 0;
+	/* 保持原有外边距 */
+	line-height: 1;
+	/* 避免幽灵节点影响 */
+	background: none !important;
+	/* 清除默认背景色 */
+	border: none !important;
+	/* 移除默认边框 */
+}
+
+/* 清除微信小程序按钮的默认::after样式 */
+.custom-btn::after {
+	display: none !important;
+}
+
+.btn-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	/* 覆盖 flex 布局影响 */
+	width: 100% !important;
+	height: 100% !important;
 }
 </style>
