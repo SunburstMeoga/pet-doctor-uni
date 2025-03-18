@@ -49,7 +49,7 @@
             <div class="w-686rpx  h-686rpx rounded-24rpx overflow-hidden bg-white mb-28rpx">
                 <swiper class="w-686rpx  h-686rpx" :indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.5)"
                     indicator-active-color="#ffffff">
-                    <swiper-item v-for="(item, index) in productImages" :key="index"
+                    <swiper-item v-for="(item, index) in productDetailsInfo.imageArray" :key="index"
                         class="flex justify-center items-center">
                         <view class="w-686rpx  h-686rpx" :class="'swiper-item' + index">
                             <image :src="item" mode="aspectFill" class="w-full h-full" />
@@ -546,6 +546,7 @@ const getProductDetails = async () => { //商品详情
         totalPrice.value = parseFloat((unitPrice * productQuantity.value).toFixed(2))
         currentQuantity.value = productDetailsInfo.value.items[0].item_quantity
         currentFrozen.value = productDetailsInfo.value.items[0].item_quantity_frozen
+        productDetailsInfo.value.imageArray = imageArray
         console.log(totalPrice.value)
         uni.hideLoading();
     } catch (err) {
