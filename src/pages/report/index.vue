@@ -35,7 +35,9 @@
 				</button>
 			</view>
 			<view class="report" v-if="cardList.length !== 0">
-				<swiper class="swiper-box" @change="swipeChange" :current="currentReport">
+
+				<swiper class="swiper-box" @change="swipeChange" :current="currentReport"
+					indicator-alignment="{{[1,1]}}">
 					<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden"
 						v-for="(item, index) in cardList" :key="index">
 						<pet-card style="width: 622rpx;" class="overflow-hidden rounded-24rpx" showResult
@@ -46,6 +48,15 @@
 				</swiper>
 
 			</view>
+
+		</view>
+		<view class="h-40rpx w-full mt-10rpx" v-if="cardList.length !== 0">
+			<swiper class="swiper-box" @change="swipeChange" :current="currentReport" indicator-dots="true"
+				indicator-alignment="{{[1,1]}}">
+				<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden text-black"
+					v-for="(item, index) in cardList" :key="index">
+				</swiper-item>
+			</swiper>
 		</view>
 
 		<view class="report-list">
@@ -74,11 +85,11 @@
 							style="border-left: 1rpx solid rgba(0,0,0,.2);"
 							:class="item.dimensions.length <= 4 ? 'h-full' : 'h-full'">
 							<!-- {{ item.assessment.id }} {{ currentPetType }} -->
-							<div class="w-full flex justify-between items-center text-#8C8C8C my-6rpx"
+							<div class="w-full flex justify-between items-center text-#8C8C8C my-6rpx relative"
 								v-for="(_item, _index) in  item.dimensions " :key="_index">
 								<div class="text-24rpx" :class="item.dimensions.length <= 4 ? 'w-120rpx' : 'w-100rpx'">
 									{{ _item.title }}</div>
-								<div class="ml-24rpx flex-1 flex justify-between items-center ">
+								<div class="ml-24rpx flex-1 flex justify-between items-center pr-10rpx">
 									<div class=" text-24rpx "
 										:class="`${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#8C8C8C' : 'text-#20CEB0'}`}  ${item.dimensions.length <= 4 ? `${_item.score < 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
 										{{ item.dimensions.length <= 4 ? _item.reverse_value : _item.value }}</div>
@@ -96,6 +107,10 @@
 											</div>
 
 									</div>
+
+								</div>
+								<div class="h-100% absolute right-10rpx flex justify-center items-center">
+									<wd-icon name="arrow-right" size="14px" color=""></wd-icon>
 								</div>
 							</div>
 							<template #right>
@@ -491,5 +506,17 @@ onShow(async () => {
 
 .color-gray {
 	color: #8c8c8c;
+}
+</style>
+<style lang="scss">
+.uni-swiper-wrapper {
+	.uni-swiper-dots {
+		bottom: 100rpx !important;
+	}
+
+	.uni-swiper-dot-active {
+		bottom: 100rpx !important;
+
+	}
 }
 </style>

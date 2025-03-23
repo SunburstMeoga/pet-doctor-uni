@@ -23,14 +23,13 @@
 			<div
 				class="bg-gradient-to-b to-#FFFFFF  from-#FFF7EF h-278rpx w-686rpx rounded-24rpx flex justify-center items-center">
 				<div class="w-642rpx h-228rpx flex justify-between items-center">
-					<div class="w-228rpx h-228rpx rounded-12rpx overflow-hidden">
+					<div class="w-385rpx h-228rpx rounded-12rpx overflow-hidden">
 						<image :src="detail_pictures" mode="aspectFit"></image>
 					</div>
-					<div class="w-398rpx h-228rpx flex flex-col justify-between items-start">
+					<div class="w-241rpx h-228rpx flex flex-col justify-between items-start">
 						<div class="text-#222  text-32rpx line-clamp-2 overflow-hidden text-ellipsis break-words">
 							{{ title }}</div>
-						<div class="text-#595959 text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words">
-							{{ intro }}</div>
+
 						<div class="flex justify-start items-center">
 							<div v-for="(item, index) in tagsItems" :key="index"
 								class="text-20rpx w-56rpx h-28rpx flex justify-center items-center rounded-4rpx" :class="{
@@ -42,6 +41,8 @@
 								{{ item }}
 							</div>
 						</div>
+						<div class="text-#595959 text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words">
+							{{ intro }}</div>
 						<div class="flex justify-between items-center w-full h-57rpx">
 							<div class="h-37rpx flex justify-start items-start">
 								<div class="font-medium text-24rpx transform translate-y-2rpx">￥</div>
