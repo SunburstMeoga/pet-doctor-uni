@@ -7,10 +7,8 @@
             <div class="text-#222 text-26rpx w-full line-clamp-2 overflow-hidden text-ellipsis break-words mb-4rpx">
                 {{ title }}
             </div>
-            <div class="text-gray w-full text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words mb-4rpx">
-                {{ details }}
-            </div>
-            <div class="flex justify-start  items-center w-full" v-if="tags.length !== 0">
+
+            <div class="flex justify-start  items-center w-full mb-4rpx" v-if="tags.length !== 0">
                 <div class="text-20rpx w-56rpx h-28rpx flex justify-center items-center rounded-4rpx" :class="{
                 'bg-#F15912 text-#FFFFFF': index === 0,
                 'bg-#FAAD1426 text-#FAAD14': index === 1,
@@ -19,6 +17,9 @@
             }" v-for="(item, index) in tags" :key="index">
                     {{ item }}
                 </div>
+            </div>
+            <div class="text-gray w-full text-24rpx line-clamp-1 overflow-hidden text-ellipsis break-words ">
+                {{ details }}
             </div>
             <div class="absolute bottom-0 right-0 flex justify-between items-center w-full">
                 <div class="h-37rpx flex justify-start items-start">
