@@ -21,24 +21,6 @@
 
 		</CustomHeader>
 		<div class="w-full">
-
-			<!-- <div class="w-full relative">
-				<swiper class="w-full h-752rpx" :indicator-dots="false" indicator-type="expand"
-					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff"
-					@change="onSwiperChange">
-					<swiper-item v-for="(item, index) in swiperItems" :key="index"
-						class="flex justify-center items-center">
-						<view class="w-full h-752rpx">
-							<image :src="item.swiperImg" mode="aspectFill" class="w-full h-full" />
-						</view>
-					</swiper-item>
-				</swiper>
-				<div v-for="(item, index) in swiperItems" :key="index"
-					class="absolute top-0 left-0 w-full h-752rpx flex justify-center items-center transition-opacity duration-500"
-					:class="{ 'opacity-0': activeIndex !== index, 'opacity-100': activeIndex === index }">
-					<image :src="item.coverText" mode="aspectFit" class="w-full h-full" />
-				</div>
-			</div> -->
 			<div class=" w-full">
 				<swiper class="w-full  h-752rpx" :indicator-dots="false" circular indicator-type="expand"
 					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff">
@@ -47,6 +29,20 @@
 						<div class="w-full h-752rpx absolute z-1 bg-#4A260C99">
 							<image :src="item.coverText" mode="aspectFill" class="w-full h-full" />
 						</div>
+						<!-- <view class="w-full  h-752rpx relative" :class="'swiper-item' + index">
+							<image :src="item.swiperImg" mode="aspectFill" class="w-full h-full" />
+						</view> -->
+					</swiper-item>
+				</swiper>
+			</div>
+			<div class=" w-full">
+				<swiper class="w-full  h-752rpx" :indicator-dots="false" circular indicator-type="expand"
+					indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#ffffff">
+					<swiper-item v-for="(item, index) in swiperItems" :key="index"
+						class="flex justify-center items-center relative">
+						<!-- <div class="w-full h-752rpx absolute z-1 bg-#4A260C99">
+							<image :src="item.coverText" mode="aspectFill" class="w-full h-full" />
+						</div> -->
 						<view class="w-full  h-752rpx relative" :class="'swiper-item' + index">
 							<image :src="item.swiperImg" mode="aspectFill" class="w-full h-full" />
 						</view>
@@ -118,15 +114,22 @@ let swiperItems = ref([ //顶部轮播图
 	{ swiperImg: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20241025/3p0tc8uMtyDvb3atweqNdHxwaNtUdbWzUr7y6fMV.png', coverText: 'http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250219/5zOT1f6lodBUUKf0tfNRAHzu362UXpWNi4wkl0k6.png' }
 ])
 let activeIndex = ref(0) // 当前轮播图的索引
-const onShareAppMessage = () => {
+// onShareAppMessage = () => {
+// 	return {
+// 		title: "喵博士 X 汪博士",
+// 		query: '/pages/home/index',
+// 		summary: "您的爱宠私人医生",
+// 		imageUrl: "https://attachments.tower.im/tower/1f523d73daf38e36394e9c1dbf2310ab?version=auto"
+// 	};
+// }
+onShareAppMessage(() => {
 	return {
 		title: "喵博士 X 汪博士",
 		query: '/pages/home/index',
 		summary: "您的爱宠私人医生",
-		imageUrl: "https://attachments.tower.im/tower/1f523d73daf38e36394e9c1dbf2310ab?version=auto",
-		// imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
+		imageUrl: "https://attachments.tower.im/tower/1f523d73daf38e36394e9c1dbf2310ab?version=auto"
 	};
-}
+})
 const toAI = () => {
 	uni.navigateToMiniProgram({
 		appId: 'wx75c75149744b7b84',

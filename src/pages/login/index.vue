@@ -107,6 +107,7 @@ const onGetPhoneNumber = async (e) => {
           icon: 'none'
         })
         show.value = false
+        loading.value = false
       } else {
         uni.setStorageSync('token', `Bearer ${result.data.token}`)
         uni.setStorageSync('hasPhone', result.data.has_phone)
@@ -117,7 +118,8 @@ const onGetPhoneNumber = async (e) => {
         }
         console.log('用户token', uni.getStorageSync('token'))
         console.log('是否有手机号', uni.getStorageSync('hasPhone'))
-
+        let phone = await userPhone({ code: loginCode.value })
+        console.log('绑定手机', phone)
         // getPhone.value = true
         uni.hideLoading()
         uni.switchTab({

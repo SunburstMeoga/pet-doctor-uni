@@ -227,15 +227,28 @@ const handleSelectAddress = (selectPickMethodChild) => { //点击收银台的选
         url: `/pages/home/${addressItems.value.length !== 0 ? 'address_list' : 'store_address'}?operating=select`
     })
 }
-const onShareAppMessage = () => {
+// const onShareAppMessage = () => {
+//     return {
+//         // title: `${productDetailsInfo.value.product_item_name}`,
+//         // query: '/pages/home/product_details?productId=' + productId.value,
+//         // summary: `${productDetailsInfo.value.product_item_name}`,
+//         // imageUrl: `${productDetailsInfo.value.product_image}`,
+//         // imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
+//         title: `test test test`,
+//         query: '/pages/home/product_details?productId=' + productId.value,
+//         summary: `嘟嘟嘟嘟`,
+//         imageUrl: `https://img0.baidu.com/it/u=87596962,226228235&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800`,
+//     };
+// }
+onShareAppMessage(() => {
     return {
         title: `${productDetailsInfo.value.product_item_name}`,
         query: '/pages/home/product_details?productId=' + productId.value,
         summary: `${productDetailsInfo.value.product_item_name}`,
         imageUrl: `${productDetailsInfo.value.product_image}`,
         // imageUrl: '/static/share_image.png' // 分享图片的路径（注意：某些平台可能不支持）
-    };
-}
+    }
+})
 const getAddressItems = async () => { //获取地址列表
     try {
         uni.showLoading({

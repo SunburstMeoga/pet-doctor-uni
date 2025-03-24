@@ -67,7 +67,7 @@ export const reports = (params) => {
 
 // 获取用户手机号（假设这是你的原意，因为原文件中没有这个函数，但你的示例中提到了）
 export const userPhone = (data) => {
-  return http.post('/api/user/phone', data)
+  return http.post('/front/account/user/phone', data)
 }
 
 // 删除宠物身份证

@@ -35,7 +35,6 @@
 				</button>
 			</view>
 			<view class="report" v-if="cardList.length !== 0">
-
 				<swiper class="swiper-box" @change="swipeChange" :current="currentReport"
 					indicator-alignment="{{[1,1]}}">
 					<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden"
@@ -50,7 +49,7 @@
 			</view>
 
 		</view>
-		<view class="h-40rpx w-full mt-10rpx" v-if="cardList.length !== 0">
+		<view class="h-40rpx w-full mt-20rpx" v-if="cardList.length !== 0">
 			<swiper class="swiper-box" @change="swipeChange" :current="currentReport" indicator-dots="true"
 				indicator-alignment="{{[1,1]}}">
 				<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden text-black"
@@ -97,20 +96,18 @@
 												:class="`${_item.score < 0 ? `${item.dimensions.length <= 4 ? 'justify-start' : `justify-end`}` : `${item.dimensions.length <= 4 ? 'justify-end' : `justify-start`}`}`">
 												<div class="h-full flex items-center"
 													:class="`  ${item.dimensions.length <= 4 ? `color-${_index}` : `${_item.score < 0 ? 'bg-#F15912' : 'bg-#20CEB0'}`}`"
-													:style="`width: ${(Math.abs(_item.score) * 10) / 2 * 0.7}%;`">
+													:style="`width: ${100 - ((Math.abs(_item.score) * 10) / 2 * 0.7)}%;`">
 												</div>
 											</div>
 											<div class="text-#8C8C8C text-24rpx"
-												:class="` ${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#F15912' : 'text-8C8C8C'}`}  ${item.dimensions.length <= 4 ? `${_item.score > 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
+												:class="` ${item.dimensions.length <= 4 ? 'w-18rpx text-right' : `${_item.score < 0 ? 'text-#F15912' : 'text-#8C8C8C'}`}  ${item.dimensions.length <= 4 ? `${_item.score > 0 ? `color-text-${_index}` : `color-gray`}` : 'text-#20CEB0'}`">
 												{{ item.dimensions.length <= 4 ? _item.value : _item.reverse_value
 													}}</div>
 											</div>
-
 									</div>
-
 								</div>
 								<div class="h-100% absolute right-10rpx flex justify-center items-center">
-									<wd-icon name="arrow-right" size="14px" color=""></wd-icon>
+									<wd-icon name="arrow-right" size="14px" color="#8491a5"></wd-icon>
 								</div>
 							</div>
 							<template #right>
@@ -360,7 +357,7 @@ onShow(async () => {
 	flex-direction: column;
 	width: 670rpx;
 	margin: 0 auto;
-	margin-top: 34rpx;
+	margin-top: 10rpx;
 
 	&-item {
 		width: 670rpx;
