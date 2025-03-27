@@ -64,14 +64,22 @@
 						</div>
 						<div class="flex flex-col justify-between items-center h-212rpx">
 							<div class="home-button" @click="toAssessment('2')">
-								<div class="home-button-icon"
-									style="width:100%;height: 100%; background-image: url('https://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250217/Ho8B7yTLmCXwN1hd7HDwdyMvEwvOToQasLFnS3vt.png'); background-repeat: no-repeat; background-size: cover;">
+								<div class="home-button-icon w-364rpx h-94rpx">
+									<image class="w-364rpx h-94rpx" src="/static/images/home/组合 8 (4).png"
+										mode="widthFix" />
 								</div>
+								<!-- <div class="home-button-icon"
+									style="width:100%;height: 100%; background-image: url('../../static/images/home/组合\ 8\ \(4\).png'); background-repeat: no-repeat; background-size: cover;">
+								</div> -->
 							</div>
 							<div class="home-button" @click="toAssessment('1')">
-								<div class="home-button-icon"
-									style="width:100%;height: 100%; background-image: url('http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250312/pab9f5UvG367wcHQsoXSK3Y7rxWlX65LazSr2cAc.png'); background-repeat: no-repeat; background-size: cover;">
+								<div class="home-button-icon w-364rpx h-94rpx">
+									<image class="w-364rpx h-94rpx" src="/static/images/home/组合 8 (5).png"
+										mode="widthFix" />
 								</div>
+								<!-- <div class="home-button-icon"
+									style="width:100%;height: 100%; background-image: url('../../static/images/home/组合\ 8\ \(5\).png'); background-repeat: no-repeat; background-size: cover;">
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -288,16 +296,9 @@ onShow(async (options) => {
 	color: #222;
 	border-radius: 24rpx;
 
-	&-title {}
-
-	&-icon {
-		// margin-left: 16rpx;
-		width: 8rpx;
-		height: 16rpx;
-		// border: 1px solid red;
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: cover;
+	.home-button-icon {
+		width: 364rpx;
+		height: 94rpx;
 	}
 }
 </style>

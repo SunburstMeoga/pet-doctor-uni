@@ -18,7 +18,8 @@
                 <div class="info-item text-zinc-4">
                     <div class="w-140rpx ml-32rpx">手机号</div>
                     <div class="flex-1">
-                        <input type="number" class="w-full h-40rpx text-slate9" v-model="phone" placeholder="请填写收货人手机号">
+                        <input type="number" maxlength="11" class="w-full h-40rpx text-slate9" v-model="phone"
+                            placeholder="请填写收货人手机号">
                     </div>
                 </div>
             </div>
@@ -141,6 +142,13 @@ const handleConfirm = async () => { //点击确认添加地址按钮
         ud_county: selectArea.value[2].label,
     }
     console.log(params)
+    if (phone.value.length !== 11) {
+        uni.showToast({
+            title: '请输入正确的手机号',
+            icon: 'none'
+        });
+        return;
+    }
     // return
     try {
         uni.showLoading({

@@ -99,6 +99,7 @@ const onGetPhoneNumber = async (e) => {
           icon: 'none'
         })
         show.value = false
+        loading.value = false
         return
       }
       if (result.code !== 200) {
@@ -130,9 +131,13 @@ const onGetPhoneNumber = async (e) => {
     } catch (err) {
       console.log(err)
       uni.hideLoading()
+    } finally {
+      show.value = false
+      loading.value = false
     }
   }
   loading.value = false
+  show.value = false
 }
 const toLogin = async () => {
   loading.value = true

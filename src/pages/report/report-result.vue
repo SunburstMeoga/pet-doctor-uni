@@ -36,7 +36,7 @@
 									:class="item.score < 0 ? 'justify-start' : 'justify-end'">
 									<view class="report-list-item-right-property-content-middle-step"
 										:class="`color-${index}`"
-										:style="`width: ${(Math.abs(item.score) * 10) / 2 * 0.7}%;`">
+										:style="`width: ${100 - (Math.abs(item.score) * 10) / 2 * 1.4}%;`">
 									</view>
 								</view>
 
@@ -56,7 +56,7 @@
 									:class="item.score >= 0 ? 'justify-start' : 'justify-end'">
 									<view class="report-list-item-right-property-content-middle-step"
 										:class="`${item.score >= 0 ? 'bg-#20CEB0' : 'bg-#F15912'} bg-#20CEB0`"
-										:style="`width: ${(Math.abs(item.score) * 10) / 2 * 0.7}%;`">
+										:style="`width: ${100 - (Math.abs(item.score) * 10) / 2 * 1.4}%;`">
 									</view>
 								</view>
 								<view class="report-list-item-right-property-content-right w-84rpx"

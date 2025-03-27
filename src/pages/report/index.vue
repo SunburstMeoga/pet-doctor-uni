@@ -50,8 +50,7 @@
 
 		</view>
 		<view class="h-40rpx w-full mt-20rpx" v-if="cardList.length !== 0">
-			<swiper class="swiper-box" @change="swipeChange" :current="currentReport" indicator-dots="true"
-				indicator-alignment="{{[1,1]}}">
+			<swiper class="swiper-box" :current="currentReport" indicator-dots="true" indicator-alignment="{{[1,1]}}">
 				<swiper-item class="flex justify-center items-center rounded-24rpx overflow-hidden text-black"
 					v-for="(item, index) in cardList" :key="index">
 				</swiper-item>
@@ -96,7 +95,7 @@
 												:class="`${_item.score < 0 ? `${item.dimensions.length <= 4 ? 'justify-start' : `justify-end`}` : `${item.dimensions.length <= 4 ? 'justify-end' : `justify-start`}`}`">
 												<div class="h-full flex items-center"
 													:class="`  ${item.dimensions.length <= 4 ? `color-${_index}` : `${_item.score < 0 ? 'bg-#F15912' : 'bg-#20CEB0'}`}`"
-													:style="`width: ${100 - ((Math.abs(_item.score) * 10) / 2 * 0.7)}%;`">
+													:style="`width: ${100 - ((Math.abs(_item.score) * 10) / 2 * 1.4)}%;`">
 												</div>
 											</div>
 											<div class="text-#8C8C8C text-24rpx"
@@ -199,6 +198,7 @@ const addCustom = () => { //添加专属客服
 	});
 }
 let swipeChange = async (e) => {
+	currentReport.value = e.detail.current
 	console.log(e)
 	if (isLoading.value) return
 	currentCardId.value = cardList.value[e.detail.current].id
