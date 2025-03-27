@@ -24,7 +24,8 @@
             <img src="http://pet-miniapp-test.oss-cn-shenzhen.aliyuncs.com/media/20250214/lAn879X4T0boACUqQLeRaARui2ISUKOeaYEQLsRQ.png"
                 alt="" mode="aspectFit">
         </div>
-        <view class="wraper pt-206rpx relative z-100" v-if="categories.length !== 0">
+        <view class="pt-206rpx"></view>
+        <view class="wraper  relative z-100" v-if="categories.length !== 0">
             <div @click="handleCart"
                 class="fixed z-100 bottom-516rpx right-0 flex justify-center items-center rounded-l-full w-112rpx h-64rpx bg-#F159121A transition-transform duration-300"
                 :style="{
@@ -70,7 +71,7 @@ onMounted(async () => {
         await getProductGroup();
         getRect('.category', true).then((rects) => {
             if (Array.isArray(rects)) {
-                itemScrollTop.value = rects.map((item) => item.top || 0);
+                itemScrollTop.value = rects.map((item) => item.top - 100 || 0);
                 scrollTop.value = rects[active.value]?.top - 100 || 0;
             } else {
                 console.warn('未找到任何 .category 节点');
@@ -154,6 +155,7 @@ function onScroll(e) {
     height: calc(100vh - var(--window-top));
     height: calc(100vh - var(--window-top) - constant(safe-area-inset-bottom));
     height: calc(100vh - var(--window-top) - env(safe-area-inset-bottom));
+    height: 86vh;
     background: transparent !important;
 }
 </style>
